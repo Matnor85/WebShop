@@ -1,6 +1,15 @@
 # WebShop
 Grupparbete
 
+Definition of done
+- Koden är skriven i en branch för user storyn.
+- Koden är testad praktiskt och genom kollad.
+- koden är dokumenterad.
+- koden möter acceptanskriterierna.
+- koden har blivit reviewed.
+- Mergad in i dev branch och inte master.
+
+
 User stories
 Kund
 - Som besökare vill jag se en startsida med välkomst-text så att jag förstår vad shoppen har att erbjuda
@@ -75,17 +84,6 @@ Admin
 	- Kan ändra kund uppgifter
 - Som admin vill jag kunna se kunders historik
 	- få en lista av köp
-
-
-Definition of done
-- Koden är skriven i en branch för user storyn.
-- Koden är testad praktiskt och genom kollad.
-- koden är dokumenterad.
-- koden möter acceptanskriterierna.
-- koden har blivit reviewed.
-- Mergad in i dev branch och inte master.
-
-
 
 Struktur
  - Onion Architecture 
