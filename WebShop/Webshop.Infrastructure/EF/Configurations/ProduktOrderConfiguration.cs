@@ -13,11 +13,6 @@ public class ProduktOrderConfiguration : IEntityTypeConfiguration<ProduktOrder>
     {
         builder.HasKey(x => x.Id);
 
-        builder.HasOne(x => x.Order)
-            .WithMany(x => x.ProduktOrdrar)
-            .HasForeignKey(x => x.OrderId);
-
-
         builder.HasOne(x => x.Produkt)
             .WithMany(x => x.ProduktOrdrar)
             .HasForeignKey(x => x.ProduktId);
