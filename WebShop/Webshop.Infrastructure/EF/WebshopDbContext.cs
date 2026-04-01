@@ -14,7 +14,7 @@ public class WebshopDbContext : DbContext
     DbSet<Leverantör> Leverantörer { get; set; }
     DbSet<Kategori> Kategorier { get; set; }
     DbSet<Order> Ordrar { get; set; }
-    DbSet<ProduktOrder> produktOrdrar { get; set; }
+    DbSet<ProduktOrder> ProduktOrdrar { get; set; }
     private string ConnectionString { get; set; }
    
     public WebshopDbContext(DbContextOptions<WebshopDbContext> options) : base(options)

@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Webshop.Domain.Entitites;
 
 namespace Webshop.Infrastructure.EF.Configurations;
@@ -22,5 +19,10 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
                .WithMany(f => f.Ordrar)
                .HasForeignKey(o => o.FraktOmbudId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(o => o.ProduktOrdrar)
+               .WithOne(po => po.Order)
+               .HasForeignKey(po => po.OrderId)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -35,6 +35,11 @@ public class KundConfiguration : IEntityTypeConfiguration<Kund>
             .IsRequired()
             .HasMaxLength(256);
 
-        
+        builder.HasMany(x => x.Ordrar)
+            .WithOne(x => x.Kund)
+            .HasForeignKey(x => x.KundId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
     }
 }
