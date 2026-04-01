@@ -26,8 +26,4 @@
     <ProjectReference Include="..\Webshop.Domain\Webshop.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EF\Seeds\" />
-  </ItemGroup>
-
 </Project>

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Infrastructure.EF;
+using Webshop.Infrastructure.EF.Seeds;
 
 namespace WebShop.Presentation;
 
@@ -16,9 +17,9 @@ public class App
 
     public static void Run()
     {
-       var config = new ConfigurationBuilder()
-            .AddUserSecrets<App>()
-            .Build();
+        var config = new ConfigurationBuilder()
+             .AddUserSecrets<App>()
+             .Build();
 
         var services = new ServiceCollection();
         services.AddDbContext<WebshopDbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
@@ -26,5 +27,6 @@ public class App
         var servicesProvider = services.BuildServiceProvider();
 
         using var db = servicesProvider.GetRequiredService<WebshopDbContext>();
+        WebShopSeeder.Seed(db);
     }
 }
