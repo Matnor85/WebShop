@@ -15,12 +15,12 @@ public class ProduktOrderConfiguration : IEntityTypeConfiguration<ProduktOrder>
 
         builder.HasOne(x => x.Order)
             .WithMany(x => x.ProduktOrdrar)
-            .HasForeignKey(x => x.OrderId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(x => x.OrderId);
+
 
         builder.HasOne(x => x.Produkt)
             .WithMany(x => x.ProduktOrdrar)
-            .HasForeignKey(x => x.ProduktId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .HasForeignKey(x => x.ProduktId);
+            
     }
 }

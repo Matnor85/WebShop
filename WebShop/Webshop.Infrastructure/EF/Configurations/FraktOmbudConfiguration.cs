@@ -19,7 +19,7 @@ public class FraktOmbudConfiguration : IEntityTypeConfiguration<FraktOmbud>
 
         builder.Property(x => x.Pris)
             .IsRequired()
-            .HasColumnType("decimal(18,1)");
+            .HasColumnType("decimal(18,2)");
 
         builder.HasMany(x => x.Ordrar)
             .WithOne(x => x.FraktOmbud)

@@ -19,7 +19,7 @@ public class ProduktConfiguration : IEntityTypeConfiguration<Produkt>
 
         builder.Property(x => x.Pris)
             .IsRequired()
-            .HasColumnType("decimal(18,1)");
+            .HasColumnType("decimal(18,2)");
 
         builder.Property(x => x.Färg)
             .IsRequired()
