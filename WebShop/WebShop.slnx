@@ -1,3 +1,7 @@
 <Solution>
+  <Folder Name="/1.Domain/" />
+  <Folder Name="/2.Application/" />
+  <Folder Name="/3.Infrastructure/" />
+  <Folder Name="/4.Presentation/" />
   <Project Path="WebShop/WebShop.csproj" />
 </Solution>
