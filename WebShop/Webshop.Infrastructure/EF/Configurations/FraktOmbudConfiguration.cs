@@ -13,6 +13,14 @@ public class FraktOmbudConfiguration : IEntityTypeConfiguration<FraktOmbud>
     {
         builder.HasKey(x => x.Id);
 
+        builder.Property(x => x.Namn)
+            .IsRequired()
+            .HasMaxLength(256);
+
+        builder.Property(x => x.Pris)
+            .IsRequired()
+            .HasColumnType("decimal(18,1)");
+
         builder.HasMany(x => x.Ordrar)
             .WithOne(x => x.FraktOmbud)
             .HasForeignKey(x => x.FraktOmbudId)
