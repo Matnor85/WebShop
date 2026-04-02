@@ -15,6 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Webshop.Application\Webshop.Application.csproj" />
     <ProjectReference Include="..\Webshop.Domain\Webshop.Domain.csproj" />
     <ProjectReference Include="..\Webshop.Infrastructure\Webshop.Infrastructure.csproj" />
