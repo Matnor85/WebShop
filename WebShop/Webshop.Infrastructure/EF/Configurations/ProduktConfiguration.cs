@@ -28,6 +28,21 @@ public class ProduktConfiguration : IEntityTypeConfiguration<Produkt>
         builder.Property(x => x.Storlek)
             .IsRequired()
             .HasMaxLength(50);
-        
+
+        builder.HasOne(x => x.Leverantör)
+            .WithMany()
+            .HasForeignKey(x => x.LeverantörId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(x => x.Kategori)
+            .WithMany()
+            .HasForeignKey(x => x.KategoriId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(x => x.ProduktOrdrar)
+            .WithOne(x => x.Produkt)
+            .HasForeignKey(x => x.ProduktId)
+            .OnDelete(DeleteBehavior.Restrict);
+
     }
 }

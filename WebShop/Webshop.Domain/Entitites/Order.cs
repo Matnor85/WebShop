@@ -13,5 +13,5 @@ public class Order
     public Kund Kund { get; set; }
     public Guid FraktOmbudId { get; set; }
     public FraktOmbud FraktOmbud { get; set; }
-    public List<ProduktOrder> ProduktOrders { get; set; } = new List<ProduktOrder>();
+    public List<ProduktOrder> ProduktOrdrar { get; set; } = new List<ProduktOrder>();
 }
