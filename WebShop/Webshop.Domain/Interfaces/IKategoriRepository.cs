@@ -5,7 +5,7 @@ using Webshop.Domain.Entitites;
 
 namespace Webshop.Domain.Interfaces;
 
-internal interface IKategoriRepository
+public interface IKategoriRepository
 {
     Task<Kategori> GetByIdAsync(Guid id);
     Task<List<Kategori>> GetAllAsync();
