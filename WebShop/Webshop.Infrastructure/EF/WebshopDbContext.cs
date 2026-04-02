@@ -9,7 +9,7 @@ namespace Webshop.Infrastructure.EF;
 
 public class WebshopDbContext : DbContext
 {
-  public  DbSet<Produkt> Produkter { get; set; }
+    public  DbSet<Produkt> Produkter { get; set; }
     public DbSet<Kund> Kunder { get; set; }
     public DbSet<Leverantör> Leverantörer { get; set; }
     public DbSet<Kategori> Kategorier { get; set; }
