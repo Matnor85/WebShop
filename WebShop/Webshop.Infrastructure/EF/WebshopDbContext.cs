@@ -9,12 +9,12 @@ namespace Webshop.Infrastructure.EF;
 
 public class WebshopDbContext : DbContext
 {
-    DbSet<Produkt> Produkter { get; set; }
-    DbSet<Kund> Kunder { get; set; }
-    DbSet<Leverantör> Leverantörer { get; set; }
-    DbSet<Kategori> Kategorier { get; set; }
-    DbSet<Order> Ordrar { get; set; }
-    DbSet<ProduktOrder> ProduktOrdrar { get; set; }
+  public  DbSet<Produkt> Produkter { get; set; }
+    public DbSet<Kund> Kunder { get; set; }
+    public DbSet<Leverantör> Leverantörer { get; set; }
+    public DbSet<Kategori> Kategorier { get; set; }
+    public DbSet<Order> Ordrar { get; set; }
+    public DbSet<ProduktOrder> ProduktOrdrar { get; set; }
     private string ConnectionString { get; set; }
    
     public WebshopDbContext(DbContextOptions<WebshopDbContext> options) : base(options)
