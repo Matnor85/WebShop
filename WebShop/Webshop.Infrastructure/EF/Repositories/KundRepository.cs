@@ -6,7 +6,7 @@ using Webshop.Domain.Interfaces;
 
 namespace Webshop.Infrastructure.EF.Repositories;
 
-internal class KundRepository : IKundRepository
+public class KundRepository : IKundRepository
 {
     public Task<Kund> AddAsync(Kund kund)
     {
