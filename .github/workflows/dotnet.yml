@@ -21,8 +21,8 @@ jobs:
       with:
         dotnet-version: 10.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet WebShop/WebShop.slnx restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet WebShop/WebShop.slnx build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet WebShop/WebShop.slnx test --no-build --verbosity normal
