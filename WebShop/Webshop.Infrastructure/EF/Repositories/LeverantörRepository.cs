@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Domain.Entitites;
@@ -8,33 +9,48 @@ namespace Webshop.Infrastructure.EF.Repositories;
 
 public class LeverantörRepository : ILeverantörRepository
 {
-    public Task<Leverantör> AddAsync(Leverantör leverantör)
+    private readonly WebshopDbContext _context;
+
+    public LeverantörRepository(WebshopDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+    public async Task<Leverantör> AddAsync(Leverantör leverantör)
+    {
+        _context.Leverantörer.Add(leverantör);
+        await _context.SaveChangesAsync();
+        return leverantör;
     }
 
-    public Task<Leverantör> DeleteAsync(Guid id)
+    public async Task<Leverantör> DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var leverantör = await _context.Leverantörer.FindAsync(id);
+        if (leverantör == null) return null;
+
+        _context.Leverantörer.Remove(leverantör);
+        await _context.SaveChangesAsync();
+        return leverantör;
     }
 
-    public Task<bool> ExistsAsync(Guid id)
+    public async Task<bool> ExistsAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Leverantörer.AnyAsync(l => l.Id == id);
     }
 
-    public Task<List<Leverantör>> GetAllAsync()
+    public async Task<List<Leverantör>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Leverantörer.ToListAsync();
     }
 
-    public Task<Leverantör> GetByIdAsync(Guid id)
+    public async Task<Leverantör> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Leverantörer.FindAsync(id);
     }
 
-    public Task<Leverantör> UpdateAsync(Leverantör leverantör)
+    public async Task<Leverantör> UpdateAsync(Leverantör leverantör)
     {
-        throw new NotImplementedException();
+        _context.Leverantörer.Update(leverantör);
+        await _context.SaveChangesAsync();
+        return leverantör;
     }
 }

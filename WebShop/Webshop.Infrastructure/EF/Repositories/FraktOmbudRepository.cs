@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Domain.Entitites;
@@ -8,33 +9,46 @@ namespace Webshop.Infrastructure.EF.Repositories;
 
 class FraktOmbudRepository : IFraktOmbudRepository
 {
-    public Task<FraktOmbud> AddAsync(FraktOmbud fraktOmbud)
+    private readonly WebshopDbContext _context;
+    public FraktOmbudRepository(WebshopDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+    public async Task<FraktOmbud> AddAsync(FraktOmbud fraktOmbud)
+    {
+        _context.FraktOmbud.Add(fraktOmbud);
+        await _context.SaveChangesAsync();
+        return fraktOmbud;
     }
 
-    public Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var fraktOmbud = await _context.FraktOmbud.FindAsync(id);
+        if (fraktOmbud == null) return; 
+        
+            _context.FraktOmbud.Remove(fraktOmbud);
+            await _context.SaveChangesAsync();
+        
     }
 
-    public Task<bool> ExistsAsync(Guid id)
+    public async Task<bool> ExistsAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.FraktOmbud.AnyAsync(f => f.Id == id);
     }
 
-    public Task<List<FraktOmbud>> GetAllAsync()
+    public async Task<List<FraktOmbud>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.FraktOmbud.ToListAsync();
     }
 
-    public Task<FraktOmbud> GetByIdAsync(Guid id)
+    public async Task<FraktOmbud> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.FraktOmbud.FindAsync(id);
     }
 
-    public Task UpdateAsync(FraktOmbud fraktOmbud)
+    public async Task UpdateAsync(FraktOmbud fraktOmbud)
     {
-        throw new NotImplementedException();
+        _context.FraktOmbud.Update(fraktOmbud);
+        await _context.SaveChangesAsync();
     }
 }

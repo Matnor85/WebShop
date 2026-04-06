@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Domain.Entitites;
@@ -8,38 +9,54 @@ namespace Webshop.Infrastructure.EF.Repositories;
 
 public class KundRepository : IKundRepository
 {
-    public Task<Kund> AddAsync(Kund kund)
+    private readonly WebshopDbContext _context;
+    public KundRepository(WebshopDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+    public async Task<Kund> AddAsync(Kund kund)
+    {
+        _context.Kunder.Add(kund);
+        await _context.SaveChangesAsync();
+        return kund;
     }
 
-    public Task<Kund> DeleteAsync(Guid id)
+    public async Task<Kund> DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var kund = await _context.Kunder.FindAsync(id);
+        if (kund == null) return null;
+
+        _context.Kunder.Remove(kund);
+        await _context.SaveChangesAsync();
+        return kund;
     }
 
-    public Task<bool> ExistsAsync(Guid id)
+    public async Task<bool> ExistsAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Kunder.AnyAsync(k => k.Id == id);
     }
 
-    public Task<List<Kund>> GetAllAsync()
+    public async Task<List<Kund>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Kunder.ToListAsync();
     }
 
-    public Task<Kund> GetByIdAsync(Guid id)
+    public async Task<Kund> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Kunder.FindAsync(id);
     }
 
-    public Task<List<Kund>> SearchByNameAsync(string namn)
+    public async Task<List<Kund>> SearchByNameAsync(string namn)
     {
-        throw new NotImplementedException();
+        return await _context.Kunder
+            .Where(k => k.Namn.Contains(namn))
+            .ToListAsync();
     }
 
-    public Task<Kund> UpdateAsync(Kund kund)
+    public async Task<Kund> UpdateAsync(Kund kund)
     {
-        throw new NotImplementedException();
+        _context.Kunder.Update(kund);
+        await _context.SaveChangesAsync();
+        return kund;
     }
 }
