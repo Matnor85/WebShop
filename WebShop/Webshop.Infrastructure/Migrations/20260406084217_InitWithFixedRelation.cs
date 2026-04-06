@@ -100,8 +100,8 @@ namespace Webshop.Infrastructure.Migrations
                     Namn = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Beskrivning = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     Pris = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Färg = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Storlek = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Färg = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    Storlek = table.Column<int>(type: "int", maxLength: 50, nullable: false),
                     LagerAntal = table.Column<int>(type: "int", nullable: false),
                     LeverantörId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     KategoriId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)

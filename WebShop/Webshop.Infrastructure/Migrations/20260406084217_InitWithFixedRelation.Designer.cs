@@ -12,7 +12,7 @@ using Webshop.Infrastructure.EF;
 namespace Webshop.Infrastructure.Migrations
 {
     [DbContext(typeof(WebshopDbContext))]
-    [Migration("20260406082224_InitWithFixedRelation")]
+    [Migration("20260406084217_InitWithFixedRelation")]
     partial class InitWithFixedRelation
     {
         /// <inheritdoc />
@@ -151,10 +151,9 @@ namespace Webshop.Infrastructure.Migrations
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
-                    b.Property<string>("Färg")
-                        .IsRequired()
+                    b.Property<int>("Färg")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("int");
 
                     b.Property<Guid>("KategoriId")
                         .HasColumnType("uniqueidentifier");
@@ -173,10 +172,9 @@ namespace Webshop.Infrastructure.Migrations
                     b.Property<decimal>("Pris")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Storlek")
-                        .IsRequired()
+                    b.Property<int>("Storlek")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
