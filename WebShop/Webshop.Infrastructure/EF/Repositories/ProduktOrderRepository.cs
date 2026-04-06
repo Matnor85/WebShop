@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Domain.Entitites;
@@ -6,55 +7,58 @@ using Webshop.Domain.Interfaces;
 
 namespace Webshop.Infrastructure.EF.Repositories;
 
-internal class ProduktOrderRepository : IProduktRepository
+public class ProduktOrderRepository : IProduktOrderRepository
 {
-    public Task<Produkt> AddAsync(Produkt produkt)
+   private readonly WebshopDbContext _context;
+    public ProduktOrderRepository(WebshopDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public Task DeleteAsync(Guid id)
+    public async Task<ProduktOrder> AddAsync(ProduktOrder produktOrder)
     {
-        throw new NotImplementedException();
+        _context.ProduktOrdrar.Add(produktOrder);
+        await _context.SaveChangesAsync();
+        return produktOrder;
     }
 
-    public Task<bool> ExistsAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var produktOrder = await _context.ProduktOrdrar.FindAsync(id);
+        if (produktOrder == null) return;
+        _context.ProduktOrdrar.Remove(produktOrder);
+        await _context.SaveChangesAsync();
+
     }
 
-    public Task<List<Produkt>> GetAllAsync()
+    public async Task<bool> ExistsAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.ProduktOrdrar.AnyAsync(po => po.Id == id);
     }
 
-    public Task<Produkt> GetByIdAsync(Guid id)
+    public async Task<List<ProduktOrder>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.ProduktOrdrar.ToListAsync();
     }
 
-    public Task<List<Produkt>> GetByKategoriAsync(Guid KategoriId)
+    public async Task<ProduktOrder> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.ProduktOrdrar.FindAsync(id);
     }
 
-    public Task<List<Produkt>> GetByLeverantörAsync(Guid LeverantörId)
+    public async Task<List<ProduktOrder>> GetByOrder(Guid orderId)
     {
-        throw new NotImplementedException();
+        return await _context.ProduktOrdrar.Where(po => po.OrderId == orderId).ToListAsync();
     }
 
-    public Task<List<Produkt>> SearchAsync(string searchTerm)
+    public async Task<List<ProduktOrder>> GetByProdukt(Guid produktId)
     {
-        throw new NotImplementedException();
+        return await _context.ProduktOrdrar.Where(po => po.ProduktId == produktId).ToListAsync();
     }
 
-    public Task UpdateAsync(Produkt produkt)
+    public async Task UpdateAsync(ProduktOrder produktOrder)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdateLagerAntalAsync(Guid id, int nyttAntal)
-    {
-        throw new NotImplementedException();
+        _context.ProduktOrdrar.Update(produktOrder);
+        await _context.SaveChangesAsync();
     }
 }

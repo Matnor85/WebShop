@@ -9,8 +9,12 @@ namespace Webshop.Infrastructure.EF.Repositories;
 
 public class ProduktRepository : IProduktRepository
 {
-    WebshopDbContext _context;
+    private readonly WebshopDbContext _context;
 
+    public ProduktRepository( WebshopDbContext context)
+    {
+        _context = context;
+    }
     public async Task<Produkt> AddAsync(Produkt produkt)
     {
         _context.Produkter.Add(produkt);
