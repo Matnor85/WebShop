@@ -7,6 +7,7 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        App.Run();
+        var menuOnly = args.Any(a => string.Equals(a, "--menu-only", StringComparison.OrdinalIgnoreCase));
+        App.Run(menuOnly);
     }
 }
