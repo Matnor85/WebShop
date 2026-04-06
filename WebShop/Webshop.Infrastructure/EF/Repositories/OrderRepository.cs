@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Domain.Entitites;
@@ -8,53 +9,60 @@ namespace Webshop.Infrastructure.EF.Repositories;
 
 public class OrderRepository : IOrderRepository
 {
-    public Task<Order> AddOrder(Order order)
+    WebshopDbContext _context;
+    public OrderRepository(WebshopDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public Task<Order> DeleteOrder(Guid id)
+    public async Task<Order> AddAsync(Order order)
     {
-        throw new NotImplementedException();
+        _context.Ordrar.Add(order);
+        await _context.SaveChangesAsync();
+        return order;
     }
 
-    public Task<Order> FindByIdAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var order = _context.Ordrar.Find(id);
+        if (order == null) return;
+        _context.Ordrar.Remove(order);
+        await _context.SaveChangesAsync();
     }
 
-    public Task<List<Order>> GetAllAsync()
+    public async Task<bool> ExistsAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Ordrar.AnyAsync(o => o.Id == id);
+    }
+
+    public async Task<List<Order>> GetAllAsync()
+    {
+        return await _context.Ordrar.ToListAsync();
     }
 
     public Task<List<Order>> GetByDatumSpannAsync(DateTime från, DateTime till)
     {
-        throw new NotImplementedException();
+        return _context.Ordrar.Where(o => o.OrderDatum >= från && o.OrderDatum <= till).ToListAsync();
     }
 
-    public Task<Order> GetByIdAsync(Guid id)
+    public async Task<Order> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Ordrar.FindAsync(id);
     }
 
     public Task<List<Order>> GetOrdersByFraktOmbudIdAsync(Guid fraktOmbudId)
     {
-        throw new NotImplementedException();
+        return _context.Ordrar.Where(o => o.FraktOmbudId == fraktOmbudId).ToListAsync();
     }
 
     public Task<List<Order>> GetOrdersByKundIdAsync(Guid kundId)
     {
-        throw new NotImplementedException();
+        return _context.Ordrar.Where(o => o.KundId == kundId).ToListAsync();
     }
 
-    public Task<bool> OrderExists(Guid id)
+    public async Task UpdateAsync(Order order)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<Order> UpdateOrder(Order order)
-    {
-        throw new NotImplementedException();
+        _context.Ordrar.Update(order);
+        await _context.SaveChangesAsync();
     }
 }
