@@ -12,7 +12,7 @@ public interface IProduktOrderRepository
     Task<List<ProduktOrder>> GetByOrder(Guid orderId);
     Task<List<ProduktOrder>> GetByProdukt(Guid produktId);
     Task<ProduktOrder> AddAsync(ProduktOrder produktOrder);
-    Task<ProduktOrder> UpdateAsync(ProduktOrder produktOrder);
-    Task<ProduktOrder> DeleteAsync(Guid id);
+    Task UpdateAsync(ProduktOrder produktOrder);
+    Task DeleteAsync(Guid id);
     Task<bool> ExistsAsync(Guid id);
 }
