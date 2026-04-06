@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Domain.Entitites;
@@ -8,53 +9,68 @@ namespace Webshop.Infrastructure.EF.Repositories;
 
 public class ProduktRepository : IProduktRepository
 {
-    public Task<Produkt> AddAsync(Produkt produkt)
+    WebshopDbContext _context;
+
+    public async Task<Produkt> AddAsync(Produkt produkt)
     {
-        throw new NotImplementedException();
+        _context.Produkter.Add(produkt);
+        await _context.SaveChangesAsync();
+        return produkt;
     }
 
-    public Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var produkt = await _context.Produkter.FindAsync(id);
+        if (produkt == null) return;
+
+        _context.Produkter.Remove(produkt);
+        await _context.SaveChangesAsync();
     }
 
-    public Task<bool> ExistsAsync(Guid id)
+    public async Task<bool> ExistsAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Produkter.AnyAsync(p => p.Id == id);
     }
 
-    public Task<List<Produkt>> GetAllAsync()
+    public async Task<List<Produkt>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Produkter.ToListAsync();
     }
 
-    public Task<Produkt> GetByIdAsync(Guid id)
+    public async Task<Produkt> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Produkter.FindAsync(id);
     }
 
-    public Task<List<Produkt>> GetByKategoriAsync(Guid KategoriId)
+    public async Task<List<Produkt>> GetByKategoriAsync(Guid KategoriId)
     {
-        throw new NotImplementedException();
+        return await _context.Produkter.Where(p => p.KategoriId == KategoriId).ToListAsync();
     }
 
-    public Task<List<Produkt>> GetByLeverantörAsync(Guid LeverantörId)
+    public async Task<List<Produkt>> GetByLeverantörAsync(Guid LeverantörId)
     {
-        throw new NotImplementedException();
+        return await _context.Produkter.Where(p => p.LeverantörId == LeverantörId).ToListAsync();
     }
 
-    public Task<List<Produkt>> SearchAsync(string searchTerm)
+    public async Task<List<Produkt>> SearchAsync(string searchTerm)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(searchTerm)) {
+            return new List<Produkt>();
+        }
+
+        return await _context.Produkter
+            .Where(p => p.Namn.Contains(searchTerm) || p.Beskrivning.Contains(searchTerm))
+            .ToListAsync();
     }
 
-    public Task UpdateAsync(Produkt produkt)
+    public async Task UpdateAsync(Produkt produkt)
     {
-        throw new NotImplementedException();
+       _context.Produkter.Update(produkt);
+        await _context.SaveChangesAsync();
     }
 
-    public Task UpdateLagerAntalAsync(Guid id, int nyttAntal)
+    public async Task UpdateLagerAntalAsync(Guid id, int nyttAntal)
     {
-        throw new NotImplementedException();
+        await _context.Produkter.Where(p => p.Id == id).ExecuteUpdateAsync(p => p.SetProperty(p => p.LagerAntal, nyttAntal));
     }
 }
