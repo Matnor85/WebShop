@@ -17,7 +17,7 @@ public class Produkt
     public Leverantör Leverantör { get; set; }
     public Guid KategoriId { get; set; }
     public Kategori Kategori { get; set; }
-    public List<ProduktOrder> ProduktOrdrar { get; set; }
+    public List<ProduktOrder> ProduktOrdrar { get; set; } = new();
 
     public Produkt() { }
 

@@ -156,16 +156,10 @@ namespace Webshop.Infrastructure.Migrations
                     b.Property<Guid>("KategoriId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("KategoriId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("LagerAntal")
                         .HasColumnType("int");
 
                     b.Property<Guid>("LeverantörId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("LeverantörId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Namn")
@@ -185,11 +179,7 @@ namespace Webshop.Infrastructure.Migrations
 
                     b.HasIndex("KategoriId");
 
-                    b.HasIndex("KategoriId1");
-
                     b.HasIndex("LeverantörId");
-
-                    b.HasIndex("LeverantörId1");
 
                     b.ToTable("Produkter");
                 });
@@ -243,24 +233,16 @@ namespace Webshop.Infrastructure.Migrations
             modelBuilder.Entity("Webshop.Domain.Entitites.Produkt", b =>
                 {
                     b.HasOne("Webshop.Domain.Entitites.Kategori", "Kategori")
-                        .WithMany()
+                        .WithMany("Produkter")
                         .HasForeignKey("KategoriId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Webshop.Domain.Entitites.Kategori", null)
-                        .WithMany("Produkter")
-                        .HasForeignKey("KategoriId1");
-
                     b.HasOne("Webshop.Domain.Entitites.Leverantör", "Leverantör")
-                        .WithMany()
+                        .WithMany("Produkter")
                         .HasForeignKey("LeverantörId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Webshop.Domain.Entitites.Leverantör", null)
-                        .WithMany("Produkter")
-                        .HasForeignKey("LeverantörId1");
 
                     b.Navigation("Kategori");
 
