@@ -11,4 +11,5 @@
   <Folder Name="/4.Presentation/">
     <Project Path="WebShop/WebShop.Presentation.csproj" />
   </Folder>
+  <Folder Name="/5.Test/" />
 </Solution>
