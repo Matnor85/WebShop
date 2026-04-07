@@ -72,9 +72,5 @@ public class ProduktRepository : IProduktRepository
        _context.Produkter.Update(produkt);
         await _context.SaveChangesAsync();
     }
-
-    public async Task UpdateLagerAntalAsync(Guid id, int nyttAntal)
-    {
-        await _context.Produkter.Where(p => p.Id == id).ExecuteUpdateAsync(p => p.SetProperty(p => p.LagerAntal, nyttAntal));
-    }
+   
 }

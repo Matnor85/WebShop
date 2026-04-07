@@ -3,18 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using Webshop.Domain.Entitites;
 
-namespace Webshop.Domain.Interfaces;
+namespace Webshop.Application.Interfaces;
 
-public interface IProduktRepository
+public interface IProduktService
 {
     Task<Produkt> GetByIdAsync(Guid id);
     Task<List<Produkt>> GetAllAsync();
-    Task<List<Produkt>> GetByKategoriAsync(Guid KategoriId);
-    Task<List<Produkt>> GetByLeverantörAsync(Guid LeverantörId);
-    Task<List<Produkt>> SearchAsync(string searchTerm);
     Task<Produkt> AddAsync(Produkt produkt);
     Task UpdateAsync(Produkt produkt);
     Task DeleteAsync(Guid id);
-    Task<bool> ExistsAsync(Guid id);
-    
 }
