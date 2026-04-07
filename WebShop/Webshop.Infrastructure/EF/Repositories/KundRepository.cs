@@ -16,6 +16,7 @@ public class KundRepository : IKundRepository
     }
     public async Task<Kund> AddAsync(Kund kund)
     {
+        if (kund == null) return null;
         _context.Kunder.Add(kund);
         await _context.SaveChangesAsync();
         return kund;
