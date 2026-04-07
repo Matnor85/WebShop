@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Domain.Entitites;
@@ -8,33 +9,47 @@ namespace Webshop.Infrastructure.EF.Repositories;
 
 public class KategoriRepository : IKategoriRepository
 {
-    public Task<Kategori> AddAsync(Kategori kategori)
+    private readonly WebshopDbContext _context;
+    public KategoriRepository(WebshopDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+    public async Task<Kategori> AddAsync(Kategori kategori)
+    {
+        _context.Kategorier.Add(kategori);
+        await _context.SaveChangesAsync();
+        return kategori;
     }
 
-    public Task DeleteAsync(Guid id)
+    public async Task<Kategori> DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var kategori = await _context.Kategorier.FindAsync(id);
+        if (kategori == null) return null;
+
+        _context.Kategorier.Remove(kategori);
+        await _context.SaveChangesAsync();
+        return kategori;
     }
 
-    public Task<bool> ExistsAsync(Guid id)
+    public async Task<bool> ExistsAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Kategorier.AnyAsync(k => k.Id == id);
     }
 
-    public Task<List<Kategori>> GetAllAsync()
+    public async Task<List<Kategori>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Kategorier.ToListAsync();
     }
 
-    public Task<Kategori> GetByIdAsync(Guid id)
+    public async Task<Kategori> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Kategorier.FindAsync(id);
     }
 
-    public Task UpDateAsync(Kategori kategori)
+    public async Task<Kategori> UpdateAsync(Kategori kategori)
     {
-        throw new NotImplementedException();
+        _context.Kategorier.Update(kategori);
+        await _context.SaveChangesAsync(); 
+        return kategori;
     }
 }
