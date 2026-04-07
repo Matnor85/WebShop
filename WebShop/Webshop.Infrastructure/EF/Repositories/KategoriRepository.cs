@@ -21,14 +21,13 @@ public class KategoriRepository : IKategoriRepository
         return kategori;
     }
 
-    public async Task<Kategori> DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
         var kategori = await _context.Kategorier.FindAsync(id);
-        if (kategori == null) return null;
+        if (kategori == null) return;
 
         _context.Kategorier.Remove(kategori);
         await _context.SaveChangesAsync();
-        return kategori;
     }
 
     public async Task<bool> ExistsAsync(Guid id)
@@ -46,10 +45,9 @@ public class KategoriRepository : IKategoriRepository
         return await _context.Kategorier.FindAsync(id);
     }
 
-    public async Task<Kategori> UpdateAsync(Kategori kategori)
+    public async Task UpdateAsync(Kategori kategori)
     {
         _context.Kategorier.Update(kategori);
         await _context.SaveChangesAsync(); 
-        return kategori;
     }
 }
