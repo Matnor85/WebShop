@@ -15,5 +15,5 @@ public class FraktOmbudService(IFraktOmbudRepository _repository) : IFraktOmbudS
     public async Task<List<FraktOmbud>> GetAllAsync() => await _repository.GetAllAsync();
     public async Task<FraktOmbud> GetByIdAsync(Guid id) => await _repository.GetByIdAsync(id);
     public async Task UpdateAsync(FraktOmbud fraktOmbud) => await _repository.UpdateAsync(fraktOmbud);
-    public async Task<bool> ExistAsync(Guid id) => await _repository.ExistsAsync(id);
+    public async Task<bool> ExistsAsync(Guid id) => await _repository.ExistsAsync(id);
 }

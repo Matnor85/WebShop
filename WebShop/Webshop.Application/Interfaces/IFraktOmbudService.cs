@@ -12,6 +12,5 @@ internal interface IFraktOmbudService
     Task<FraktOmbud> AddAsync(FraktOmbud fraktOmbud);
     Task UpdateAsync(FraktOmbud fraktOmbud);
     Task DeleteAsync(Guid id);
-    Task<bool> ExistAsync(Guid id);
     Task<bool> ExistsAsync(Guid id);
 }
