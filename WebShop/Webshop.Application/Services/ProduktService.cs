@@ -16,6 +16,6 @@ public class ProduktService(IProduktRepository _repository): IProduktService
     public async Task<List<Produkt>> GetByKategoriAsync(Guid kategoriId) => await _repository.GetByKategoriAsync(kategoriId);
     public async Task<List<Produkt>> GetByLeverantörAsync(Guid leverantörId) => await _repository.GetByLeverantörAsync(leverantörId);
     public async Task UpdateAsync(Produkt produkt) => await _repository.UpdateAsync(produkt);
-    public async Task<List<Produkt>> ProduktSearch(string SearchInput) => await _repository.SearchAsync(SearchInput);
+    public async Task<List<Produkt>> SearchAsync(string SearchInput) => await _repository.SearchAsync(SearchInput);
     public async Task<bool> ExistAsync(Guid id) => await _repository.ExistsAsync(id);
 }
