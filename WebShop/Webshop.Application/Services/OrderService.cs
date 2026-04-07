@@ -18,5 +18,4 @@ public class OrderService(IOrderRepository _repository) : IOrderService
     public async Task<List<Order>> GetOrdersByFraktOmbudIdAsync(Guid fraktOmbudId) => await _repository.GetOrdersByFraktOmbudIdAsync(fraktOmbudId);
     public async Task<List<Order>> GetOrdersByKundIdAsync(Guid kundId) => await _repository.GetOrdersByKundIdAsync(kundId);
     public async Task UpdateAsync(Order order) => await _repository.UpdateAsync(order);
-
 }
