@@ -12,4 +12,8 @@ public interface IProduktService
     Task<Produkt> AddAsync(Produkt produkt);
     Task UpdateAsync(Produkt produkt);
     Task DeleteAsync(Guid id);
+    Task<List<Produkt>> GetByKategoriAsync(Guid kategoriId);
+    Task<List<Produkt>> GetByLeverantörAsync(Guid leverantörId);
+    Task<List<Produkt>> ProduktSearch(string SearchInput);
+    Task<bool> ExistAsync(Guid id);
 }
