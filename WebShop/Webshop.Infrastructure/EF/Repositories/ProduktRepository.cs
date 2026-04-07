@@ -56,14 +56,14 @@ public class ProduktRepository : IProduktRepository
         return await _context.Produkter.Where(p => p.LeverantörId == LeverantörId).ToListAsync();
     }
 
-    public async Task<List<Produkt>> SearchAsync(string searchTerm)
+    public async Task<List<Produkt>> SearchAsync(string searchInput)
     {
-        if (string.IsNullOrWhiteSpace(searchTerm)) {
+        if (string.IsNullOrWhiteSpace(searchInput)) {
             return new List<Produkt>();
         }
 
         return await _context.Produkter
-            .Where(p => p.Namn.Contains(searchTerm) || p.Beskrivning.Contains(searchTerm))
+            .Where(p => p.Namn.Contains(searchInput) || p.Beskrivning.Contains(searchInput))
             .ToListAsync();
     }
 
