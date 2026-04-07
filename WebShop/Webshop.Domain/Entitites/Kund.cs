@@ -10,7 +10,7 @@ public class Kund
     public string Namn { get; set; }
     public string Adress { get; set; }
     public string Stad { get; set; }
-    public int Postnummer { get; set; }
+    public int Postnummer { get; set; } // ev ändra till string om det behövs
     public int MobilNummer { get; set; }
     public string Epost { get; set; }
     public List<Order> Ordrar { get; set; } = new List<Order>();
