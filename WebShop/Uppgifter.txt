@@ -1,0 +1,98 @@
+◦ Ni ska bygga en webbshop som säljer ett valfritt sortiment.
+◦ Webbshoppen ska ha följande funktionalitet
+◦ Startsida
+◦ Välkomst-text
+◦ Tre utvalda produkter ska visas på sidan. Detta ska kunna anges I admin.
+◦ Shopsida med minst tre kategorier
+◦ T ex Tröjor, Byxor och skor(om ni gör en klädes-shop), cirka 5 produkter av varje.
+◦ Möjlighet att fritextsöka
+◦ Varje produkt ska kunna väljas, för att få veta mer om produkten
+◦ Varje produkt ska ha ett val för “köp” som adderar produkten till kundkorg
+◦ Övrig info: Kort text om produkten, Pris
+
+◦ Varukorg
+◦ Valda produkter visas I lista
+◦ Möjligt att ändra antal
+◦ Möjlighet att ta bort product
+◦ Priset visas och summan av produkterna visas längst ner
+◦ Frakt-vy
+◦ Namn, adress m m ska gå att fylla I via console.readline.
+◦ Val av frakt med minst två alternativ,med olika pris
+◦ Betala-vy
+◦ Produkterna visas, med pris
+◦ Pris med frakt, samt moms visas.
+◦ Val av betalningsmetod, minst två. Betalningen behöver självklart inte vara på riktigt
+◦ När varan är betald så töms varukorgen
+
+◦ Admin
+◦ Produkter – kunna lägga till nya, ta bort och ändra
+◦ Produktnamn
+◦ Infotext
+◦ Pris
+◦ Produktkategori
+◦ Leverantör
+◦ Lagersaldo
+◦ Produktkategorier
+◦ T ex byxor, tröjor osv
+◦ Kunder
+◦ Ändra uppgifter om kunden
+◦ Beställningshistorik
+
+◦ Produktnamn
+◦ Pris
+◦ Detaljerad information
+◦ Produktkategori
+◦ Produktleverantör
+◦ Utvald produkt (bool)
+◦ Leveransalternativ
+◦ Kund
+◦ Namn
+◦ Adress
+◦ Gata
+◦ Stad
+◦ Land
+◦ Telefon
+◦ Mejl
+◦ Ålder
+◦ Data avseende betalkort
+◦ Summa kostnad för kunden
+◦ Betalsätt
+◦ Utförda köp, baserat på kund, kategorier m m
+
+◦ Fundera på relationer, kardinalitet, constraints,
+normalisering osv...
+
+
+Förslag på querys
+
+◦ Bäst säljande produkter
+◦ Populäraste kategorin
+◦ Populäraste produkt för herr/dam-sortiment
+◦ Populäraste produkt I olika åldersgrupper
+◦ Flest beställningar per stad
+◦ Försäljning sorterat på leverantörer
+
+Teknik
+
+◦ Fokus ligger på OOP och databasdelen, och programmeringen ska vara av god
+kvalitet, (DRY, KISS)
+◦ Databas: SQL och Entity Framework Code first, inkl constraints och relationer
+◦ LINQ ska användas
+◦ Övrig Teknik
+◦ Objektorienterat
+◦ Asynkrona anrop till databasen
+◦ Onion-struktur, via Interface
+◦ Http-klient till valfri API
+◦ Olika kollektioner
+◦ Clean Code
+
+Redovisning och inlämning
+
+• Redovisning sker 16/4 muntligen, där funktion och struktur beskrivs
+• Butiken ska vara fylld med produkter, tidigare kunder och inköp
+• Inlämning sker 17/4
+o Inlämningen består av
+▪ GIT-länk till projektet (Console-appen)
+▪ Testdata ska finnas inlagt
+▪ Länk till Kanbantavla
+▪ Specifikationen kommer eventuellt att ändras/specificeras (Agil utveckling)
