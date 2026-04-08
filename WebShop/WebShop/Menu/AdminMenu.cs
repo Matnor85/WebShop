@@ -30,14 +30,14 @@ public class AdminMenu
         Console.WriteLine("2 - *****");
         Console.WriteLine("6 - Tillbaka till startmenyn");
     }
-    public void HandleInput()
+    public async Task HandleInputAsync()
     {
        
             var input = Console.ReadLine();
             switch (input)
             {
             case "1":
-                _adminProdukt.HanteraProdukterAsync();
+                await _adminProdukt.HanteraProdukterAsync();
                 break;
             case "2":
                 break;
@@ -58,12 +58,12 @@ public class AdminMenu
             }
         
     }
-    public void AdminRun()
+    public async Task AdminRunAsync()
     {
         while (_isRunning)
-        {
+        {   
             ShowAdminMenu();
-            HandleInput();
+            await HandleInputAsync();
         }
     }
 }

@@ -21,7 +21,7 @@ public class App
     {
     }
 
-    public static void Run()
+    public static async Task RunAsync()
     {
         var config = new ConfigurationBuilder()
              .AddUserSecrets<App>()
@@ -33,16 +33,22 @@ public class App
         //Services
         services.AddScoped<IProduktRepository, ProduktRepository>();
         services.AddScoped<IProduktService, ProduktService>();
+
         services.AddScoped<IProduktOrderRepository, ProduktOrderRepository>();
         services.AddScoped<IProduktOrderService, ProduktOrderService>();
+
         services.AddScoped<IKategoriRepository, KategoriRepository>();
         services.AddScoped<IKategoriService, KategoriService>();
+
         services.AddScoped<IKundRepository, KundRepository>();
         services.AddScoped<IKundService, KundService>();
+
         services.AddScoped<ILeverantörRepository, LeverantörRepository>();
         services.AddScoped<ILeverantörService, LeverantörService>();
+
         services.AddScoped<IFraktOmbudRepository, FraktOmbudRepository>();
         services.AddScoped<IFraktOmbudService, FraktOmbudService>();
+
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderService, OrderService>();
 
@@ -55,6 +61,6 @@ public class App
         var servicesProvider = services.BuildServiceProvider();
         
         var meny = servicesProvider.GetRequiredService<Meny>();
-        meny.MenuRun();
+        await meny.MenuRunAsync();
     }
 }

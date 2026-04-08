@@ -42,7 +42,8 @@ public class AdminProdukt
         switch (input)
         {
             case "1":
-                ShowProduktList();
+                Console.Clear();
+                await ShowProduktList();
                 break;
             case "2":
                 await AddProduktAsync();
@@ -63,121 +64,66 @@ public class AdminProdukt
         }
     }
 
-    private void DeleteProdukt()
+    private async Task DeleteProdukt()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("=== Ta bort produkt ===");
+        var produkter = await _produktService.GetAllAsync();
+            if (produkter == null || produkter.Count <= 0) return;
+        Console.WriteLine("== Välj vilket produkt du vill ta bort ==");
+        for (int i = 0; i < produkter.Count; i++)
+        {
+            Console.WriteLine($"{i + 1} - {produkter[i].Namn}, Lagersaldo: {produkter[i].LagerAntal}");
+        }
+        if (!int.TryParse(Console.ReadLine(), out int produktVal) || produktVal < 1 || produktVal > produkter.Count)
+        {
+            throw new ArgumentException("Ogiltigt val av produkt");
+        }
+        Console.WriteLine($"Vill du ta bort produkten? (J/N) {produkter[produktVal - 1].Namn}");
+        var confirm = Console.ReadLine();
+        if (confirm.ToUpper() == "J")
+        {
+            await _produktService.DeleteAsync(produkter[produktVal - 1].Id);
+            Console.Clear();
+            Console.WriteLine("Produkten har tagits bort.");
+            Meny.Wait();
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Produkten har inte tagits bort.");
+            Meny.Wait();
+        }
     }
 
     private void UpdateProdukt()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("=== Uppdatera produkt ===");
     }
 
     private async Task AddProduktAsync()
     {
-        Console.Clear();
-        Console.WriteLine("=== Lägg till produkt === ");
         try
         {
-            Console.WriteLine("Ange namn");
-            var namn = Console.ReadLine();
-            DataValidering.ValidateName(namn);
             Console.Clear();
-
-            Console.WriteLine("Ange Beskrivning");
-            var beskrivning = Console.ReadLine();
-            ProduktValidering.ValidateDescription(beskrivning);
-            Console.Clear();
-
-            Console.WriteLine("Ange Pris");
-            if (!decimal.TryParse(Console.ReadLine(), out decimal pris))
-            {
-                Console.WriteLine("Ogiltigt prisformat");
-                return;
-            }
-            DataValidering.ValidatePrice(pris);
-            Console.Clear();
-
-            Console.WriteLine("Ange färg: ");
-            foreach (var color in Enum.GetValues(typeof(Färg)).Cast<Färg>().Where(f => f != Färg.Okänd))
-            {
-                Console.WriteLine($"{(int)color} - {color}");
-            }
-            var färgInput = Console.ReadLine();
-            ProduktValidering.ValidateFärg(färgInput, out Färg färg);
-            Console.Clear();
-
-            Console.WriteLine("Ange Storlek: ");
-            foreach (var s in Enum.GetValues(typeof(Storlek)).Cast<Storlek>().Where(s => s != Storlek.Okänd))
-            {
-                Console.WriteLine($"{(int)s} - {s}");
-            }
-            var storlekInput = Console.ReadLine();
-            ProduktValidering.ValidateStorlek(storlekInput, out Storlek storlek);
-            Console.Clear();
-
-            Console.WriteLine("Ange Lagerantal: ");
-            if (!int.TryParse(Console.ReadLine(), out int lagerAntal))
-            {
-                Console.WriteLine("Ogiltigt lagerantal");
-                return;
-            }
-            ProduktValidering.ValidateStock(lagerAntal);
-            Console.Clear();
-
-            Console.WriteLine("Ange Leverantör: ");
-            var leverantörer = await _leverantörService.GetAllAsync();
-            for (int i = 0; i < leverantörer.Count; i++)
-            {
-                Console.WriteLine($"{i + 1} - {leverantörer[i].Namn}");
-            }
-            if (!int.TryParse(Console.ReadLine(), out int leverantörVal) || leverantörVal < 1 || leverantörVal > leverantörer.Count)
-            {
-                Console.WriteLine("Ogiltigt val av leverantör");
-                return;
-            }
-            var leverantörId = leverantörer[leverantörVal - 1].Id;
-            Console.Clear();
-
-            Console.WriteLine("Ange Kategori: ");
-            var kategorier = await _kategoriService.GetAllAsync();
-            for (int i = 0; i < kategorier.Count; i++)
-            {
-                Console.WriteLine($"{i + 1} - {kategorier[i].Namn}");
-            }
-            if (!int.TryParse(Console.ReadLine(), out int kategoriVal) || kategoriVal < 1 || kategoriVal > kategorier.Count)
-            {
-                Console.WriteLine("Ogiltigt val av kategori");
-                return;
-            }
-            var kategoriId = kategorier[kategoriVal - 1].Id;
-            Console.Clear();
+            Console.WriteLine("=== Lägg till produkt === ");
+            var produkt = await ProduktInput();
 
             Console.WriteLine("Sammanfattning av produkten:");
-            Console.WriteLine($"Namn: {namn}");
-            Console.WriteLine($"Beskrivning: {beskrivning}");
-            Console.WriteLine($"Pris: {pris}");
-            Console.WriteLine($"Färg: {färg}");
-            Console.WriteLine($"Storlek: {storlek}");
-            Console.WriteLine($"Lagerantal: {lagerAntal}");
-            Console.WriteLine($"Leverantör: {leverantörer[leverantörVal - 1].Namn}");
-            Console.WriteLine($"Kategori: {kategorier[kategoriVal - 1].Namn}");
+            Console.WriteLine($"Namn: {produkt.Namn}");
+            Console.WriteLine($"Beskrivning: {produkt.Beskrivning}");
+            Console.WriteLine($"Pris: {produkt.Pris}");
+            Console.WriteLine($"Färg: {produkt.Färg}");
+            Console.WriteLine($"Storlek: {produkt.Storlek}");
+            Console.WriteLine($"Lagerantal: {produkt.LagerAntal}");
+            Console.WriteLine($"Leverantör: {produkt.LeverantörId}");
+            Console.WriteLine($"Kategori: {produkt.KategoriId}");
             Console.WriteLine("Vill du lägga till produkten? (J/N)");
             
             var confirm = Console.ReadLine();
             if (confirm?.ToUpper() == "J")
             {
-                await _produktService.AddAsync(new Produkt
-                {
-                    Namn = namn,
-                    Beskrivning = beskrivning,
-                    Pris = pris,
-                    Färg = färg,
-                    Storlek = storlek,
-                    LagerAntal = lagerAntal,
-                    LeverantörId = leverantörId,
-                    KategoriId = kategoriId
-                });
+                if (produkt == null) return;
+                await _produktService.AddAsync(produkt);
                 Console.Clear();
                 Console.WriteLine("Produkten har lagts till.");
                 Meny.Wait();
@@ -203,6 +149,7 @@ public class AdminProdukt
         if (produktList == null || produktList.Count <= 0)
         {
             Console.WriteLine("inga produkter hittades.");
+            Meny.Wait();
             return;
         }
         foreach (var p in produktList)
@@ -212,6 +159,79 @@ public class AdminProdukt
         Meny.Wait();
     }
 
+    private async Task<Produkt?> ProduktInput()
+    {
+        Console.WriteLine("Ange namn");
+        var namn = Console.ReadLine();
+        DataValidering.ValidateName(namn);
+        Console.Clear();
+
+        Console.WriteLine("Ange Beskrivning");
+        var beskrivning = Console.ReadLine();
+        ProduktValidering.ValidateDescription(beskrivning);
+        Console.Clear();
+
+        Console.WriteLine("Ange Pris");
+        if (!decimal.TryParse(Console.ReadLine(), out decimal pris))
+        {
+            throw new ArgumentException("Ogiltigt prisformat");
+        }
+        DataValidering.ValidatePrice(pris);
+        Console.Clear();
+
+        Console.WriteLine("Ange färg: ");
+        foreach (var color in Enum.GetValues(typeof(Färg)).Cast<Färg>().Where(f => f != Färg.Okänd))
+        {
+            Console.WriteLine($"{(int)color} - {color}");
+        }
+        var färgInput = Console.ReadLine();
+        ProduktValidering.ValidateFärg(färgInput, out Färg färg);
+        Console.Clear();
+
+        Console.WriteLine("Ange Storlek: ");
+        foreach (var s in Enum.GetValues(typeof(Storlek)).Cast<Storlek>().Where(s => s != Storlek.Okänd))
+        {
+            Console.WriteLine($"{(int)s} - {s}");
+        }
+        var storlekInput = Console.ReadLine();
+        ProduktValidering.ValidateStorlek(storlekInput, out Storlek storlek);
+        Console.Clear();
+
+        Console.WriteLine("Ange Lagerantal: ");
+        if (!int.TryParse(Console.ReadLine(), out int lagerAntal))
+        {
+            throw new ArgumentException("Ogiltigt lagerantal");
+        }
+        ProduktValidering.ValidateStock(lagerAntal);
+        Console.Clear();
+
+        Console.WriteLine("Ange Leverantör: ");
+        var leverantörer = await _leverantörService.GetAllAsync();
+        for (int i = 0; i < leverantörer.Count; i++)
+        {
+            Console.WriteLine($"{i + 1} - {leverantörer[i].Namn}");
+        }
+        if (!int.TryParse(Console.ReadLine(), out int leverantörVal) || leverantörVal < 1 || leverantörVal > leverantörer.Count)
+        {
+            throw new ArgumentException("Ogiltigt val av leverantör");
+        }
+        var leverantörId = leverantörer[leverantörVal - 1].Id;
+        Console.Clear();
+
+        Console.WriteLine("Ange Kategori: ");
+        var kategorier = await _kategoriService.GetAllAsync();
+        for (int i = 0; i < kategorier.Count; i++)
+        {
+            Console.WriteLine($"{i + 1} - {kategorier[i].Namn}");
+        }
+        if (!int.TryParse(Console.ReadLine(), out int kategoriVal) || kategoriVal < 1 || kategoriVal > kategorier.Count)
+        {
+            throw new ArgumentException("Ogiltigt val av kategori");
+        }
+        var kategoriId = kategorier[kategoriVal - 1].Id;
+        Console.Clear();
+        return new Produkt(namn, beskrivning, pris, färg, storlek, lagerAntal, leverantörId, kategoriId);
+    }
     public void ProduktMenuRun()
     {
         

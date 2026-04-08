@@ -6,8 +6,8 @@ namespace WebShop;
 
 internal class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
-        App.Run();
+        await App.RunAsync();
     }
 }
