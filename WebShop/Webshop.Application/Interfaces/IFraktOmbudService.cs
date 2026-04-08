@@ -5,7 +5,7 @@ using Webshop.Domain.Entitites;
 
 namespace Webshop.Application.Interfaces;
 
-internal interface IFraktOmbudService
+public interface IFraktOmbudService
 {
     Task<FraktOmbud> GetByIdAsync(Guid id);
     Task<List<FraktOmbud>> GetAllAsync();

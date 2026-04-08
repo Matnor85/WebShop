@@ -4,8 +4,14 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Webshop.Application.Interfaces;
+using Webshop.Application.Services;
+using Webshop.Domain.Interfaces;
 using Webshop.Infrastructure.EF;
+using Webshop.Infrastructure.EF.Repositories;
 using Webshop.Infrastructure.EF.Seeds;
+using WebShop.Presentation.DisplayService;
+using WebShop.Presentation.Menu;
 
 namespace WebShop.Presentation;
 
@@ -23,10 +29,32 @@ public class App
 
         var services = new ServiceCollection();
         services.AddDbContext<WebshopDbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+        
+        //Services
+        services.AddScoped<IProduktRepository, ProduktRepository>();
+        services.AddScoped<IProduktService, ProduktService>();
+        services.AddScoped<IProduktOrderRepository, ProduktOrderRepository>();
+        services.AddScoped<IProduktOrderService, ProduktOrderService>();
+        services.AddScoped<IKategoriRepository, KategoriRepository>();
+        services.AddScoped<IKategoriService, KategoriService>();
+        services.AddScoped<IKundRepository, KundRepository>();
+        services.AddScoped<IKundService, KundService>();
+        services.AddScoped<ILeverantörRepository, LeverantörRepository>();
+        services.AddScoped<ILeverantörService, LeverantörService>();
+        services.AddScoped<IFraktOmbudRepository, FraktOmbudRepository>();
+        services.AddScoped<IFraktOmbudService, FraktOmbudService>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IOrderService, OrderService>();
+
+        //meny
+        services.AddScoped<Meny>();
+        services.AddScoped<WebShopMenu>();
+        services.AddScoped<AdminMenu>();
+        services.AddScoped<AdminProdukt>();
 
         var servicesProvider = services.BuildServiceProvider();
-
-        using var db = servicesProvider.GetRequiredService<WebshopDbContext>();
-        WebShopSeeder.Seed(db);
+        
+        var meny = servicesProvider.GetRequiredService<Meny>();
+        meny.MenuRun();
     }
 }

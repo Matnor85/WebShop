@@ -14,6 +14,14 @@ public class AdminMenu
 {
    // Meny _meny = new Meny();
     bool _isRunning = true;
+    private readonly AdminProdukt _adminProdukt;
+
+    public AdminMenu(AdminProdukt adminProdukt)
+    {
+        _adminProdukt = adminProdukt;
+    }
+
+
     public void ShowAdminMenu()
     {
         Console.Clear();
@@ -29,7 +37,7 @@ public class AdminMenu
             switch (input)
             {
             case "1":
-                AdminProdukt.HanteraProdukter();
+                _adminProdukt.HanteraProdukterAsync();
                 break;
             case "2":
                 break;

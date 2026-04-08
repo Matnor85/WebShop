@@ -6,9 +6,15 @@ namespace WebShop.Presentation.Menu;
 
 public class Meny
 {
-    WebShopMenu _webShopMenu = new WebShopMenu();
-    AdminMenu _adminMenu = new AdminMenu();
+    WebShopMenu _webShopMenu;
+    AdminMenu _adminMenu;
     public bool _isRunning = true;
+
+    public Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
+    {
+        _webShopMenu = webShopMenu;
+        _adminMenu = adminMenu;
+    }
     public void ShowMainMenu()
     {
         Console.Clear();

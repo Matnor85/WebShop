@@ -8,8 +8,6 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        Meny Meny = new Meny();
-        Meny.MenuRun();
-        //App.Run();
+        App.Run();
     }
 }
