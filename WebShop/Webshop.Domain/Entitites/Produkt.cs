@@ -22,4 +22,19 @@ public class Produkt
 
     public Produkt() { }
 
+    public Produkt(string namn, string beskrivning, decimal pris, Färg färg, Storlek storlek, int lagerAntal, Guid leverantörId, Leverantör leverantör, Guid kategoriId, Kategori kategori, List<ProduktOrder> produktOrdrar)
+    {
+        Id = Guid.NewGuid();
+        Namn = namn;
+        Beskrivning = beskrivning;
+        Pris = pris;
+        Färg = färg;
+        Storlek = storlek;
+        LagerAntal = lagerAntal;
+        LeverantörId = leverantörId;
+        Leverantör = leverantör;
+        KategoriId = kategoriId;
+        Kategori = kategori;
+        ProduktOrdrar = produktOrdrar;
+    }
 }

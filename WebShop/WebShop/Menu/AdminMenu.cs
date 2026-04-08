@@ -1,4 +1,6 @@
-﻿namespace WebShop.Presentation.Menu;
+﻿using WebShop.Presentation.DisplayService;
+
+namespace WebShop.Presentation.Menu;
 /// <summary>
 /// 1. Visa adminmeny
 /// 2. Hantera adminval
@@ -16,9 +18,9 @@ public class AdminMenu
     {
         Console.Clear();
         Console.WriteLine("Admin val!");
-        Console.WriteLine("1 - *****");
+        Console.WriteLine("1 - Hantera produkter");
         Console.WriteLine("2 - *****");
-        Console.WriteLine("3 - Tillbaka till startmenyn");
+        Console.WriteLine("6 - Tillbaka till startmenyn");
     }
     public void HandleInput()
     {
@@ -26,29 +28,19 @@ public class AdminMenu
             var input = Console.ReadLine();
             switch (input)
             {
-                case "1":
-                    
-                    break;
-                case "2":
-                    
-                    break;
-                case "3":
+            case "1":
+                AdminProdukt.HanteraProdukter();
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            case "4":
+                break;
+            case "5":
+                break;
+            case "6":
                     _isRunning = false;
-                                    
-                    break;
-                case "4":
-                    
-                    break;
-                case "5":
-                    
-                    break;
-                case "6":
-                    
-                    break;
-                case "7":
-                    
-                    break;
-                case "8":
                     //Console.WriteLine("Tack för att du besökte vår webshop. Ha en bra dag!");
                    // _meny.MenuRun();
                     return;

@@ -27,4 +27,15 @@ public class ProduktValidering
             throw new ArgumentException($"Produkten med det angivna {id} finns inte");
     }
     
+    public static void ValidateFärg(string färgInput, out Färg färg)
+    {
+        if (!Enum.TryParse(färgInput, out färg))
+            throw new ArgumentException("Ogiltigt färgformat");
+    }
+
+    public static void ValidateStorlek(string? storlekInput, out Storlek storlek)
+    {
+        if (!Enum.TryParse(storlekInput, out storlek))
+            throw new ArgumentException("Ogiltigt storlekformat");
+    }
 }
