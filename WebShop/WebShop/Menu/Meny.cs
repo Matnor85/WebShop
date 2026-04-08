@@ -6,9 +6,12 @@ namespace WebShop.Presentation.Menu;
 
 public class Meny
 {
+    WebShopMenu _webShopMenu = new WebShopMenu();
+    AdminMenu _adminMenu = new AdminMenu();
     public bool _isRunning = true;
     public void ShowMainMenu()
     {
+        Console.Clear();
         Console.WriteLine("Välkommen till Webshop!");
         Console.WriteLine("1 - Till webb-Shop");
         Console.WriteLine("2 - Admin");
@@ -16,16 +19,15 @@ public class Meny
     }
     public void HandleInput()
     {
-        while (true)
-        {
+        
             var input = Console.ReadLine();
             switch (input)
             {
                 case "1":
-                    WebShopMenu.ShowWebShopMenu();
+                    _webShopMenu.WebbRun();
                     break;
                 case "2":
-                    AdminMenu.ShowAdminMenu();
+                    _adminMenu.AdminRun();
                     break;
                 case "3":
                     Console.WriteLine("Tack för att du besökte vår webshop. Ha en bra dag!");
@@ -34,16 +36,15 @@ public class Meny
                 default:
                     Console.WriteLine("Ogiltigt val, försök igen.");
                     break;
-            }
+            
         }
     }
     public void MenuRun()
     {
         while (_isRunning)
         {
-        ShowMainMenu();
-        HandleInput();
-
+            ShowMainMenu();
+            HandleInput();
         }
     }
 }
