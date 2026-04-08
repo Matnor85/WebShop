@@ -10,16 +10,12 @@ namespace WebShop.Presentation.DisplayService;
 
 public class AdminKategori
 {
-    IProduktService _produktService;
     IKategoriService _kategoriService;
-    ILeverantörService _leverantörService;
-    bool isRunning = true;
+    bool _isRunning = true;
 
-    public AdminKategori(IProduktService produktService, IKategoriService kategoriService, ILeverantörService leverantörService)
+    public AdminKategori(IKategoriService kategoriService)
     {
-        _produktService = produktService;
         _kategoriService = kategoriService;
-        _leverantörService = leverantörService;
     }
 
     public void ShowAdminKategoriMenu()
@@ -54,7 +50,7 @@ public class AdminKategori
                 await DeleteKategoriAsync();
                 break;
             case "5":
-                isRunning = false;
+                _isRunning = false;
                 break;
             default:
                 Console.WriteLine("Ogiltigt val, försök igen.");
@@ -69,8 +65,53 @@ public class AdminKategori
 
     private async Task UpdateKategoriAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+            Console.WriteLine("=== Uppdatera kategori ===");
+            var kategorier = await _kategoriService.GetAllAsync();
+            if (kategorier == null || kategorier.Count <= 0)
+            {
+                Console.WriteLine("Inga kategorier hittades.");
+                Meny.Wait();
+                return;
+            }
+            for (int i = 0; i < kategorier.Count; i++)
+            {
+                Console.WriteLine($"{i + 1} - {kategorier[i].Namn}");
+            }
+            if (!int.TryParse(Console.ReadLine(), out int kategoriVal) || kategoriVal < 1 || kategoriVal > kategorier.Count)
+            {
+                throw new ArgumentException("Ogiltigt val av kategori");
+            }
+
+            Console.WriteLine("Ange nytt namn:");
+            var nyttNamn = Console.ReadLine();
+            DataValidering.ValidateName(nyttNamn);
+
+            Console.WriteLine("Sammanfattning av ändrad kategori:");
+            Console.WriteLine($"Namn: {kategorier[kategoriVal - 1].Namn} - {nyttNamn}");
+            Console.WriteLine("Vill du uppdatera denna kategori? (J/N)");
+            var confirm = Console.ReadLine();
+            if (confirm?.ToUpper() == "J")
+            {
+                kategorier[kategoriVal - 1].Namn = nyttNamn;
+                await _kategoriService.UpdateAsync(kategorier[kategoriVal - 1]);
+                Console.Clear();
+                Console.WriteLine("Kategorin har uppdaterats.");
+                Meny.Wait();
+            }
+            else
+            {
+                Console.WriteLine("Kategorin har inte uppdaterats.");
+                Meny.Wait();
+            }
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Fel: {ex.Message}");
+        }
     }
+
 
     private async Task AddKategoriAsync()
     {
@@ -103,7 +144,7 @@ public class AdminKategori
         {
             Console.WriteLine("=== Visar kategorier ===");
             var kategorier = await _kategoriService.GetAllAsync();
-            if (kategorier == null || kategorier.Count == 0)
+            if (kategorier == null || kategorier.Count <= 0)
             {
                 Console.WriteLine("Inga kategorier hittades.");
                 Meny.Wait();
@@ -119,6 +160,14 @@ public class AdminKategori
         catch (ArgumentException ex)
         {
             Console.WriteLine($"Fel: {ex.Message}");
+        }
+    }
+
+    public async Task KategoriMenuRunAsync()
+    {
+        while (_isRunning)
+        {
+            await HanteraKategorierAsync();
         }
     }
 }

@@ -39,10 +39,10 @@ public class AdminMenu
             switch (input)
             {
             case "1":
-                await _adminProdukt.HanteraProdukterAsync();
+                await _adminProdukt.ProduktMenuRunAsync();
                 break;
             case "2":
-                await _adminKategori.HanteraKategorierAsync();
+                await _adminKategori.KategoriMenuRunAsync();
                 break;
             case "3":
                 break;
