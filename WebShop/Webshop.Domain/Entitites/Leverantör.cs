@@ -12,4 +12,10 @@ public class Leverantör
 
     public Leverantör() { }
 
+    public Leverantör(string namn)
+    {
+        Id = Guid.NewGuid();
+        Namn = namn;
+    }
+
 }
