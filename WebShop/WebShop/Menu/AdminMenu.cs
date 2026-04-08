@@ -15,10 +15,12 @@ public class AdminMenu
    // Meny _meny = new Meny();
     bool _isRunning = true;
     private readonly AdminProdukt _adminProdukt;
+    private readonly AdminKategori _adminKategori;
 
-    public AdminMenu(AdminProdukt adminProdukt)
+    public AdminMenu(AdminProdukt adminProdukt, AdminKategori adminKategori)
     {
         _adminProdukt = adminProdukt;
+        _adminKategori = adminKategori;
     }
 
 
@@ -40,6 +42,7 @@ public class AdminMenu
                 await _adminProdukt.HanteraProdukterAsync();
                 break;
             case "2":
+                await _adminKategori.HanteraKategorierAsync();
                 break;
             case "3":
                 break;

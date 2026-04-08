@@ -297,12 +297,5 @@ public class AdminProdukt
         Console.Clear();
         return (new Produkt(namn, beskrivning, pris, färg, storlek, lagerAntal, leverantörId, kategoriId), leverantörer[leverantörVal - 1].Namn, kategorier[kategoriVal - 1].Namn);
     }
-    public async Task ProduktMenuRunAsync()
-    {
-
-        while (isRunning)
-        {
-             await HanteraProdukterAsync();
-        }
-    }
+    
 }
