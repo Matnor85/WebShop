@@ -39,6 +39,12 @@ public class Meny
             
         }
     }
+
+    public static void Wait()
+    {
+        Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
+        Console.ReadKey();
+    }
     public void MenuRun()
     {
         while (_isRunning)
