@@ -17,7 +17,17 @@ public class WebShopMenu
         Console.WriteLine("1 - *****");
         Console.WriteLine("2 - *****");
         Console.WriteLine("3 - Tillbaka till startmenyn");
+        ShowSales();
     }
+
+    private void ShowSales()
+    {
+        Console.WriteLine("\nErbjudanden och kampanjer:");
+        Console.WriteLine("*****************");
+        Console.WriteLine("*****************");
+        Console.WriteLine("*****************");
+    }
+
     public void HandleInput()
     {
        
@@ -62,6 +72,7 @@ public class WebShopMenu
         {
             ShowWebShopMenu();
             HandleInput();
+           
         }
     }
 }
