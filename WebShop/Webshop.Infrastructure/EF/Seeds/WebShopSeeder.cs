@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Domain.Entitites;
+using Webshop.Domain.Enums;
 using System.Linq;
 
 
@@ -29,17 +30,17 @@ namespace Webshop.Infrastructure.EF.Seeds
             var produkter = new List<Produkt>
             {
                 new Produkt {Id=Guid.NewGuid(), Namn = "Vit T-shirt", Beskrivning = "En vit T-shirt i bomull", Pris = 199.99m,
-                                    Färg="Vit",Storlek="M",LagerAntal=40,KategoriId=klader.Id,LeverantörId=nike.Id },
+                                    Färg=Färg.Vit,Storlek=Storlek.M,LagerAntal=40,KategoriId=klader.Id,LeverantörId=nike.Id },
                 new Produkt {Id=Guid.NewGuid(), Namn = "Svarta Sneakers", Beskrivning = "Svarta sneakers med bra grepp", Pris = 899.99m,
-                                    Färg="Svart",Storlek="XL",LagerAntal=25,KategoriId=skor.Id,LeverantörId=adidas.Id },
+                                    Färg=Färg.Svart,Storlek=Storlek.XL,LagerAntal=25,KategoriId=skor.Id,LeverantörId=adidas.Id },
                 new Produkt {Id=Guid.NewGuid(), Namn = "Röd Keps", Beskrivning = "En röd keps med justerbar storlek", Pris = 149.99m,
-                                    Färg="Röd",Storlek="One Size",LagerAntal=60,KategoriId=accessoarer.Id,LeverantörId=puma.Id },
+                                    Färg=Färg.Röd,Storlek=Storlek.M,LagerAntal=60,KategoriId=accessoarer.Id,LeverantörId=puma.Id },
                 new Produkt {Id=Guid.NewGuid(), Namn = "Jeans", Beskrivning = "Blå jeans med stretch", Pris = 499.99m,
-                                    Färg="Blå",Storlek="L",LagerAntal=30,KategoriId=klader.Id,LeverantörId=nike.Id },
+                                    Färg=Färg.Blå,Storlek=Storlek.L,LagerAntal=30,KategoriId=klader.Id,LeverantörId=nike.Id },
                 new Produkt {Id=Guid.NewGuid(), Namn = "Sandaler", Beskrivning = "Gröna sandaler för sommaren", Pris = 299.99m,
-                                    Färg="Grön",Storlek="38",LagerAntal=20,KategoriId=skor.Id,LeverantörId=puma.Id },
+                                    Färg=Färg.Grön,Storlek=Storlek.L,LagerAntal=20,KategoriId=skor.Id,LeverantörId=puma.Id },
                 new Produkt {Id=Guid.NewGuid(), Namn = "Svart Bälte", Beskrivning = "Ett svart bälte i läder", Pris = 249.99m,
-                                    Färg="Svart",Storlek="One Size",LagerAntal=50,KategoriId=accessoarer.Id,LeverantörId=adidas.Id }
+                                    Färg=Färg.Svart,Storlek=Storlek.M,LagerAntal=50,KategoriId=accessoarer.Id,LeverantörId=adidas.Id }
 
 
             };
@@ -72,4 +73,4 @@ namespace Webshop.Infrastructure.EF.Seeds
     }
 
 
-}
+}

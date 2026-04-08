@@ -12,8 +12,8 @@ using Webshop.Infrastructure.EF;
 namespace Webshop.Infrastructure.Migrations
 {
     [DbContext(typeof(WebshopDbContext))]
-    [Migration("20260402072951_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260406084217_InitWithFixedRelation")]
+    partial class InitWithFixedRelation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -151,24 +151,17 @@ namespace Webshop.Infrastructure.Migrations
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
-                    b.Property<string>("Färg")
-                        .IsRequired()
+                    b.Property<int>("Färg")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("int");
 
                     b.Property<Guid>("KategoriId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("KategoriId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("LagerAntal")
                         .HasColumnType("int");
 
                     b.Property<Guid>("LeverantörId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("LeverantörId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Namn")
@@ -179,20 +172,15 @@ namespace Webshop.Infrastructure.Migrations
                     b.Property<decimal>("Pris")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Storlek")
-                        .IsRequired()
+                    b.Property<int>("Storlek")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("KategoriId");
 
-                    b.HasIndex("KategoriId1");
-
                     b.HasIndex("LeverantörId");
-
-                    b.HasIndex("LeverantörId1");
 
                     b.ToTable("Produkter");
                 });
@@ -246,24 +234,16 @@ namespace Webshop.Infrastructure.Migrations
             modelBuilder.Entity("Webshop.Domain.Entitites.Produkt", b =>
                 {
                     b.HasOne("Webshop.Domain.Entitites.Kategori", "Kategori")
-                        .WithMany()
+                        .WithMany("Produkter")
                         .HasForeignKey("KategoriId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Webshop.Domain.Entitites.Kategori", null)
-                        .WithMany("Produkter")
-                        .HasForeignKey("KategoriId1");
-
                     b.HasOne("Webshop.Domain.Entitites.Leverantör", "Leverantör")
-                        .WithMany()
+                        .WithMany("Produkter")
                         .HasForeignKey("LeverantörId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Webshop.Domain.Entitites.Leverantör", null)
-                        .WithMany("Produkter")
-                        .HasForeignKey("LeverantörId1");
 
                     b.Navigation("Kategori");
 

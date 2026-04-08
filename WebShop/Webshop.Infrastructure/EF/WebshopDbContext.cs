@@ -15,6 +15,7 @@ public class WebshopDbContext : DbContext
     public DbSet<Kategori> Kategorier { get; set; }
     public DbSet<Order> Ordrar { get; set; }
     public DbSet<ProduktOrder> ProduktOrdrar { get; set; }
+    public DbSet<FraktOmbud> FraktOmbud { get; set; }
     private string ConnectionString { get; set; }
    
     public WebshopDbContext(DbContextOptions<WebshopDbContext> options) : base(options)

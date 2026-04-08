@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Webshop.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitWithFixedRelation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -100,13 +100,11 @@ namespace Webshop.Infrastructure.Migrations
                     Namn = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Beskrivning = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     Pris = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Färg = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Storlek = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Färg = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    Storlek = table.Column<int>(type: "int", maxLength: 50, nullable: false),
                     LagerAntal = table.Column<int>(type: "int", nullable: false),
                     LeverantörId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    KategoriId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    KategoriId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    LeverantörId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    KategoriId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -118,21 +116,11 @@ namespace Webshop.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Produkter_Kategorier_KategoriId1",
-                        column: x => x.KategoriId1,
-                        principalTable: "Kategorier",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Produkter_Leverantörer_LeverantörId",
                         column: x => x.LeverantörId,
                         principalTable: "Leverantörer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Produkter_Leverantörer_LeverantörId1",
-                        column: x => x.LeverantörId1,
-                        principalTable: "Leverantörer",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -178,19 +166,9 @@ namespace Webshop.Infrastructure.Migrations
                 column: "KategoriId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produkter_KategoriId1",
-                table: "Produkter",
-                column: "KategoriId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Produkter_LeverantörId",
                 table: "Produkter",
                 column: "LeverantörId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Produkter_LeverantörId1",
-                table: "Produkter",
-                column: "LeverantörId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProduktOrdrar_OrderId",
