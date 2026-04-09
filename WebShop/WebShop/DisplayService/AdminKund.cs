@@ -302,22 +302,23 @@ public class AdminKund
         }
     }
 
-        public string GetEmail()
+    public string GetEmail()
+    {
+        while (true)
         {
-            while (true)
+            Console.WriteLine("Ange e-postadress: ");
+            var email = Console.ReadLine();
+            try
             {
-                Console.WriteLine("Ange e-postadress: ");
-                var email = Console.ReadLine();
-                try
-                {
-                    KundValidering.ValidateEmail(email);
-                    Console.Clear();
-                    return email;
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine($"Fel: {ex.Message}");
-                }
+                KundValidering.ValidateEmail(email);
+                Console.Clear();
+                return email;
             }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Fel: {ex.Message}");
+            }
+        }
     }
+    
 }
