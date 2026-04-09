@@ -56,6 +56,8 @@ public class App
         services.AddScoped<Meny>();
         services.AddScoped<WebShopMenu>();
         services.AddScoped<AdminMenu>();
+        services.AddScoped<KategoriMenu>();
+        services.AddScoped<ProduktMenu>();
         services.AddScoped<AdminProdukt>();
         services.AddScoped<AdminKategori>();
 

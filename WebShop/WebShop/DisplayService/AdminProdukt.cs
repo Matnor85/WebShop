@@ -11,7 +11,6 @@ public class AdminProdukt
     IProduktService _produktService;
     IKategoriService _kategoriService;
     ILeverantörService _leverantörService;
-    bool _isRunning = true;
 
     public AdminProdukt(IProduktService produktService, IKategoriService kategoriService, ILeverantörService leverantörService)
     {
@@ -20,46 +19,8 @@ public class AdminProdukt
         _leverantörService = leverantörService;
     }
 
-    public void ShowProduktMenu()
-    {
-        Console.Clear();
-        Console.WriteLine("Hantera produkter");
-        Console.WriteLine("1 - Visa alla produkter");
-        Console.WriteLine("2 - Lägg till produkt");
-        Console.WriteLine("3 - Uppdatera produkt");
-        Console.WriteLine("4 - Ta bort produkt");
-        Console.WriteLine("5 - Tillbaka till adminmenyn");
-    }
-    public async Task HanteraProdukterAsync()
-    {
-        Console.Clear();
-        ShowProduktMenu();
-        var input = Console.ReadLine();
-        switch (input)
-        {
-            case "1":
-                Console.Clear();
-                await ShowProduktList();
-                break;
-            case "2":
-                await AddProduktAsync();
-                break;
-            case "3":
-                await UpdateProdukt();
-                break;
-            case "4":
-                await DeleteProdukt();
-                break;
-            case "5":
-                _isRunning = false;
-                break;
-            default:
-                Console.WriteLine("Ogiltigt val, försök igen.");
-                break;
-        }
-    }
 
-    private async Task DeleteProdukt()
+    public async Task DeleteProdukt()
     {
         try
         {
@@ -100,7 +61,7 @@ public class AdminProdukt
         }
     }
 
-    private async Task UpdateProdukt()
+    public async Task UpdateProdukt()
     {
         try
         {
@@ -155,7 +116,7 @@ public class AdminProdukt
         }
     }
 
-    private async Task AddProduktAsync()
+    public async Task AddProduktAsync()
     {
         try
         {
@@ -197,7 +158,7 @@ public class AdminProdukt
 
     }
 
-    private async Task ShowProduktList()
+    public async Task ShowProduktList()
     {
         try
         {
@@ -223,7 +184,7 @@ public class AdminProdukt
         }
     }
 
-    private async Task<(Produkt produkt, string leverantörNamn, string kategoriNamn)> ProduktInput()
+    public async Task<(Produkt produkt, string leverantörNamn, string kategoriNamn)> ProduktInput()
 
     {
         Console.WriteLine("Ange namn");
@@ -297,12 +258,5 @@ public class AdminProdukt
         Console.Clear();
         return (new Produkt(namn, beskrivning, pris, färg, storlek, lagerAntal, leverantörId, kategoriId), leverantörer[leverantörVal - 1].Namn, kategorier[kategoriVal - 1].Namn);
     }
-    public async Task ProduktMenuRunAsync()
-    {
-
-        while (_isRunning)
-        {
-             await HanteraProdukterAsync();
-        }
-    }
+    
 }
