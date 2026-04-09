@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Webshop.Infrastructure.EF.Seeds;
 
 public class SeederMethod
 {
-    public static void AddSeed()
+    public void AddSeed()
     {
         // Build configuration manually and register services without using Generic Host
         var configuration = new ConfigurationBuilder()
