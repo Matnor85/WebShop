@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Webshop.Domain.Entitites;
+using Webshop.Domain.Enums;
 
 namespace Webshop.Infrastructure.EF.Seeds;
 
@@ -20,6 +21,50 @@ public class SeederGenerator
     {
         _ctx = ctx;
         _log = log;
+    }
+
+    private static string NormalizeEnumString(string s)
+    {
+        if (string.IsNullOrWhiteSpace(s)) return s;
+        return s.Trim();
+    }
+
+    private static Färg InferColorFromName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return Färg.Okänd;
+        var n = name.ToLowerInvariant();
+        if (n.Contains("black") || n.Contains("svart")) return Färg.Svart;
+        if (n.Contains("white") || n.Contains("vit")) return Färg.Vit;
+        if (n.Contains("blue") || n.Contains("navy") || n.Contains("blå")) return Färg.Blå;
+        if (n.Contains("red") || n.Contains("röd")) return Färg.Röd;
+        if (n.Contains("green") || n.Contains("grön")) return Färg.Grön;
+        if (n.Contains("pink") || n.Contains("rosa")) return Färg.Rosa;
+        if (n.Contains("yellow") || n.Contains("gul")) return Färg.Gul;
+        if (n.Contains("orange") || n.Contains("orange")) return Färg.Orange;
+        if (n.Contains("purple") || n.Contains("lila")) return Färg.Lila;
+        return Färg.Okänd;
+    }
+
+    private static Storlek InferSizeFromName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return Storlek.Okänd;
+        var n = name.ToUpperInvariant();
+        // look for common size tokens
+        if (n.Contains("XXS")) return Storlek.XXS;
+        if (n.Contains("XS")) return Storlek.XS;
+        if (n.Contains("S") && (n.Contains(" SIZE ") || n.EndsWith(" S") || n.Contains(" S ") || n.Contains(" SMALL"))) return Storlek.S;
+        if (n.Contains("M") && (n.Contains(" SIZE ") || n.EndsWith(" M") || n.Contains(" M ") || n.Contains(" MEDIUM"))) return Storlek.M;
+        if (n.Contains("L") && (n.Contains(" SIZE ") || n.EndsWith(" L") || n.Contains(" L ") || n.Contains(" LARGE"))) return Storlek.L;
+        if (n.Contains("XL") && !n.Contains("XXL")) return Storlek.XL;
+        if (n.Contains("XXL")) return Storlek.XXL;
+        // fallback: detect common abbreviations at end
+        if (n.EndsWith(" XS")) return Storlek.XS;
+        if (n.EndsWith(" S")) return Storlek.S;
+        if (n.EndsWith(" M")) return Storlek.M;
+        if (n.EndsWith(" L")) return Storlek.L;
+        if (n.EndsWith(" XL")) return Storlek.XL;
+        if (n.EndsWith(" XXL")) return Storlek.XXL;
+        return Storlek.Okänd;
     }
 
     public async Task SeedAsync(CancellationToken ct = default) // Huvudmetod som körs för att fylla databasen med initial data
@@ -128,6 +173,24 @@ public class SeederGenerator
                                 var besk = p.TryGetProperty("Besk", out var b) ? b.GetString() : null; // Hämtar produktens beskrivning från JSON, eller sätter den till null om den inte finns
                                 var pris = p.TryGetProperty("Pris", out var pr) ? pr.GetDecimal() : 0m; // Hämtar produktens pris från JSON, eller sätter det till 0 om det inte finns
                                 var lager = p.TryGetProperty("Lager", out var l) ? l.GetInt32() : 0; // Hämtar produktens lagerantal från JSON, eller sätter det till 0 om det inte finns
+                                // Färg och storlek: läs från JSON om angivet, annars försök inferera från produktnamn
+                                Färg färg = Färg.Okänd;
+                                Storlek storlek = Storlek.Okänd;
+                                if (p.TryGetProperty("Färg", out var färgProp) || p.TryGetProperty("Farg", out färgProp))
+                                {
+                                    var färgStr = färgProp.GetString();
+                                    if (!string.IsNullOrWhiteSpace(färgStr) && Enum.TryParse<Färg>(NormalizeEnumString(färgStr), true, out var parsedFärg))
+                                        färg = parsedFärg;
+                                }
+                                if (p.TryGetProperty("Storlek", out var storProp))
+                                {
+                                    var storStr = storProp.GetString();
+                                    if (!string.IsNullOrWhiteSpace(storStr) && Enum.TryParse<Storlek>(NormalizeEnumString(storStr), true, out var parsedStor))
+                                        storlek = parsedStor;
+                                }
+                                // infer if still unknown
+                                if (färg == Färg.Okänd) färg = InferColorFromName(prodName);
+                                if (storlek == Storlek.Okänd) storlek = InferSizeFromName(prodName);
 
                                 var exists = await _ctx.Produkter.AnyAsync(x => x.Namn == prodName && x.Kategori != null && x.Kategori.Namn == catName, ct); // Kontrollerar om en produkt med samma namn och kategori redan finns i databasen för att undvika dubbletter
                                 if (!exists) // Om produkten inte redan finns, skapas en ny produkt och läggs till i databasen
@@ -139,6 +202,8 @@ public class SeederGenerator
                                         Beskrivning = besk,
                                         Pris = pris,
                                         LagerAntal = lager,
+                                        Färg = färg,
+                                        Storlek = storlek,
                                         KategoriId = kategori.Id,
                                         LeverantörId = defaultSupplier.Id,
                                         ProduktOrdrar = new List<ProduktOrder>()

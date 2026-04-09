@@ -68,7 +68,13 @@ public class App
         // Logger
         services.AddLogging(builder =>
         {
+            builder.ClearProviders();
             builder.AddConsole();
+           
+            // Dölj EF Core SQL/info-loggar. Visa bara warnings/errors från EF.
+            builder.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Warning);
+            builder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+
             builder.SetMinimumLevel(LogLevel.Information);
         });
         // Seeder
