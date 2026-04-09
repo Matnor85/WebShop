@@ -13,13 +13,13 @@ namespace WebShop.Presentation.Menu;
 public class AdminMenu
 {
     bool _isRunning = true;
-    private readonly AdminProdukt _adminProdukt;
-    private readonly AdminKategori _adminKategori;
+    private readonly KategoriMenu _kategoriMenu;
+    private readonly ProduktMenu _produktMenu;
 
-    public AdminMenu(AdminProdukt adminProdukt, AdminKategori adminKategori)
+    public AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu)
     {
-        _adminProdukt = adminProdukt;
-        _adminKategori = adminKategori;
+        _kategoriMenu = kategoriMenu;
+        _produktMenu = produktMenu;
     }
 
 
@@ -38,10 +38,10 @@ public class AdminMenu
             switch (input)
             {
             case "1":
-                await _adminProdukt.ProduktMenuRunAsync();
+                await _produktMenu.ProduktMenuRunAsync();
                 break;
             case "2":
-                await _adminKategori.KategoriMenuRunAsync();
+                await _kategoriMenu.KategoriMenuRunAsync();
                 break;
             case "3":
                 break;

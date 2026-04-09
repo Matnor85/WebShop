@@ -18,47 +18,7 @@ public class AdminKategori
         _kategoriService = kategoriService;
     }
 
-    public void ShowAdminKategoriMenu()
-    {
-        Console.Clear();
-        Console.WriteLine("Hantera kategorier!");
-        Console.WriteLine("1 - Visa alla kategorier");
-        Console.WriteLine("2 - Skapa ny kategori");
-        Console.WriteLine("3 - Uppdatera kategori");
-        Console.WriteLine("4 - Ta bort kategori");
-        Console.WriteLine("5 - Tillbaka till huvudmenyn");
-    }
-
-    public async Task HanteraKategorierAsync()
-    {
-        Console.Clear();
-        ShowAdminKategoriMenu();
-        var input = Console.ReadLine();
-        switch (input)
-        {
-            case "1":
-                Console.Clear();
-                await ShowKategoriList();
-                break;
-            case "2":
-                await AddKategoriAsync();
-                break;
-            case "3":
-                await UpdateKategoriAsync();
-                break;
-            case "4":
-                await DeleteKategoriAsync();
-                break;
-            case "5":
-                _isRunning = false;
-                break;
-            default:
-                Console.WriteLine("Ogiltigt val, försök igen.");
-                break;
-        }
-    }
-
-    private async Task DeleteKategoriAsync()
+    public async Task DeleteKategoriAsync()
     {
         try
         {
@@ -102,7 +62,7 @@ public class AdminKategori
         }
     }
 
-    private async Task UpdateKategoriAsync()
+    public async Task UpdateKategoriAsync()
     {
         try
         {
@@ -152,7 +112,7 @@ public class AdminKategori
     }
 
 
-    private async Task AddKategoriAsync()
+    public async Task AddKategoriAsync()
     {
         Console.WriteLine("=== Lägg till kategori ===");
         Console.WriteLine("Ange namn: ");
@@ -177,7 +137,7 @@ public class AdminKategori
         }
     }
 
-    private async Task ShowKategoriList()
+    public async Task ShowKategoriList()
     {
         try
         {
@@ -199,14 +159,6 @@ public class AdminKategori
         catch (ArgumentException ex)
         {
             Console.WriteLine($"Fel: {ex.Message}");
-        }
-    }
-
-    public async Task KategoriMenuRunAsync()
-    {
-        while (_isRunning)
-        {
-            await HanteraKategorierAsync();
         }
     }
 }
