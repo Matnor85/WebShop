@@ -8,15 +8,8 @@ using WebShop.Presentation.Menu;
 
 namespace WebShop.Presentation.DisplayService;
 
-public class AdminKategori
+public class AdminKategori(IKategoriService _kategoriService)
 {
-    IKategoriService _kategoriService;
-
-    public AdminKategori(IKategoriService kategoriService)
-    {
-        _kategoriService = kategoriService;
-    }
-
     public async Task DeleteKategoriAsync()
     {
         try
