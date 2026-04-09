@@ -14,6 +14,16 @@ public class AdminMenu
 {
    // Meny _meny = new Meny();
     bool _isRunning = true;
+    private readonly AdminProdukt _adminProdukt;
+    private readonly AdminKategori _adminKategori;
+
+    public AdminMenu(AdminProdukt adminProdukt, AdminKategori adminKategori)
+    {
+        _adminProdukt = adminProdukt;
+        _adminKategori = adminKategori;
+    }
+
+
     public void ShowAdminMenu()
     {
         Console.Clear();
@@ -22,16 +32,17 @@ public class AdminMenu
         Console.WriteLine("2 - *****");
         Console.WriteLine("6 - Tillbaka till startmenyn");
     }
-    public void HandleInput()
+    public async Task HandleInputAsync()
     {
        
             var input = Console.ReadLine();
             switch (input)
             {
             case "1":
-                AdminProdukt.HanteraProdukter();
+                await _adminProdukt.ProduktMenuRunAsync();
                 break;
             case "2":
+                await _adminKategori.KategoriMenuRunAsync();
                 break;
             case "3":
                 break;
@@ -50,12 +61,12 @@ public class AdminMenu
             }
         
     }
-    public void AdminRun()
+    public async Task AdminRunAsync()
     {
         while (_isRunning)
-        {
+        {   
             ShowAdminMenu();
-            HandleInput();
+            await HandleInputAsync();
         }
     }
 }

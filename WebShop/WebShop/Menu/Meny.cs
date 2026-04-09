@@ -6,9 +6,15 @@ namespace WebShop.Presentation.Menu;
 
 public class Meny
 {
-    WebShopMenu _webShopMenu = new WebShopMenu();
-    AdminMenu _adminMenu = new AdminMenu();
+    WebShopMenu _webShopMenu;
+    AdminMenu _adminMenu;
     public bool _isRunning = true;
+
+    public Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
+    {
+        _webShopMenu = webShopMenu;
+        _adminMenu = adminMenu;
+    }
     public void ShowMainMenu()
     {
         Console.Clear();
@@ -17,9 +23,8 @@ public class Meny
         Console.WriteLine("2 - Admin");
         Console.WriteLine("3 - Avsluta");
     }
-    public void HandleInput()
+    public async Task HandleInput()
     {
-        
             var input = Console.ReadLine();
             switch (input)
             {
@@ -27,7 +32,7 @@ public class Meny
                     _webShopMenu.WebbRun();
                     break;
                 case "2":
-                    _adminMenu.AdminRun();
+                   await _adminMenu.AdminRunAsync();
                     break;
                 case "3":
                     Console.WriteLine("Tack för att du besökte vår webshop. Ha en bra dag!");
@@ -37,7 +42,7 @@ public class Meny
                     Console.WriteLine("Ogiltigt val, försök igen.");
                     break;
             
-        }
+            }
     }
 
     public static void Wait()
@@ -45,12 +50,12 @@ public class Meny
         Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
         Console.ReadKey();
     }
-    public void MenuRun()
+    public async Task MenuRunAsync()
     {
         while (_isRunning)
         {
             ShowMainMenu();
-            HandleInput();
+            await HandleInput();
         }
     }
 }

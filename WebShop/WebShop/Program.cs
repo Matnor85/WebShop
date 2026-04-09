@@ -6,10 +6,8 @@ namespace WebShop;
 
 internal class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
-        Meny Meny = new Meny();
-        Meny.MenuRun();
-        //App.Run();
+        await App.RunAsync();
     }
 }

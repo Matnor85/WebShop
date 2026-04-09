@@ -11,6 +11,10 @@ public class Kategori
     public List<Produkt> Produkter { get; set; } = new List<Produkt>();
 
     public Kategori() { }
-    
-    
+
+    public Kategori(string namn)
+    {
+        Id = Guid.NewGuid();
+        Namn = namn;
+    }
 }   
