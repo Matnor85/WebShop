@@ -16,11 +16,13 @@ public class AdminMenu
     bool _isRunning = true;
     private readonly KategoriMenu _kategoriMenu;
     private readonly ProduktMenu _produktMenu;
+    private readonly KundMenu _kundMenu;
 
-    public AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu)
+    public AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu)
     {
         _kategoriMenu = kategoriMenu;
         _produktMenu = produktMenu;
+        _kundMenu = kundMenu;
     }
 
 
@@ -29,7 +31,8 @@ public class AdminMenu
         Console.Clear();
         Console.WriteLine("Admin val!");
         Console.WriteLine("1 - Hantera produkter");
-        Console.WriteLine("2 - *****");
+        Console.WriteLine("2 - Hantera kategorier");
+        Console.WriteLine("3 - Hantera kunder");
         Console.WriteLine("6 - Tillbaka till startmenyn");
     }
     public async Task HandleInputAsync()
@@ -45,6 +48,7 @@ public class AdminMenu
                 await _kategoriMenu.KategoriMenuRunAsync();
                 break;
             case "3":
+                await _kundMenu.KundMenuRunAsync();
                 break;
             case "4":
                 break;
