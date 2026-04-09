@@ -14,10 +14,7 @@ public class OrderMenu(AdminOrder _adminOrder)
         Console.Clear();
         Console.WriteLine("Hantera order!");
         Console.WriteLine("1 - Visa alla order");
-        Console.WriteLine("2 - Skapa ny order");
-        Console.WriteLine("3 - Uppdatera order");
-        Console.WriteLine("4 - Ta bort order");
-        Console.WriteLine("5 - Tillbaka till huvudmenyn");
+        Console.WriteLine("2 - Tillbaka till huvudmenyn");
     }
 
     public async Task HanteraOrderAsync()
@@ -31,7 +28,7 @@ public class OrderMenu(AdminOrder _adminOrder)
                 Console.Clear();
                 await _adminOrder.ShowOrderList();
                 break;
-            case "5":
+            case "2":
                 _isRunning = false;
                 break;
             default:

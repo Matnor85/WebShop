@@ -27,6 +27,9 @@ public class Kund
         MobilNummer = mobilNummer;
         Epost = epost;
     }
-
+    public override string ToString()
+    {
+        return $"Namn: {Namn}, Adress: {Adress}, Stad: {Stad}, Postnummer: {Postnummer}, Telefonnummer: {MobilNummer}, E-post: {Epost}";
+    }
 }
 

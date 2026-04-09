@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Helpers;
+﻿using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
 using WebShop.Presentation.Menu;
@@ -54,9 +51,8 @@ public class AdminKategori(IKategoriService _kategoriService)
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
-        
-        }
-    
+    }
+
 
     public async Task UpdateKategoriAsync()
     {
