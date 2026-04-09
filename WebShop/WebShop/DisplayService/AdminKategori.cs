@@ -11,7 +11,6 @@ namespace WebShop.Presentation.DisplayService;
 public class AdminKategori
 {
     IKategoriService _kategoriService;
-    bool _isRunning = true;
 
     public AdminKategori(IKategoriService kategoriService)
     {
@@ -60,6 +59,10 @@ public class AdminKategori
         {
             Console.WriteLine($"Fel: {ex.Message}");
         }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Fel: {ex.Message}");
+        }
     }
 
     public async Task UpdateKategoriAsync()
@@ -83,9 +86,7 @@ public class AdminKategori
                 throw new ArgumentException("Ogiltigt val av kategori");
             }
 
-            Console.WriteLine("Ange nytt namn:");
-            var nyttNamn = Console.ReadLine();
-            DataValidering.ValidateName(nyttNamn);
+            string? nyttNamn = GetKatogeriName();
 
             Console.WriteLine("Sammanfattning av ändrad kategori:");
             Console.WriteLine($"Namn: {kategorier[kategoriVal - 1].Namn} - {nyttNamn}");
@@ -115,10 +116,7 @@ public class AdminKategori
     public async Task AddKategoriAsync()
     {
         Console.WriteLine("=== Lägg till kategori ===");
-        Console.WriteLine("Ange namn: ");
-        var name = Console.ReadLine();
-        DataValidering.ValidateName(name);
-        Console.Clear();
+        string? name = GetKatogeriName();
         var kategori = new Kategori(name);
         Console.WriteLine($"Är du säker du vill lägga till {name}? (J/N)");
         var confirm = Console.ReadLine();
@@ -135,6 +133,15 @@ public class AdminKategori
             Console.WriteLine("Kategorin har inte lagts till.");
             Meny.Wait();
         }
+    }
+
+    private static string GetKatogeriName()
+    {
+        Console.WriteLine("Ange namn: ");
+        var name = Console.ReadLine();
+        DataValidering.ValidateName(name);
+        Console.Clear();
+        return name;
     }
 
     public async Task ShowKategoriList()

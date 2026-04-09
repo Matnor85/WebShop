@@ -7,10 +7,24 @@ using Webshop.Domain.Interfaces;
 
 namespace Webshop.Application.Services;
 
-public class KategoriService(IKategoriRepository _repository) : IKategoriService
+public class KategoriService : IKategoriService 
 {
+    public IKategoriRepository _repository;
+    public IProduktService _produktService;
+    public KategoriService(IKategoriRepository repository, IProduktService produktService)
+    {
+         _repository = repository;
+         _produktService = produktService;
+    }
     public async Task<Kategori> AddAsync(Kategori kategori) => await _repository.AddAsync(kategori);
-    public async Task DeleteAsync(Guid id) => await _repository.DeleteAsync(id);
+    public async Task DeleteAsync(Guid id)
+    {
+        var produkter = await _produktService.GetByKategoriAsync(id);
+        if (produkter.Count > 0)
+            throw new InvalidOperationException($"Kan inte ta bort kategorin, {produkter.Count} produkter tillhör kategorin");
+
+        await _repository.DeleteAsync(id);
+    }
     public async Task<bool> ExistsAsync(Guid id) => await _repository.ExistsAsync(id);
     public async Task<List<Kategori>> GetAllAsync() => await _repository.GetAllAsync();
     public async Task<Kategori> GetByIdAsync(Guid id) => await _repository.GetByIdAsync(id);
