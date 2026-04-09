@@ -162,19 +162,19 @@ public class AdminProdukt
     {
         try
         {
-        Console.WriteLine("=== Visar produkter ===");
-        var produktList = await _produktService.GetAllAsync();
-        if (produktList == null || produktList.Count <= 0)
-        {
-            Console.WriteLine("inga produkter hittades.");
-            Meny.Wait();
+            Console.WriteLine("=== Visar produkter ===");
+            var produktList = await _produktService.GetAllAsync();
+            if (produktList == null || produktList.Count <= 0)
+            {
+                Console.WriteLine("inga produkter hittades.");
+                Meny.Wait();
                 return;
-        }
-        foreach (var p in produktList)
-        {
-            Console.WriteLine($"Id: {p.Id}, Namn: {p.Namn}, Lagersaldo: {p.LagerAntal} ");
-        }
-        Meny.Wait();
+            }
+            foreach (var p in produktList)
+            {
+                Console.WriteLine($"Id: {p.Id}, Namn: {p.Namn}, Lagersaldo: {p.LagerAntal} ");
+            }
+            Meny.Wait();
 
         }
         catch (ArgumentException ex)
@@ -185,78 +185,184 @@ public class AdminProdukt
     }
 
     public async Task<(Produkt produkt, string leverantörNamn, string kategoriNamn)> ProduktInput()
-
     {
-        Console.WriteLine("Ange namn");
-        var namn = Console.ReadLine();
-        DataValidering.ValidateName(namn);
-        Console.Clear();
+        var namn = GetName();
+        var beskrivning = GetDescription();
+        var pris = GetPrice();
+        var färg = GetFärg();
+        var storlek = GetStorlek();
+        var lagerAntal = GetLagerAntal();
+        var (leverantörId, leverantörNamn) = await GetLeverantörAsync();
+        var (kategoriId, kategoriNamn) = await GetKategoriAsync();
 
-        Console.WriteLine("Ange Beskrivning");
-        var beskrivning = Console.ReadLine();
-        ProduktValidering.ValidateDescription(beskrivning);
-        Console.Clear();
-
-        Console.WriteLine("Ange Pris");
-        if (!decimal.TryParse(Console.ReadLine(), out decimal pris))
-        {
-            throw new ArgumentException("Ogiltigt prisformat");
-        }
-        DataValidering.ValidatePrice(pris);
-        Console.Clear();
-
-        Console.WriteLine("Ange färg: ");
-        foreach (var color in Enum.GetValues(typeof(Färg)).Cast<Färg>().Where(f => f != Färg.Okänd))
-        {
-            Console.WriteLine($"{(int)color} - {color}");
-        }
-        var färgInput = Console.ReadLine();
-        ProduktValidering.ValidateFärg(färgInput, out Färg färg);
-        Console.Clear();
-
-        Console.WriteLine("Ange Storlek: ");
-        foreach (var s in Enum.GetValues(typeof(Storlek)).Cast<Storlek>().Where(s => s != Storlek.Okänd))
-        {
-            Console.WriteLine($"{(int)s} - {s}");
-        }
-        var storlekInput = Console.ReadLine();
-        ProduktValidering.ValidateStorlek(storlekInput, out Storlek storlek);
-        Console.Clear();
-
-        Console.WriteLine("Ange Lagerantal: ");
-        if (!int.TryParse(Console.ReadLine(), out int lagerAntal))
-        {
-            throw new ArgumentException("Ogiltigt lagerantal");
-        }
-        ProduktValidering.ValidateStock(lagerAntal);
-        Console.Clear();
-
-        Console.WriteLine("Ange Leverantör: ");
-        var leverantörer = await _leverantörService.GetAllAsync();
-        for (int i = 0; i < leverantörer.Count; i++)
-        {
-            Console.WriteLine($"{i + 1} - {leverantörer[i].Namn}");
-        }
-        if (!int.TryParse(Console.ReadLine(), out int leverantörVal) || leverantörVal < 1 || leverantörVal > leverantörer.Count)
-        {
-            throw new ArgumentException("Ogiltigt val av leverantör");
-        }
-        var leverantörId = leverantörer[leverantörVal - 1].Id;
-        Console.Clear();
-
-        Console.WriteLine("Ange Kategori: ");
-        var kategorier = await _kategoriService.GetAllAsync();
-        for (int i = 0; i < kategorier.Count; i++)
-        {
-            Console.WriteLine($"{i + 1} - {kategorier[i].Namn}");
-        }
-        if (!int.TryParse(Console.ReadLine(), out int kategoriVal) || kategoriVal < 1 || kategoriVal > kategorier.Count)
-        {
-            throw new ArgumentException("Ogiltigt val av kategori");
-        }
-        var kategoriId = kategorier[kategoriVal - 1].Id;
-        Console.Clear();
-        return (new Produkt(namn, beskrivning, pris, färg, storlek, lagerAntal, leverantörId, kategoriId), leverantörer[leverantörVal - 1].Namn, kategorier[kategoriVal - 1].Namn);
+        return (new Produkt(namn, beskrivning, pris, färg, storlek, lagerAntal, leverantörId, kategoriId), leverantörNamn, kategoriNamn);
     }
-    
+
+    public string GetName()
+    {
+        while (true)
+        {
+            Console.WriteLine("Ange namn");
+            var namn = Console.ReadLine();
+            try
+            {
+                DataValidering.ValidateName(namn);
+                Console.Clear();
+                return namn;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Fel: {ex.Message}");
+            }
+        }
+    }
+
+    public string GetDescription()
+    {
+        while (true)
+        {
+            Console.WriteLine("Ange Beskrivning");
+            var beskrivning = Console.ReadLine();
+            try
+            {
+                ProduktValidering.ValidateDescription(beskrivning);
+                Console.Clear();
+                return beskrivning;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Fel: {ex.Message}");
+            }
+        }
+    }
+
+    public decimal GetPrice()
+    {
+        while (true)
+        {
+            Console.WriteLine("Ange Pris");
+            var input = Console.ReadLine();
+            if (!decimal.TryParse(input, out decimal pris))
+            {
+                Console.WriteLine("Ogiltigt prisformat");
+                continue;
+            }
+            try
+            {
+                DataValidering.ValidatePrice(pris);
+                Console.Clear();
+                return pris;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Fel: {ex.Message}");
+            }
+        }
+    }
+
+    public Färg GetFärg()
+    {
+        while (true)
+        {
+            Console.WriteLine("Ange färg: ");
+            foreach (var color in Enum.GetValues(typeof(Färg)).Cast<Färg>().Where(f => f != Färg.Okänd))
+            {
+                Console.WriteLine($"{(int)color} - {color}");
+            }
+            var input = Console.ReadLine();
+            try
+            {
+                ProduktValidering.ValidateFärg(input, out Färg färg);
+                Console.Clear();
+                return färg;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Fel: {ex.Message}");
+            }
+        }
+    }
+
+    public Storlek GetStorlek()
+    {
+        while (true)
+        {
+            Console.WriteLine("Ange Storlek: ");
+            foreach (var s in Enum.GetValues(typeof(Storlek)).Cast<Storlek>().Where(s => s != Storlek.Okänd))
+            {
+                Console.WriteLine($"{(int)s} - {s}");
+            }
+            var input = Console.ReadLine();
+            try
+            {
+                ProduktValidering.ValidateStorlek(input, out Storlek storlek);
+                Console.Clear();
+                return storlek;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Fel: {ex.Message}");
+            }
+        }
+    }
+    public int GetLagerAntal()
+    {
+        while (true)
+        {
+            Console.WriteLine("Ange Lagerantal: ");
+            var input = Console.ReadLine();
+            if (!int.TryParse(input, out int lagerAntal))
+            {
+                Console.WriteLine("Ogiltigt lagerantal");
+                continue;
+            }
+            try
+            {
+                ProduktValidering.ValidateStock(lagerAntal);
+                Console.Clear();
+                return lagerAntal;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Fel: {ex.Message}");
+            }
+        }
+    }
+
+    public async Task<(Guid id, string namn)> GetLeverantörAsync()
+    {
+        
+        var leverantörer = await _leverantörService.GetAllAsync();
+        while (true)
+        {
+            Console.WriteLine("Ange leverantör:");
+            for (int i = 0; i < leverantörer.Count; i++)
+                Console.WriteLine($"{i + 1} - {leverantörer[i].Namn}");
+            if (!int.TryParse(Console.ReadLine(), out int val) || val < 1 || val > leverantörer.Count)
+            {
+                Console.WriteLine("Ogiltigt val av leverantör");
+                continue;
+            }
+            Console.Clear();
+            return (leverantörer[val - 1].Id, leverantörer[val - 1].Namn);
+        }
+    }
+
+    public async Task<(Guid id, string namn)> GetKategoriAsync()
+    {
+        var kategorier = await _kategoriService.GetAllAsync();
+        while (true)
+        {
+            Console.WriteLine("Ange kategori:");
+            for (int i = 0; i < kategorier.Count; i++)
+                Console.WriteLine($"{i + 1} - {kategorier[i].Namn}");
+            if (!int.TryParse(Console.ReadLine(), out int val) || val < 1 || val > kategorier.Count)
+            {
+                Console.WriteLine("Ogiltigt val av kategori");
+                continue;
+            }
+            Console.Clear();
+            return (kategorier[val - 1].Id, kategorier[val - 1].Namn);
+        }
+    }
 }
