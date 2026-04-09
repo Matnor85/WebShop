@@ -57,6 +57,7 @@ public class App
         services.AddScoped<WebShopMenu>();
         services.AddScoped<AdminMenu>();
         services.AddScoped<AdminProdukt>();
+        services.AddScoped<AdminKategori>();
 
         var servicesProvider = services.BuildServiceProvider();
         

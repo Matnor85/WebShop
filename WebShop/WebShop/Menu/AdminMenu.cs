@@ -12,7 +12,6 @@ namespace WebShop.Presentation.Menu;
 /// </summary>
 public class AdminMenu
 {
-   // Meny _meny = new Meny();
     bool _isRunning = true;
     private readonly AdminProdukt _adminProdukt;
     private readonly AdminKategori _adminKategori;
@@ -52,8 +51,6 @@ public class AdminMenu
                 break;
             case "6":
                     _isRunning = false;
-                    //Console.WriteLine("Tack för att du besökte vår webshop. Ha en bra dag!");
-                   // _meny.MenuRun();
                     return;
                 default:
                     Console.WriteLine("Ogiltigt val, försök igen.");
