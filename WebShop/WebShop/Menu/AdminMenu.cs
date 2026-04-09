@@ -11,20 +11,9 @@ namespace WebShop.Presentation.Menu;
 /// 6. Implementera funktionalitet för att hantera fraktalternativ och leveransstatus
 /// 
 /// </summary>
-public class AdminMenu
+public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu)
 {
     bool _isRunning = true;
-    private readonly KategoriMenu _kategoriMenu;
-    private readonly ProduktMenu _produktMenu;
-    private readonly KundMenu _kundMenu;
-
-    public AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu)
-    {
-        _kategoriMenu = kategoriMenu;
-        _produktMenu = produktMenu;
-        _kundMenu = kundMenu;
-    }
-
 
     public void ShowAdminMenu()
     {
@@ -42,13 +31,13 @@ public class AdminMenu
             switch (input)
             {
             case "1":
-                await _produktMenu.ProduktMenuRunAsync();
+                await produktMenu.ProduktMenuRunAsync();
                 break;
             case "2":
-                await _kategoriMenu.KategoriMenuRunAsync();
+                await kategoriMenu.KategoriMenuRunAsync();
                 break;
             case "3":
-                await _kundMenu.KundMenuRunAsync();
+                await kundMenu.KundMenuRunAsync();
                 break;
             case "4":
                 break;

@@ -35,4 +35,8 @@ public class Produkt
         KategoriId = kategoriId;
     }
 
+    public override string ToString()
+    {
+        return $"Namn: {Namn}, Beskrivning: {Beskrivning}, Pris: {Pris}, Färg: {Färg}, Storlek: {Storlek}, LagerAntal: {LagerAntal}, Leverantörnamn: {Leverantör?.Namn}, Kategorinamn: {Kategori?.Namn}";
+    }
 }

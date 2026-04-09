@@ -20,7 +20,10 @@ public class AdminOrder
         {
             var orders = await _orderService.GetAllAsync();
             if (orders == null)
-                throw new ArgumentException("Inga order hittades.");
+            {
+                Console.WriteLine("Inga order hittades.");
+                return;
+            }
             for (int i = 0; i < orders.Count; i++)
             {
                 Console.WriteLine($"Id {i + 1}, Kund: {orders[i].Kund.Namn}, Totalpris: {orders[i].TotalPris}, Fraktombud: {orders[i].FraktOmbud.Namn}");

@@ -4,17 +4,10 @@ using System.Text;
 
 namespace WebShop.Presentation.Menu;
 
-public class Meny
+public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
 {
-    WebShopMenu _webShopMenu;
-    AdminMenu _adminMenu;
     public bool _isRunning = true;
 
-    public Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
-    {
-        _webShopMenu = webShopMenu;
-        _adminMenu = adminMenu;
-    }
     public void ShowMainMenu()
     {
         Console.Clear();
@@ -29,10 +22,10 @@ public class Meny
             switch (input)
             {
                 case "1":
-                    _webShopMenu.WebbRun();
+                    webShopMenu.WebbRun();
                     break;
                 case "2":
-                   await _adminMenu.AdminRunAsync();
+                   await adminMenu.AdminRunAsync();
                     break;
                 case "3":
                     Console.WriteLine("Tack för att du besökte vår webshop. Ha en bra dag!");

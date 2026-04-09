@@ -76,7 +76,9 @@ public class AdminKund
             }
             if(!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > kunder.Count)
             {
-                throw new ArgumentException("Ogiltigt val. Vänligen ange ett nummer från listan.");
+                Console.WriteLine("Ogiltigt val. Vänligen ange ett nummer från listan.");
+                Meny.Wait();
+                return;
             }
             Console.WriteLine($"Vill du ta bort kunden {kunder[choice - 1].Namn} (J/N)?");
             var confirm = Console.ReadLine();
@@ -95,9 +97,9 @@ public class AdminKund
             }
 
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
 
@@ -121,9 +123,9 @@ public class AdminKund
              Meny.Wait();
 
             }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
 
@@ -146,7 +148,9 @@ public class AdminKund
             }
             if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > kunder.Count)
             {
-                throw new ArgumentException("Ogiltigt val. Vänligen ange ett nummer från listan.");
+                Console.WriteLine("Ogiltigt val. Vänligen ange ett nummer från listan.");
+                Meny.Wait();
+                return;
             }
             var newKund = await KundInput();
             Console.WriteLine("Sammanfattning av ändrad kund: ");
@@ -174,9 +178,9 @@ public class AdminKund
                 Meny.Wait();
             }
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
 

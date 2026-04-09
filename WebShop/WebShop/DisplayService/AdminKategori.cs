@@ -29,7 +29,9 @@ public class AdminKategori(IKategoriService _kategoriService)
             }
             if (!int.TryParse(Console.ReadLine(), out int kategoriVal) || kategoriVal < 1 || kategoriVal > kategorier.Count)
             {
-                throw new ArgumentException("Ogiltigt val av kategori");
+                Console.WriteLine("Ogiltigt val av kategori");
+                Meny.Wait();
+                return;
             }
             Console.WriteLine($"Vald kategori: {kategorier[kategoriVal - 1].Namn}");
             Console.WriteLine("Är du säker på att du vill ta bort denna kategori? (J/N)");
@@ -48,15 +50,13 @@ public class AdminKategori(IKategoriService _kategoriService)
                 Meny.Wait();
             }
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
-        catch (InvalidOperationException ex)
-        {
-            Console.WriteLine($"Fel: {ex.Message}");
+        
         }
-    }
+    
 
     public async Task UpdateKategoriAsync()
     {
@@ -76,7 +76,9 @@ public class AdminKategori(IKategoriService _kategoriService)
             }
             if (!int.TryParse(Console.ReadLine(), out int kategoriVal) || kategoriVal < 1 || kategoriVal > kategorier.Count)
             {
-                throw new ArgumentException("Ogiltigt val av kategori");
+                Console.WriteLine("Ogiltigt val av kategori");
+                Meny.Wait();
+                return;
             }
 
             string? nyttNamn = GetKatogeriName();
@@ -99,9 +101,9 @@ public class AdminKategori(IKategoriService _kategoriService)
                 Meny.Wait();
             }
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
 
@@ -156,9 +158,9 @@ public class AdminKategori(IKategoriService _kategoriService)
             Meny.Wait();
 
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
 }

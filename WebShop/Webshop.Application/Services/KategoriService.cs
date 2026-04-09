@@ -21,9 +21,9 @@ public class KategoriService : IKategoriService
     {
         var produkter = await _produktService.GetByKategoriAsync(id);
         if (produkter.Count > 0)
-            throw new InvalidOperationException($"Kan inte ta bort kategorin, {produkter.Count} produkter tillhör kategorin");
-
-        await _repository.DeleteAsync(id);
+            Console.WriteLine($"Kan inte ta bort kategorin, {produkter.Count} produkter tillhör kategorin");
+        else
+            await _repository.DeleteAsync(id);
     }
     public async Task<bool> ExistsAsync(Guid id) => await _repository.ExistsAsync(id);
     public async Task<List<Kategori>> GetAllAsync() => await _repository.GetAllAsync();
