@@ -7,7 +7,7 @@ using Webshop.Domain.Interfaces;
 
 namespace Webshop.Infrastructure.EF.Repositories;
 
-class FraktOmbudRepository : IFraktOmbudRepository
+public class FraktOmbudRepository : IFraktOmbudRepository
 {
     private readonly WebshopDbContext _context;
     public FraktOmbudRepository(WebshopDbContext context)
