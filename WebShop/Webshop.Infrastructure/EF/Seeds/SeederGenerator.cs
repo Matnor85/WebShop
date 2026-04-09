@@ -29,9 +29,35 @@ public class SeederGenerator
         using var tx = await _ctx.Database.BeginTransactionAsync(ct); // Startar en transaktion så att allt seedande sker atomärt
         try
         {
-            var baseDir = Directory.GetCurrentDirectory(); // Hittar den aktuella katalogen där applikationen körs
-            var masterPath = Path.Combine(baseDir, "Webshop.Infrastructure", "EF", "Seeds", "Json", "Seeder.json"); // Sökväg till huvud-JSON-filen som innehåller leverantörer, fraktombud, kategorier och produkter
-            var transPath = Path.Combine(baseDir, "Webshop.Infrastructure", "EF", "Seeds", "Json", "SeederTransactions.json"); // Sökväg till JSON-filen som innehåller kunder och ordrar
+            // Find seed files. When running from different working directories the files might not be in the current directory.
+            string ResolveSeedFile(string relativePath)
+            {
+                // try AppContext.BaseDirectory and walk up a few levels to find the repository root
+                var start = AppContext.BaseDirectory;
+                for (int i = 0; i < 6; i++)
+                {
+                    var candidate = Path.Combine(start, relativePath);
+                    if (File.Exists(candidate)) return candidate;
+                    start = Path.GetDirectoryName(start) ?? start;
+                }
+                // fallback to current directory search
+                start = Directory.GetCurrentDirectory();
+                for (int i = 0; i < 6; i++)
+                {
+                    var candidate = Path.Combine(start, relativePath);
+                    if (File.Exists(candidate)) return candidate;
+                    start = Path.GetDirectoryName(start) ?? start;
+                }
+                return Path.Combine(AppContext.BaseDirectory, relativePath); // last resort (may not exist)
+            }
+
+            var relative = Path.Combine("Webshop.Infrastructure", "EF", "Seeds", "Json");
+            var masterPath = ResolveSeedFile(Path.Combine(relative, "Seeder.json"));
+            var transPath = ResolveSeedFile(Path.Combine(relative, "SeederTransactions.json"));
+
+            _log.LogInformation("DB: {conn}", _ctx.Database.GetDbConnection().ConnectionString);
+            _log.LogInformation("Master JSON path: {p} exists={e}", masterPath, File.Exists(masterPath));
+            _log.LogInformation("Trans JSON path: {p} exists={e}", transPath, File.Exists(transPath));
 
             if (File.Exists(masterPath)) // Kontrollerar att huvud-JSON-filen finns innan den läses
             {
@@ -125,7 +151,8 @@ public class SeederGenerator
                 }
             }
 
-            await _ctx.SaveChangesAsync(ct); // Sparar ändringar i databasen
+            var saved = await _ctx.SaveChangesAsync(ct);
+            _log.LogInformation("SaveChanges returned {count}", saved);
 
             // Transactions file (customers, orders)
             if (File.Exists(transPath)) // Kontrollerar att transaktions-JSON-filen finns innan den läses
