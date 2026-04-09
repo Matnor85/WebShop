@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using WebShop.Presentation.DisplayService;
 
-namespace WebShop.Presentation.Menu;
+namespace WebShop.Presentation.Menu.Submenu;
 
 public class KategoriMenu(AdminKategori _adminKategori)
 {

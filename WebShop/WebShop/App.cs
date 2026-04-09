@@ -12,6 +12,7 @@ using Webshop.Infrastructure.EF.Repositories;
 using Webshop.Infrastructure.EF.Seeds;
 using WebShop.Presentation.DisplayService;
 using WebShop.Presentation.Menu;
+using WebShop.Presentation.Menu.Submenu;
 
 namespace WebShop.Presentation;
 
