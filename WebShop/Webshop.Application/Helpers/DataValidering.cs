@@ -31,5 +31,14 @@ public class DataValidering
             Console.WriteLine("Id får inte vara tomt");
     }
 
+    public static bool ValidateListChoice(string input, int count, out int val)
+    {
+        if (!int.TryParse(input, out val) || val < 1 || val > count)
+        {
+            Console.WriteLine("Ogiltigt val");
+            return false;
+        }
+        return true;
+    }
 
 }

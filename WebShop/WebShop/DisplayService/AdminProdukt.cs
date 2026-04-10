@@ -18,8 +18,6 @@ public class AdminProdukt
         _kategoriService = kategoriService;
         _leverantörService = leverantörService;
     }
-
-
     public async Task DeleteProdukt()
     {
             Console.WriteLine("=== Ta bort produkt ===");
@@ -32,9 +30,8 @@ public class AdminProdukt
             {
                 Console.WriteLine($"{i + 1} - {produkter[i].Namn}, Lagersaldo: {produkter[i].LagerAntal}");
             }
-            if (!int.TryParse(Console.ReadLine(), out int produktVal) || produktVal < 1 || produktVal > produkter.Count)
+            if (!DataValidering.ValidateListChoice(Console.ReadLine(), produkter.Count, out int produktVal))
             {
-                Console.WriteLine("Ogiltigt val av produkt");
                 Meny.Wait();
                 return;
             }
@@ -55,71 +52,36 @@ public class AdminProdukt
             }
         
     }
-
     public async Task UpdateProdukt()
     {
         try
         {
             Console.WriteLine("=== Uppdatera produkt ===");
             var produkter = await _produktService.GetAllAsync();
-            Console.WriteLine("== Välj produkt att uppdatera ==");
-            for (int i = 0; i < produkter.Count; i++)
+            ShowProduktLista(produkter);
+
+            if (!DataValidering.ValidateListChoice(Console.ReadLine(), produkter.Count, out int produktVal))
             {
-                Console.WriteLine($"Id: {i + 1} - Namn: {produkter[i].Namn}, Lagersaldo: {produkter[i].LagerAntal}");
-            }
-            if (!int.TryParse(Console.ReadLine(), out int produktVal) || produktVal < 1 || produktVal > produkter.Count)
-            {
-                Console.WriteLine("Ogiltigt val av produkt");
                 Meny.Wait();
                 return;
-
             }
-
             var newProdukt = await ProduktInput();
             UpdateSummary(produkter, produktVal, newProdukt);
 
-            Console.WriteLine("Vill du uppdatera produkten? (J/N)");
-            var confirm = Console.ReadLine();
-            if (confirm.ToUpper() == "J")
-            {
-                newProdukt.produkt.Id = produkter[produktVal - 1].Id;
-                await _produktService.UpdateAsync(newProdukt.produkt);
-                Console.Clear();
-                Console.WriteLine("Produkten har uppdaterats.");
-                Meny.Wait();
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Produkten har inte uppdaterats.");
-                Meny.Wait();
-            }
+            await ConfirmUpdateProdukt(produkter, produktVal, newProdukt);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
-
-    private static void UpdateSummary(List<Produkt> produkter, int produktVal, (Produkt produkt, string leverantörNamn, string kategoriNamn) newProdukt)
-    {
-        Console.WriteLine("Sammanfattning av ändrad produkten:");
-        Console.WriteLine($"Namn: {produkter[produktVal - 1].Namn} - Namn: {newProdukt.produkt.Namn}");
-        Console.WriteLine($"Beskrivning: {produkter[produktVal - 1].Beskrivning} - Beskrivning: {newProdukt.produkt.Beskrivning}");
-        Console.WriteLine($"Pris: {produkter[produktVal - 1].Pris} - Pris: {newProdukt.produkt.Pris}");
-        Console.WriteLine($"Färg: {produkter[produktVal - 1].Färg} - Färg: {newProdukt.produkt.Färg}");
-        Console.WriteLine($"Storlek: {produkter[produktVal - 1].Storlek} - Storlek: {newProdukt.produkt.Storlek}");
-        Console.WriteLine($"Lagerantal: {produkter[produktVal - 1].LagerAntal} - Lagerantal: {newProdukt.produkt.LagerAntal}");
-        Console.WriteLine($"Leverantör: {produkter[produktVal - 1].Leverantör.Namn} - Leverantör: {newProdukt.leverantörNamn}");
-        Console.WriteLine($"Kategori: {produkter[produktVal - 1].Kategori.Namn} - Kategori: {newProdukt.kategoriNamn}");
-    }
-
     public async Task AddProduktAsync()
     {
             Console.Clear();
             Console.WriteLine("=== Lägg till produkt === ");
             var produktResult = await ProduktInput();
             Console.WriteLine(produktResult.produkt);
+            Console.WriteLine($"Leverantör: {produktResult.leverantörNamn}\nKategori: {produktResult.kategoriNamn}");
             
             Console.WriteLine("Vill du lägga till produkten? (J/N)");
 
@@ -142,8 +104,6 @@ public class AdminProdukt
 
     public async Task ShowProduktList()
     {
-        try
-        {
             Console.WriteLine("=== Visar produkter ===");
             var produktList = await _produktService.GetAllAsync();
             if (produktList == null || produktList.Count <= 0)
@@ -157,15 +117,46 @@ public class AdminProdukt
                 Console.WriteLine($"Namn: {p.Namn}, Lagersaldo: {p.LagerAntal} ");
             }
             Meny.Wait();
-
-        }
-        catch (ArgumentException ex)
+    }
+    private static void UpdateSummary(List<Produkt> produkter, int produktVal, (Produkt produkt, string leverantörNamn, string kategoriNamn) newProdukt)
+    {
+        Console.WriteLine("Sammanfattning av ändrad produkten:");
+        Console.WriteLine($"Namn: {produkter[produktVal - 1].Namn} - Namn: {newProdukt.produkt.Namn}");
+        Console.WriteLine($"Beskrivning: {produkter[produktVal - 1].Beskrivning} - Beskrivning: {newProdukt.produkt.Beskrivning}");
+        Console.WriteLine($"Pris: {produkter[produktVal - 1].Pris} - Pris: {newProdukt.produkt.Pris}");
+        Console.WriteLine($"Färg: {produkter[produktVal - 1].Färg} - Färg: {newProdukt.produkt.Färg}");
+        Console.WriteLine($"Storlek: {produkter[produktVal - 1].Storlek} - Storlek: {newProdukt.produkt.Storlek}");
+        Console.WriteLine($"Lagerantal: {produkter[produktVal - 1].LagerAntal} - Lagerantal: {newProdukt.produkt.LagerAntal}");
+        Console.WriteLine($"Leverantör: {produkter[produktVal - 1].Leverantör.Namn} - Leverantör: {newProdukt.leverantörNamn}");
+        Console.WriteLine($"Kategori: {produkter[produktVal - 1].Kategori.Namn} - Kategori: {newProdukt.kategoriNamn}");
+    }
+    private static void ShowProduktLista(List<Produkt> produkter)
+    {
+        Console.WriteLine("== Välj produkt att uppdatera ==");
+        for (int i = 0; i < produkter.Count; i++)
         {
-
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Id: {i + 1} - Namn: {produkter[i].Namn}, Lagersaldo: {produkter[i].LagerAntal}");
         }
     }
-
+    private async Task ConfirmUpdateProdukt(List<Produkt> produkter, int produktVal, (Produkt produkt, string leverantörNamn, string kategoriNamn) newProdukt)
+    {
+        Console.WriteLine("Vill du uppdatera produkten? (J/N)");
+        var confirm = Console.ReadLine();
+        if (confirm.ToUpper() == "J")
+        {
+            newProdukt.produkt.Id = produkter[produktVal - 1].Id;
+            await _produktService.UpdateAsync(newProdukt.produkt);
+            Console.Clear();
+            Console.WriteLine("Produkten har uppdaterats.");
+            Meny.Wait();
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Produkten har inte uppdaterats.");
+            Meny.Wait();
+        }
+    }
     //Skapa factory metod för att samla in all input för en produkt, inklusive val av leverantör och kategori, och returnera en "tuple" med produkten och de valda namnen för leverantör och kategori.
     public async Task<(Produkt produkt, string leverantörNamn, string kategoriNamn)> ProduktInput()
     {
@@ -225,7 +216,7 @@ public class AdminProdukt
                 continue;
             }
             
-            if(DataValidering.ValidatePrice(pris))
+            if(!DataValidering.ValidatePrice(pris))
                 continue;
 
             Console.Clear();
@@ -244,7 +235,7 @@ public class AdminProdukt
             }
             var input = Console.ReadLine();
 
-            if (ProduktValidering.ValidateFärg(input, out Färg färg))
+            if (!ProduktValidering.ValidateFärg(input, out Färg färg))
                 continue;
 
             Console.Clear();
@@ -263,7 +254,7 @@ public class AdminProdukt
             }
             var input = Console.ReadLine();
 
-            if (ProduktValidering.ValidateStorlek(input, out Storlek storlek))
+            if (!ProduktValidering.ValidateStorlek(input, out Storlek storlek))
                 continue;
 
             Console.Clear();
@@ -282,7 +273,7 @@ public class AdminProdukt
                 continue;
             }
 
-            if (ProduktValidering.ValidateStock(lagerAntal))
+            if (!ProduktValidering.ValidateStock(lagerAntal))
                 continue;
 
             Console.Clear();

@@ -37,6 +37,6 @@ public class Produkt
 
     public override string ToString()
     {
-        return $"Namn: {Namn}\nBeskrivning: {Beskrivning}\nPris: {Pris}\nFärg: {Färg}\nStorlek: {Storlek}\nLagerAntal: {LagerAntal}\nLeverantörnamn: {Leverantör?.Namn}\nKategorinamn: {Kategori?.Namn}";
+        return $"Namn: {Namn}\nBeskrivning: {Beskrivning}\nPris: {Pris}\nFärg: {Färg}\nStorlek: {Storlek}\nLagerAntal: {LagerAntal}";
     }
 }
