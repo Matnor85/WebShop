@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Helpers;
+﻿using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
 using WebShop.Presentation.Menu;
 
 namespace WebShop.Presentation.DisplayService;
 
-public class AdminKategori
+public class AdminKategori(IKategoriService _kategoriService)
 {
-    IKategoriService _kategoriService;
-
-    public AdminKategori(IKategoriService kategoriService)
-    {
-        _kategoriService = kategoriService;
-    }
-
     public async Task DeleteKategoriAsync()
     {
         try
@@ -36,7 +26,9 @@ public class AdminKategori
             }
             if (!int.TryParse(Console.ReadLine(), out int kategoriVal) || kategoriVal < 1 || kategoriVal > kategorier.Count)
             {
-                throw new ArgumentException("Ogiltigt val av kategori");
+                Console.WriteLine("Ogiltigt val av kategori");
+                Meny.Wait();
+                return;
             }
             Console.WriteLine($"Vald kategori: {kategorier[kategoriVal - 1].Namn}");
             Console.WriteLine("Är du säker på att du vill ta bort denna kategori? (J/N)");
@@ -55,15 +47,12 @@ public class AdminKategori
                 Meny.Wait();
             }
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
-        }
-        catch (InvalidOperationException ex)
-        {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
+
 
     public async Task UpdateKategoriAsync()
     {
@@ -83,7 +72,9 @@ public class AdminKategori
             }
             if (!int.TryParse(Console.ReadLine(), out int kategoriVal) || kategoriVal < 1 || kategoriVal > kategorier.Count)
             {
-                throw new ArgumentException("Ogiltigt val av kategori");
+                Console.WriteLine("Ogiltigt val av kategori");
+                Meny.Wait();
+                return;
             }
 
             string? nyttNamn = GetKatogeriName();
@@ -106,9 +97,9 @@ public class AdminKategori
                 Meny.Wait();
             }
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
 
@@ -163,9 +154,9 @@ public class AdminKategori
             Meny.Wait();
 
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
 }
