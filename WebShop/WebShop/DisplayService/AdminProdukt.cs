@@ -22,8 +22,6 @@ public class AdminProdukt
 
     public async Task DeleteProdukt()
     {
-        try
-        {
             Console.WriteLine("=== Ta bort produkt ===");
             var produkter = await _produktService.GetAllAsync();
 
@@ -55,12 +53,7 @@ public class AdminProdukt
                 Console.WriteLine("Produkten har inte tagits bort.");
                 Meny.Wait();
             }
-        }
-        catch (ArgumentException ex)
-        {
-
-            Console.WriteLine($"Fel: {ex.Message}");
-        }
+        
     }
 
     public async Task UpdateProdukt()
@@ -123,21 +116,11 @@ public class AdminProdukt
 
     public async Task AddProduktAsync()
     {
-        try
-        {
             Console.Clear();
             Console.WriteLine("=== Lägg till produkt === ");
             var produktResult = await ProduktInput();
             Console.WriteLine(produktResult.produkt);
-            //Console.WriteLine("Sammanfattning av produkten:");
-            //Console.WriteLine($"Namn: {produkt.produkt.Namn}");
-            //Console.WriteLine($"Beskrivning: {produkt.produkt.Beskrivning}");
-            //Console.WriteLine($"Pris: {produkt.produkt.Pris}");
-            //Console.WriteLine($"Färg: {produkt.produkt.Färg}");
-            //Console.WriteLine($"Storlek: {produkt.produkt.Storlek}");
-            //Console.WriteLine($"Lagerantal: {produkt.produkt.LagerAntal}");
-            //Console.WriteLine($"Leverantör: {produkt.leverantörNamn}");
-            //Console.WriteLine($"Kategori: {produkt.kategoriNamn}");
+            
             Console.WriteLine("Vill du lägga till produkten? (J/N)");
 
             var confirm = Console.ReadLine();
@@ -155,12 +138,6 @@ public class AdminProdukt
                 Console.WriteLine("Produkten har inte lagts till.");
                 Meny.Wait();
             }
-        }
-        catch (ArgumentException ex)
-        {
-            Console.WriteLine($"Fel: {ex.Message}");
-        }
-
     }
 
     public async Task ShowProduktList()
@@ -210,16 +187,14 @@ public class AdminProdukt
         {
             Console.WriteLine("Ange namn");
             var namn = Console.ReadLine();
-            try
-            {
-                DataValidering.ValidateName(namn);
-                Console.Clear();
-                return namn;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
-            }
+            
+            if(!DataValidering.ValidateName(namn))
+                continue;
+                
+            Console.Clear();
+            return namn;
+            
+            
         }
     }
 
@@ -249,16 +224,12 @@ public class AdminProdukt
                 Console.WriteLine("Ogiltigt prisformat");
                 continue;
             }
-            try
-            {
-                DataValidering.ValidatePrice(pris);
-                Console.Clear();
-                return pris;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"Fel: {ex.Message}");
-            }
+            
+            if(DataValidering.ValidatePrice(pris))
+                continue;
+
+            Console.Clear();
+            return pris;
         }
     }
 
@@ -272,16 +243,12 @@ public class AdminProdukt
                 Console.WriteLine($"{(int)color} - {color}");
             }
             var input = Console.ReadLine();
-            try
-            {
-                ProduktValidering.ValidateFärg(input, out Färg färg);
-                Console.Clear();
-                return färg;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"Fel: {ex.Message}");
-            }
+
+            if (ProduktValidering.ValidateFärg(input, out Färg färg))
+                continue;
+
+            Console.Clear();
+            return färg;
         }
     }
 
@@ -295,16 +262,12 @@ public class AdminProdukt
                 Console.WriteLine($"{(int)s} - {s}");
             }
             var input = Console.ReadLine();
-            try
-            {
-                ProduktValidering.ValidateStorlek(input, out Storlek storlek);
-                Console.Clear();
-                return storlek;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"Fel: {ex.Message}");
-            }
+
+            if (ProduktValidering.ValidateStorlek(input, out Storlek storlek))
+                continue;
+
+            Console.Clear();
+            return storlek;
         }
     }
     public int GetLagerAntal()
@@ -318,16 +281,13 @@ public class AdminProdukt
                 Console.WriteLine("Ogiltigt lagerantal");
                 continue;
             }
-            try
-            {
-                ProduktValidering.ValidateStock(lagerAntal);
-                Console.Clear();
-                return lagerAntal;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"Fel: {ex.Message}");
-            }
+
+            if (ProduktValidering.ValidateStock(lagerAntal))
+                continue;
+
+            Console.Clear();
+            return lagerAntal;
+            
         }
     }
 

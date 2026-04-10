@@ -61,11 +61,13 @@ public class App
         services.AddScoped<KategoriMenu>();
         services.AddScoped<ProduktMenu>();
         services.AddScoped<KundMenu>();
+        services.AddScoped<OrderMenu>();
 
         //displayservice
         services.AddScoped<AdminKund>();
         services.AddScoped<AdminProdukt>();
         services.AddScoped<AdminKategori>();
+        services.AddScoped<AdminOrder>();
         // Logger
         services.AddLogging(builder =>
         {
