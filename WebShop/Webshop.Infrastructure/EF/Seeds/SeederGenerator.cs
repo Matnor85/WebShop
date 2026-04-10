@@ -234,14 +234,24 @@ public class SeederGenerator
                         if (string.IsNullOrWhiteSpace(epost)) continue; // Hoppar över kunder som inte har en giltig e-postadress
                         if (!await _ctx.Kunder.AnyAsync(x => x.Epost == epost, ct)) // Kontrollerar om en kund med samma e-postadress redan finns i databasen för att undvika dubbletter
                         {
+                            string GetStringSafe(JsonElement e)
+                            {
+                                return e.ValueKind switch
+                                {
+                                    JsonValueKind.String => e.GetString(),
+                                    JsonValueKind.Number => e.GetRawText(),
+                                    _ => e.ToString()
+                                };
+                            }
+
                             var kund = new Kund // Skapar en ny kund med de hämtade värdena
                             {
                                 Id = Guid.NewGuid(),
                                 Namn = k.GetProperty("Namn").GetString(),
                                 Adress = k.GetProperty("Adress").GetString(),
                                 Stad = k.GetProperty("Stad").GetString(),
-                                Postnummer = k.TryGetProperty("Postnummer", out var pn) ? pn.GetString() : null,
-                                MobilNummer = k.TryGetProperty("MobilNummer", out var mn) ? mn.GetString() : null,
+                                Postnummer = k.TryGetProperty("Postnummer", out var pn) ? GetStringSafe(pn) : null,
+                                MobilNummer = k.TryGetProperty("MobilNummer", out var mn) ? GetStringSafe(mn) : null,
                                 Epost = epost
                             };
                             _ctx.Kunder.Add(kund); // Lägger till den nya kunden i databasen
