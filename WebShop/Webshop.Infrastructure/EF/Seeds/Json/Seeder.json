@@ -1,0 +1,276 @@
+{
+  "Leverantorer": [
+    "Nordic Denim AB",
+    "Urban Textiles Ltd",
+    "Elegance Fashion",
+    "Basic Comforts",
+    "City Step & Carry",
+    "Rugged Wear"
+  ],
+  "FraktOmbud": [
+    {
+      "Namn": "PostNord",
+      "Pris": 49.0
+    },
+    {
+      "Namn": "Instabox",
+      "Pris": 39.0
+    },
+    {
+      "Namn": "DHL",
+      "Pris": 59.0
+    },
+    {
+      "Namn": "Budbee",
+      "Pris": 69.0
+    }
+  ],
+  "Kategorier": [
+    {
+      "Namn": "Hoodies",
+      "Produkter": [
+        {
+          "Namn": "Classic Grey",
+          "Besk": "Mjuk bomullshoodie",
+          "Pris": 599,
+          "Lager": 50
+        },
+        {
+          "Namn": "Urban Black",
+          "Besk": "Oversized street style",
+          "Pris": 749,
+          "Lager": 30
+        },
+        {
+          "Namn": "Navy Sport",
+          "Besk": "Zip-hoodie för träning",
+          "Pris": 649,
+          "Lager": 25
+        },
+        {
+          "Namn": "Forest Green",
+          "Besk": "Hållbart producerad",
+          "Pris": 599,
+          "Lager": 40
+        },
+        {
+          "Namn": "Logo Edition",
+          "Besk": "Hoodie med stor logga",
+          "Pris": 899,
+          "Lager": 15
+        }
+      ]
+    },
+    {
+      "Namn": "Jeans",
+      "Produkter": [
+        {
+          "Namn": "Slim Fit Blue",
+          "Besk": "Klassisk stretch",
+          "Pris": 999,
+          "Lager": 40
+        },
+        {
+          "Namn": "Loose Raw",
+          "Besk": "Otvättad denim",
+          "Pris": 1299,
+          "Lager": 20
+        },
+        {
+          "Namn": "Black Skinny",
+          "Besk": "Helt svarta jeans",
+          "Pris": 899,
+          "Lager": 60
+        },
+        {
+          "Namn": "Straight Leg",
+          "Besk": "Vintage tvätt",
+          "Pris": 1099,
+          "Lager": 35
+        },
+        {
+          "Namn": "Tapered Fit",
+          "Besk": "Modern passform",
+          "Pris": 949,
+          "Lager": 45
+        }
+      ]
+    },
+    {
+      "Namn": "T-shirts",
+      "Produkter": [
+        {
+          "Namn": "Basic White",
+          "Besk": "3-pack bas t-shirts",
+          "Pris": 299,
+          "Lager": 100
+        },
+        {
+          "Namn": "Graphic Tee",
+          "Besk": "Tryck på bröstet",
+          "Pris": 349,
+          "Lager": 50
+        },
+        {
+          "Namn": "V-neck Black",
+          "Besk": "Slim fit t-shirt",
+          "Pris": 199,
+          "Lager": 80
+        },
+        {
+          "Namn": "Heavyweight",
+          "Besk": "Tjockare bomullskvalitet",
+          "Pris": 399,
+          "Lager": 40
+        },
+        {
+          "Namn": "Pocket Tee",
+          "Besk": "T-shirt med bröstficka",
+          "Pris": 249,
+          "Lager": 55
+        }
+      ]
+    },
+    {
+      "Namn": "Accessoarer",
+      "Produkter": [
+        {
+          "Namn": "Läderbälte",
+          "Besk": "Äkta brunt läder",
+          "Pris": 499,
+          "Lager": 30
+        },
+        {
+          "Namn": "Klassisk Keps",
+          "Besk": "Justerbar storlek",
+          "Pris": 249,
+          "Lager": 100
+        },
+        {
+          "Namn": "Ullmössa",
+          "Besk": "Varm stickad mössa",
+          "Pris": 199,
+          "Lager": 75
+        },
+        {
+          "Namn": "Solglasögon",
+          "Besk": "Polariserat glas",
+          "Pris": 799,
+          "Lager": 20
+        },
+        {
+          "Namn": "Plånbok",
+          "Besk": "Kortinnehavare i skinn",
+          "Pris": 349,
+          "Lager": 45
+        }
+      ]
+    },
+    {
+      "Namn": "Byxor",
+      "Produkter": [
+        { "Namn": "Chinos Beige", "Besk": "Lätt bomullschino", "Pris": 799, "Lager": 40 },
+        { "Namn": "Cargo Green", "Besk": "Praktiska fickor", "Pris": 899, "Lager": 25 },
+        { "Namn": "Dress Pants", "Besk": "Formella byxor", "Pris": 1199, "Lager": 15 }
+      ]
+    },
+    {
+      "Namn": "Kjolar",
+      "Produkter": [
+        { "Namn": "Mini Denim", "Besk": "Kort jeanskjol", "Pris": 499, "Lager": 30 },
+        { "Namn": "Maxi Floral", "Besk": "Lång blommig kjol", "Pris": 699, "Lager": 20 }
+      ]
+    },
+    {
+      "Namn": "Tröjor",
+      "Produkter": [
+        { "Namn": "Cotton Crew", "Besk": "Mjuk rundhalsad tröja", "Pris": 449, "Lager": 60 },
+        { "Namn": "Merino Fine", "Besk": "Tunn merinoull", "Pris": 899, "Lager": 25 }
+      ]
+    },
+    {
+      "Namn": "Blusar",
+      "Produkter": [
+        { "Namn": "Silk Touch", "Besk": "Sidenimitation", "Pris": 699, "Lager": 35 },
+        { "Namn": "Chiffon Sleeve", "Besk": "Luftig chiffong", "Pris": 549, "Lager": 40 }
+      ]
+    },
+    {
+      "Namn": "Skjortor",
+      "Produkter": [
+        { "Namn": "Oxford Classic", "Besk": "Skjorta i oxford-tyg", "Pris": 649, "Lager": 50 },
+        { "Namn": "Linen Summer", "Besk": "Lätt linneskjorta", "Pris": 749, "Lager": 30 }
+      ]
+    },
+    {
+      "Namn": "Klänningar",
+      "Produkter": [
+        { "Namn": "Cocktail Red", "Besk": "Finklänning", "Pris": 1299, "Lager": 10 },
+        { "Namn": "Everyday Midi", "Besk": "Vardaglig midiklänning", "Pris": 799, "Lager": 45 }
+      ]
+    },
+    {
+      "Namn": "Shorts",
+      "Produkter": [
+        { "Namn": "Denim Short", "Besk": "Sommarjeansshorts", "Pris": 399, "Lager": 80 },
+        { "Namn": "Bermuda", "Besk": "Knälånga shorts", "Pris": 499, "Lager": 60 }
+      ]
+    },
+    {
+      "Namn": "Kalsonger",
+      "Produkter": [
+        { "Namn": "Basic Boxer", "Besk": "Bomullsboxer", "Pris": 199, "Lager": 200 },
+        { "Namn": "Sport Trunk", "Besk": "Fukttransporterande material", "Pris": 249, "Lager": 150 }
+      ]
+    },
+    {
+      "Namn": "Trosor",
+      "Produkter": [
+        { "Namn": "Hipster", "Besk": "Bekväm passform", "Pris": 99, "Lager": 180 },
+        { "Namn": "String", "Besk": "Tunn kant", "Pris": 89, "Lager": 160 }
+      ]
+    },
+    {
+      "Namn": "Strumpor",
+      "Produkter": [
+        { "Namn": "Ankelstrumpa 3-pack", "Besk": "Bomullsblandning", "Pris": 149, "Lager": 220 },
+        { "Namn": "Thermo Sock", "Besk": "Värmande strumpa", "Pris": 199, "Lager": 90 }
+      ]
+    },
+    {
+      "Namn": "Badkläder",
+      "Produkter": [
+        { "Namn": "Baddräkt Classic", "Besk": "Formande passform", "Pris": 599, "Lager": 40 },
+        { "Namn": "Swim Shorts", "Besk": "Snabbtorkande material", "Pris": 399, "Lager": 70 }
+      ]
+    },
+    {
+      "Namn": "Skor",
+      "Produkter": [
+        { "Namn": "Sneaker White", "Besk": "Allround sneaker", "Pris": 1199, "Lager": 35 },
+        { "Namn": "Chelsea Boot", "Besk": "Läderstövel", "Pris": 1499, "Lager": 20 }
+      ]
+    },
+    {
+      "Namn": "Jackor",
+      "Produkter": [
+        { "Namn": "Parka", "Besk": "Vattentät vinterparkas", "Pris": 1999, "Lager": 15 },
+        { "Namn": "Denim Jacket", "Besk": "Klassisk jeansjacka", "Pris": 899, "Lager": 30 }
+      ]
+    },
+    {
+      "Namn": "Kappor",
+      "Produkter": [
+        { "Namn": "Wool Coat", "Besk": "Ullkappa för kallt väder", "Pris": 2499, "Lager": 8 },
+        { "Namn": "Trench", "Besk": "Lätt vårkappa", "Pris": 1799, "Lager": 12 }
+      ]
+    },
+    {
+      "Namn": "Mössor",
+      "Produkter": [
+        { "Namn": "Beanie Basic", "Besk": "Stickad mössa", "Pris": 149, "Lager": 120 },
+        { "Namn": "Cap Fleece", "Besk": "Fodrad vinterkeps", "Pris": 249, "Lager": 60 }
+      ]
+    }
+  ]
+}

@@ -65,7 +65,8 @@ public class App
         services.AddScoped<AdminKund>();
         services.AddScoped<AdminProdukt>();
         services.AddScoped<AdminKategori>();
-
+        // Seeder
+        services.AddTransient<SeederGenerator>();
         var servicesProvider = services.BuildServiceProvider();
         
         var meny = servicesProvider.GetRequiredService<Meny>();

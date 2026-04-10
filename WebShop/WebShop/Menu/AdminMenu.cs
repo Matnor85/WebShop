@@ -1,4 +1,5 @@
-﻿using WebShop.Presentation.DisplayService;
+﻿using Webshop.Infrastructure.EF.Seeds;
+using WebShop.Presentation.DisplayService;
 using WebShop.Presentation.Menu.Submenu;
 
 namespace WebShop.Presentation.Menu;
@@ -14,6 +15,19 @@ namespace WebShop.Presentation.Menu;
 public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu, OrderMenu orderMenu)
 {
     bool _isRunning = true;
+    private readonly KategoriMenu _kategoriMenu;
+    private readonly ProduktMenu _produktMenu;
+    private readonly KundMenu _kundMenu;
+    private readonly SeederGenerator _seeder;
+    public AdminMenu(SeederGenerator seeder) { _seeder = seeder; }
+
+    public AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu)
+    {
+        _kategoriMenu = kategoriMenu;
+        _produktMenu = produktMenu;
+        _kundMenu = kundMenu;
+    }
+
 
     public void ShowAdminMenu()
     {
@@ -23,6 +37,7 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
         Console.WriteLine("2 - Hantera kategorier");
         Console.WriteLine("3 - Hantera kunder");
         Console.WriteLine("4 - Hantera ordrar");
+        Console.WriteLine("5 - Lägg till Seed-data");
         Console.WriteLine("6 - Tillbaka till startmenyn");
     }
     public async Task HandleInputAsync()
@@ -44,6 +59,15 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
                 await orderMenu.OrderMenuRunAsync();
                 break;
             case "5":
+                try
+                {
+                    await _seeder.SeedAsync();
+                    Console.WriteLine("Seeding lyckades.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Seeding misslyckades: {ex.Message}\n{ex.StackTrace}");
+                }
                 break;
             case "6":
                     _isRunning = false;
