@@ -50,7 +50,7 @@ public class AdminKategori(IKategoriService _kategoriService)
                 Meny.Wait();
                 return;
             }
-            string? nyttNamn = GetKatogeriName();
+            string? nyttNamn = GetKategoriName();
             await ConfirmationUpdateKategori(kategorier, kategoriVal, nyttNamn);
         }
         catch (Exception ex)
@@ -64,9 +64,9 @@ public class AdminKategori(IKategoriService _kategoriService)
         try
         {
             Console.WriteLine("=== Lägg till kategori ===");
-            string? name = GetKatogeriName();
+            string? name = GetKategoriName();
             var kategori = new Kategori(name);
-            await ConfirmationAddKund(name, kategori);
+            await ConfirmationAddKategori(name, kategori);
 
         }
         catch (Exception ex)
@@ -99,7 +99,7 @@ public class AdminKategori(IKategoriService _kategoriService)
         }
     }
 
-    private async Task ConfirmationAddKund(string name, Kategori kategori)
+    private async Task ConfirmationAddKategori(string name, Kategori kategori)
     {
         Console.WriteLine($"Är du säker du vill lägga till {name}? (J/N)");
         var confirm = Console.ReadLine();
@@ -166,7 +166,7 @@ public class AdminKategori(IKategoriService _kategoriService)
         }
     }
 
-    private static string GetKatogeriName()
+    private static string GetKategoriName()
     {
         while (true)
         {
