@@ -25,5 +25,9 @@ public enum Färg
     [Display(Name = "Lila")]
     Lila = 8,
     [Display(Name = "Vit")]
-    Vit = 9
+    Vit = 9,
+    [Display(Name = "Grå")]
+    Grå = 10,
+    [Display(Name = "Beige")]
+    Beige = 11
 }
