@@ -37,9 +37,9 @@ public class SeederMethod
                 seeder.SeedAsync().GetAwaiter().GetResult();
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            // continue startup even if seeding fails
+            Console.WriteLine($"Seeding misslyckades: {ex.Message}\n{ex.StackTrace}");
         }
     }
 }

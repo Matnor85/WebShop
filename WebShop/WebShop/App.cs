@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -65,6 +66,18 @@ public class App
         services.AddScoped<AdminKund>();
         services.AddScoped<AdminProdukt>();
         services.AddScoped<AdminKategori>();
+        // Logger
+        services.AddLogging(builder =>
+        {
+            builder.ClearProviders();
+            builder.AddConsole();
+           
+            // Dölj EF Core SQL/info-loggar. Visa bara warnings/errors från EF.
+            builder.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Warning);
+            builder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+
+            builder.SetMinimumLevel(LogLevel.Information);
+        });
         // Seeder
         services.AddTransient<SeederGenerator>();
         var servicesProvider = services.BuildServiceProvider();

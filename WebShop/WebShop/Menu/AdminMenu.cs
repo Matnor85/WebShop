@@ -49,10 +49,12 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
                 {
                     await seeder.SeedAsync();
                     Console.WriteLine("Seeding lyckades.");
+                    Console.ReadLine();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Seeding misslyckades: {ex.Message}\n{ex.StackTrace}");
+                    Console.ReadLine();
                 }
                 break;
             case "6":
