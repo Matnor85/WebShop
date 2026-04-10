@@ -38,7 +38,10 @@ public class ProduktRepository : IProduktRepository
 
     public async Task<List<Produkt>> GetAllAsync()
     {
-        return await _context.Produkter.ToListAsync();
+        return await _context.Produkter
+            .Include(p => p.Kategori)
+            .Include(p => p.Leverantör)
+            .ToListAsync();
     }
 
     public async Task<Produkt> GetByIdAsync(Guid id)

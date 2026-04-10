@@ -10,8 +10,7 @@ public class OrderValidering
     public static void ValidateOrderDate(DateTime orderDatum)
     {
         if (orderDatum > DateTime.Now)
-        {
-            throw new ArgumentException("Orderdatum kan inte vara i framtiden.");
-        }
+            Console.WriteLine("Orderdatum kan inte vara i framtiden.");
+        
     }
 }

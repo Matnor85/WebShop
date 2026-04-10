@@ -28,12 +28,13 @@ public class AdminKund
             }
 
             Console.WriteLine("Sammanfattning av kund du vill lägga till:");
-            Console.WriteLine($"Namn: {kund.Namn}");
-            Console.WriteLine($"Adress: {kund.Adress}");
-            Console.WriteLine($"Stad: {kund.Stad}");
-            Console.WriteLine($"Postnummer: {kund.Postnummer}");
-            Console.WriteLine($"Telefonnummer: {kund.MobilNummer}");
-            Console.WriteLine($"E-post: {kund.Epost}");
+            Console.WriteLine(kund);
+            //Console.WriteLine($"Namn: {kund.Namn}");
+            //Console.WriteLine($"Adress: {kund.Adress}");
+            //Console.WriteLine($"Stad: {kund.Stad}");
+            //Console.WriteLine($"Postnummer: {kund.Postnummer}");
+            //Console.WriteLine($"Telefonnummer: {kund.MobilNummer}");
+            //Console.WriteLine($"E-post: {kund.Epost}");
             Console.WriteLine("Vill du lägga till kunden (J/N)");
 
             var confirm = Console.ReadLine();
@@ -71,12 +72,13 @@ public class AdminKund
             }
             Console.WriteLine("Välj kund att ta bort:");
             for (int i = 0; i < kunder.Count; i++)
-            {
                 Console.WriteLine($"{i + 1}. Namn: {kunder[i].Namn}, Email: {kunder[i].Epost}, Adress: {kunder[i].Adress}");
-            }
+            
             if(!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > kunder.Count)
             {
-                throw new ArgumentException("Ogiltigt val. Vänligen ange ett nummer från listan.");
+                Console.WriteLine("Ogiltigt val. Vänligen ange ett nummer från listan.");
+                Meny.Wait();
+                return;
             }
             Console.WriteLine($"Vill du ta bort kunden {kunder[choice - 1].Namn} (J/N)?");
             var confirm = Console.ReadLine();
@@ -95,9 +97,9 @@ public class AdminKund
             }
 
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
 
@@ -121,9 +123,9 @@ public class AdminKund
              Meny.Wait();
 
             }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
 
@@ -146,18 +148,14 @@ public class AdminKund
             }
             if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > kunder.Count)
             {
-                throw new ArgumentException("Ogiltigt val. Vänligen ange ett nummer från listan.");
+                Console.WriteLine("Ogiltigt val. Vänligen ange ett nummer från listan.");
+                Meny.Wait();
+                return;
             }
             var newKund = await KundInput();
-            Console.WriteLine("Sammanfattning av ändrad kund: ");
-            Console.WriteLine($"Namn: {kunder[choice - 1].Namn} - {newKund.Namn}");
-            Console.WriteLine($"Email: {kunder[choice - 1].Epost} - {newKund.Epost}");
-            Console.WriteLine($"Adress: {kunder[choice - 1].Adress} - {newKund.Adress}");
-            Console.WriteLine($"Stad: {kunder[choice - 1].Stad} - {newKund.Stad}");
-            Console.WriteLine($"Postnummer: {kunder[choice - 1].Postnummer} - {newKund.Postnummer}");
-            Console.WriteLine($"Telefonnummer: {kunder[choice - 1].MobilNummer} - {newKund.MobilNummer}");
+            UpdateSummary(kunder, choice, newKund);
             Console.WriteLine("Vill du uppdatera kunden (J/N)?");
-            
+
             var confirm = Console.ReadLine();
             if (confirm.ToUpper() == "J")
             {
@@ -174,12 +172,22 @@ public class AdminKund
                 Meny.Wait();
             }
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
 
+    private static void UpdateSummary(List<Kund> kunder, int choice, Kund newKund)
+    {
+        Console.WriteLine("Sammanfattning av ändrad kund: ");
+        Console.WriteLine($"Namn: {kunder[choice - 1].Namn} - {newKund.Namn}");
+        Console.WriteLine($"Email: {kunder[choice - 1].Epost} - {newKund.Epost}");
+        Console.WriteLine($"Adress: {kunder[choice - 1].Adress} - {newKund.Adress}");
+        Console.WriteLine($"Stad: {kunder[choice - 1].Stad} - {newKund.Stad}");
+        Console.WriteLine($"Postnummer: {kunder[choice - 1].Postnummer} - {newKund.Postnummer}");
+        Console.WriteLine($"Telefonnummer: {kunder[choice - 1].MobilNummer} - {newKund.MobilNummer}");
+    }
 
     public async Task<Kund> KundInput()
     {

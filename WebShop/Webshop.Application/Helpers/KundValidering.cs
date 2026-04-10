@@ -22,17 +22,17 @@ public class KundValidering
     public static void ValidateCity(string city)
     {
         if (string.IsNullOrWhiteSpace(city))
-            throw new ArgumentException("Inkorrekt format på staden");
+            Console.WriteLine("Inkorrekt format på staden");
     }
     public static void ValidateAdress(string adress)
     {
         if (string.IsNullOrWhiteSpace(adress))
-            throw new ArgumentException("Inkorrekt format på adressen");
+            Console.WriteLine("Inkorrekt format på adressen");
     }
     public static void ValidateEmail(string email)
     {
         if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
-            throw new ArgumentException("Inkorrekt format på e-postadressen");
+            Console.WriteLine("Inkorrekt format på e-postadressen");
     }
     public static async Task ValidateGuidExistAsync(Guid id, IKundService kundService)
     {
