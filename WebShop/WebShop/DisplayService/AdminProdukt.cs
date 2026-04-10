@@ -93,6 +93,7 @@ public class AdminProdukt
         }
         foreach (var p in produktList)
             Console.WriteLine($"Namn: {p.Namn}, Lagersaldo: {p.LagerAntal}");
+
         Meny.Wait();
     }
     private async Task ConfirmAddProdukt((Produkt produkt, string leverantörNamn, string kategoriNamn) produktResult)
@@ -132,7 +133,7 @@ public class AdminProdukt
             Meny.Wait();
         }
     }
-    private static void UpdateSummary(List<Produkt> produkter, int produktVal, (Produkt produkt, string leverantörNamn, string kategoriNamn) newProdukt)
+    private void UpdateSummary(List<Produkt> produkter, int produktVal, (Produkt produkt, string leverantörNamn, string kategoriNamn) newProdukt)
     {
         Console.WriteLine("Sammanfattning av ändrad produkten:");
         Console.WriteLine($"Namn: {produkter[produktVal - 1].Namn} - Namn: {newProdukt.produkt.Namn}");
