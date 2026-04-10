@@ -12,23 +12,9 @@ namespace WebShop.Presentation.Menu;
 /// 6. Implementera funktionalitet för att hantera fraktalternativ och leveransstatus
 /// 
 /// </summary>
-public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu, OrderMenu orderMenu)
+public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu, OrderMenu orderMenu, SeederGenerator seeder)
 {
     bool _isRunning = true;
-    private readonly KategoriMenu _kategoriMenu;
-    private readonly ProduktMenu _produktMenu;
-    private readonly KundMenu _kundMenu;
-    private readonly SeederGenerator _seeder;
-    public AdminMenu(SeederGenerator seeder) { _seeder = seeder; }
-
-    public AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu)
-    {
-        _kategoriMenu = kategoriMenu;
-        _produktMenu = produktMenu;
-        _kundMenu = kundMenu;
-    }
-
-
     public void ShowAdminMenu()
     {
         Console.Clear();
@@ -61,7 +47,7 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
             case "5":
                 try
                 {
-                    await _seeder.SeedAsync();
+                    await seeder.SeedAsync();
                     Console.WriteLine("Seeding lyckades.");
                 }
                 catch (Exception ex)
