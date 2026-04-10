@@ -29,9 +29,9 @@ public class AdminOrder
                 Console.WriteLine($"Id {i + 1}, Kund: {orders[i].Kund.Namn}, Totalpris: {orders[i].TotalPris}, Fraktombud: {orders[i].FraktOmbud.Namn}");
             }
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
 
