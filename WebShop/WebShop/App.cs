@@ -54,6 +54,9 @@ public class App
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderService, OrderService>();
 
+        services.AddScoped<IProduktKampanjRepository, ProduktKampanjRepository>();
+        services.AddScoped<IProduktKampanjService, ProduktKampanjService>();
+
         //meny
         services.AddScoped<Meny>();
         services.AddScoped<WebShopMenu>();
