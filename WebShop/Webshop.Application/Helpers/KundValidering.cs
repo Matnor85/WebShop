@@ -10,7 +10,7 @@ public class KundValidering
 {
     public static void ValidatePhoneNumber(string phoneNumber)
     {
-        if (string.IsNullOrWhiteSpace(phoneNumber) && phoneNumber.Length != 10)
+        if (string.IsNullOrWhiteSpace(phoneNumber) && phoneNumber.Length != 11)
             Console.WriteLine("Inkorrekt format på mobilnumret");
     }
     public static void ValidateZipCode(string zipCode)

@@ -300,7 +300,7 @@ public class AdminKund
                 }
                 else
                 {
-                    Console.WriteLine("Fel: Mobilnumret måste vara 10 siffror.");
+                    Console.WriteLine("Fel: Mobilnumret måste vara 11 siffror.");
                 }
             }
             catch (ArgumentException ex)
