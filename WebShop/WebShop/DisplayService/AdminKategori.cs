@@ -25,7 +25,7 @@ public class AdminKategori(IKategoriService _kategoriService)
                 Meny.Wait();
                 return;
             }
-            await SummaryDeleteKategori(kategorier, kategoriVal);
+            await ConfirmationDeleteKategori(kategorier, kategoriVal);
         }
         catch (Exception ex)
         {
@@ -51,7 +51,7 @@ public class AdminKategori(IKategoriService _kategoriService)
                 return;
             }
             string? nyttNamn = GetKatogeriName();
-            await SummaryUpdateKategori(kategorier, kategoriVal, nyttNamn);
+            await ConfirmationUpdateKategori(kategorier, kategoriVal, nyttNamn);
         }
         catch (Exception ex)
         {
@@ -61,9 +61,46 @@ public class AdminKategori(IKategoriService _kategoriService)
 
     public async Task AddKategoriAsync()
     {
-        Console.WriteLine("=== Lägg till kategori ===");
-        string? name = GetKatogeriName();
-        var kategori = new Kategori(name);
+        try
+        {
+            Console.WriteLine("=== Lägg till kategori ===");
+            string? name = GetKatogeriName();
+            var kategori = new Kategori(name);
+            await ConfirmationAddKund(name, kategori);
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
+        }
+    }
+    public async Task ShowKategoriList()
+    {
+        try
+        {
+            Console.WriteLine("=== Visar kategorier ===");
+            var kategorier = await _kategoriService.GetAllAsync();
+            if (kategorier == null || kategorier.Count <= 0)
+            {
+                Console.WriteLine("Inga kategorier hittades.");
+                Meny.Wait();
+                return;
+            }
+            for (int i = 0; i < kategorier.Count; i++)
+            {
+                Console.WriteLine($"ID: {i + 1} - Namn: {kategorier[i].Namn}");
+            }
+            Meny.Wait();
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
+        }
+    }
+
+    private async Task ConfirmationAddKund(string name, Kategori kategori)
+    {
         Console.WriteLine($"Är du säker du vill lägga till {name}? (J/N)");
         var confirm = Console.ReadLine();
         if (confirm?.ToUpper() == "J")
@@ -80,7 +117,8 @@ public class AdminKategori(IKategoriService _kategoriService)
             Meny.Wait();
         }
     }
-    private async Task SummaryDeleteKategori(List<Kategori> kategorier, int kategoriVal)
+
+    private async Task ConfirmationDeleteKategori(List<Kategori> kategorier, int kategoriVal)
     {
         Console.WriteLine($"Vald kategori: {kategorier[kategoriVal - 1].Namn}");
         Console.WriteLine("Är du säker på att du vill ta bort denna kategori? (J/N)");
@@ -99,7 +137,7 @@ public class AdminKategori(IKategoriService _kategoriService)
             Meny.Wait();
         }
     }
-    private async Task SummaryUpdateKategori(List<Kategori> kategorier, int kategoriVal, string nyttNamn)
+    private async Task ConfirmationUpdateKategori(List<Kategori> kategorier, int kategoriVal, string nyttNamn)
     {
         Console.WriteLine("Sammanfattning av ändrad kategori:");
         Console.WriteLine($"Namn: {kategorier[kategoriVal - 1].Namn} - {nyttNamn}");
@@ -130,36 +168,18 @@ public class AdminKategori(IKategoriService _kategoriService)
 
     private static string GetKatogeriName()
     {
-        Console.WriteLine("Ange namn: ");
-        var name = Console.ReadLine();
-        DataValidering.ValidateName(name);
-        Console.Clear();
-        return name;
-    }
-
-    public async Task ShowKategoriList()
-    {
-        try
+        while (true)
         {
-            Console.WriteLine("=== Visar kategorier ===");
-            var kategorier = await _kategoriService.GetAllAsync();
-            if (kategorier == null || kategorier.Count <= 0)
-            {
-                Console.WriteLine("Inga kategorier hittades.");
-                Meny.Wait();
-                return;
-            }
-            for (int i = 0; i < kategorier.Count; i++)
-            {
-                Console.WriteLine($"ID: {i + 1} - Namn: {kategorier[i].Namn}");
-            }
-            Meny.Wait();
+            Console.WriteLine("Ange namn: ");
+            var name = Console.ReadLine();
 
+            if (!DataValidering.ValidateName(name))
+                continue;
+
+            Console.Clear();
+            return name;
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
-        }
+
     }
 }
 
