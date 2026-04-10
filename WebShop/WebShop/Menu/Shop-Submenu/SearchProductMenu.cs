@@ -12,13 +12,15 @@ public class SearchProductMenu(ShopSearchProduct searchProduct)
     {
         Console.WriteLine("=== Sök produkt ===");
         Console.WriteLine("Namn: ");
+        HandleInput();
     }
     public void HandleInput()
     {
         var input = Console.ReadLine();
         if (input == null) {
-            return;
+            Console.WriteLine("Produkt finns kan inte hittas!");
         }
+        
     }
     public void SearchProductRun()
     {
