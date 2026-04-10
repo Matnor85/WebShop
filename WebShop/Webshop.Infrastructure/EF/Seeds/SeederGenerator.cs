@@ -240,8 +240,8 @@ public class SeederGenerator
                                 Namn = k.GetProperty("Namn").GetString(),
                                 Adress = k.GetProperty("Adress").GetString(),
                                 Stad = k.GetProperty("Stad").GetString(),
-                                Postnummer = k.TryGetProperty("Postnummer", out var pn) ? pn.GetInt32() : 0,
-                                MobilNummer = k.TryGetProperty("MobilNummer", out var mn) ? mn.GetInt32() : 0,
+                                Postnummer = k.TryGetProperty("Postnummer", out var pn) ? pn.GetString() : null,
+                                MobilNummer = k.TryGetProperty("MobilNummer", out var mn) ? mn.GetString() : null,
                                 Epost = epost
                             };
                             _ctx.Kunder.Add(kund); // Lägger till den nya kunden i databasen

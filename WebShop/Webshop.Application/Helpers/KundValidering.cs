@@ -8,15 +8,15 @@ namespace Webshop.Application.Helpers;
 public class KundValidering
 {
     //ändra Mobilnummer till string för svenska nummer kan börja med 070, 072, 073, 076, 079 och kan innehålla bindestreck
-    public static void ValidatePhoneNumber(int phoneNumber)
+    public static void ValidatePhoneNumber(string phoneNumber)
     {
-        if (phoneNumber < 100000000 || phoneNumber > 999999999)
+        if (string.IsNullOrWhiteSpace(phoneNumber))
             throw new ArgumentException("Inkorrekt format på mobilnumret");
     }
     //ändra postnummer till string för svenska postnummer kan innehålla bokstäver
-    public static void ValidateZipCode(int zipCode)
+    public static void ValidateZipCode(string zipCode)
     {
-        if (zipCode < 10000 || zipCode > 99999)
+        if (string.IsNullOrWhiteSpace(zipCode))
             throw new ArgumentException("Inkorrekt format på postnumret");
     }
     public static void ValidateCity(string city)

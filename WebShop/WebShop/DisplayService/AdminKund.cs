@@ -250,15 +250,15 @@ public class AdminKund
         }
     }
 
-    public int GetZipCode()
+    public string GetZipCode()
     {
         while (true)
         {
             Console.WriteLine("Ange postnummer: ");
-            var zipCodeInput = Console.ReadLine();
+            var zipCode = Console.ReadLine();
             try
             {
-                if (int.TryParse(zipCodeInput, out int zipCode))
+                if (!string.IsNullOrWhiteSpace(zipCode))
                 {
                     KundValidering.ValidateZipCode(zipCode);
                     Console.Clear();
@@ -266,7 +266,7 @@ public class AdminKund
                 }
                 else
                 {
-                    Console.WriteLine("Fel: Postnumret måste vara ett heltal.");
+                    Console.WriteLine("Fel: Postnumret får inte vara tomt.");
                 }
             }
             catch (ArgumentException ex)
@@ -276,7 +276,7 @@ public class AdminKund
         }
     }
 
-    public int GetPhoneNumber()
+    public string GetPhoneNumber()
     {
         while (true)
         {
@@ -284,11 +284,11 @@ public class AdminKund
             var phoneNumberInput = Console.ReadLine();
             try
             {
-                if (int.TryParse(phoneNumberInput, out int phoneNumber))
+                if (!string.IsNullOrWhiteSpace(phoneNumberInput))
                 {
-                    KundValidering.ValidatePhoneNumber(phoneNumber);
+                    KundValidering.ValidatePhoneNumber(phoneNumberInput);
                     Console.Clear();
-                    return phoneNumber;
+                    return phoneNumberInput;
                 }
                 else
                 {
