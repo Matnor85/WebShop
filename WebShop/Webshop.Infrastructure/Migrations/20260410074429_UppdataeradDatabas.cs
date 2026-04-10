@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Webshop.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitWithFixedRelation : Migration
+    public partial class UppdataeradDatabas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,8 +44,8 @@ namespace Webshop.Infrastructure.Migrations
                     Namn = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Adress = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Stad = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Postnummer = table.Column<int>(type: "int", nullable: false),
-                    MobilNummer = table.Column<int>(type: "int", nullable: false),
+                    Postnummer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MobilNummer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Epost = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
                 },
                 constraints: table =>
