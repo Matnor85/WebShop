@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Webshop.Application.Interfaces;
 
 namespace WebShop.Presentation.DisplayService;
 
-public class AdminKampanj
+public class AdminKampanj(IProduktKampanjService produktKampanjService)
 {
-    internal async Task AddKampanjAsync()
+    public async Task AddKampanjAsync()
     {
         throw new NotImplementedException();
     }
 
-    internal async Task DeleteKampanjAsync()
+    public async Task DeleteKampanjAsync()
     {
         throw new NotImplementedException();
     }
 
-    internal async Task ShowKampanjList()
+    public async Task ShowKampanjList()
     {
         throw new NotImplementedException();
     }
 
-    internal async Task UpdateKampanjAsync()
+    public async Task UpdateKampanjAsync()
     {
         throw new NotImplementedException();
     }

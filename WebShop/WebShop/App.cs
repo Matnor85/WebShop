@@ -65,12 +65,14 @@ public class App
         services.AddScoped<ProduktMenu>();
         services.AddScoped<KundMenu>();
         services.AddScoped<OrderMenu>();
+        services.AddScoped<KampanjerMenu>();
 
         //displayservice
         services.AddScoped<AdminKund>();
         services.AddScoped<AdminProdukt>();
         services.AddScoped<AdminKategori>();
         services.AddScoped<AdminOrder>();
+        services.AddScoped<AdminKampanj>();
         // Logger
         services.AddLogging(builder =>
         {
