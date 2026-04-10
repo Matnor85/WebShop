@@ -19,10 +19,14 @@ public class ProduktValidering
         return true;
     }
     
-    public static void ValidateStock(int lagerAntal)
+    public static bool ValidateStock(int lagerAntal)
     {
-        if (lagerAntal < 0) 
+        if (lagerAntal < 0)
+        {
             Console.WriteLine("Lagerantal måste vara större än eller lika med 0");
+            return false;
+        }
+        return true;
     }
 
     public static async Task ValidateGuidExistAsync(Guid id, IProduktService produktService)
@@ -31,15 +35,23 @@ public class ProduktValidering
             Console.WriteLine($"Produkten med det angivna {id} finns inte");
     }
     
-    public static void ValidateFärg(string färgInput, out Färg färg)
+    public static bool ValidateFärg(string färgInput, out Färg färg)
     {
         if (!Enum.TryParse(färgInput, out färg))
+        {
             Console.WriteLine("Ogiltigt färgformat");
+            return false;
+        }
+        return true;
     }
 
-    public static void ValidateStorlek(string? storlekInput, out Storlek storlek)
+    public static bool ValidateStorlek(string? storlekInput, out Storlek storlek)
     {
         if (!Enum.TryParse(storlekInput, out storlek))
+        {
             Console.WriteLine("Ogiltigt storlekformat");
+            return false;
+        }
+        return true;
     }
 }

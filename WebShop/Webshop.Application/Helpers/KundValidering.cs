@@ -7,32 +7,50 @@ namespace Webshop.Application.Helpers;
 
 public class KundValidering
 {
-    //ändra Mobilnummer till string för svenska nummer kan börja med 070, 072, 073, 076, 079 och kan innehålla bindestreck
-    public static void ValidatePhoneNumber(string phoneNumber)
+    public static bool ValidatePhoneNumber(string phoneNumber)
     {
-        if (string.IsNullOrWhiteSpace(phoneNumber))
-            throw new ArgumentException("Inkorrekt format på mobilnumret");
+        if (string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length != 11)
+        {
+            Console.WriteLine("Inkorrekt format på mobilnumret");
+            return false;
+        }
+        return true;
     }
-    //ändra postnummer till string för svenska postnummer kan innehålla bokstäver
-    public static void ValidateZipCode(string zipCode)
+    public static bool ValidateZipCode(string zipCode)
     {
-        if (string.IsNullOrWhiteSpace(zipCode))
-            throw new ArgumentException("Inkorrekt format på postnumret");
+        if (string.IsNullOrWhiteSpace(zipCode) || zipCode.Length != 5)
+        {
+            Console.WriteLine("Inkorrekt format på postnumret");
+            return false;
+        }
+        return true;
     }
-    public static void ValidateCity(string city)
+    public static bool ValidateCity(string city)
     {
         if (string.IsNullOrWhiteSpace(city))
+        {
             Console.WriteLine("Inkorrekt format på staden");
+            return false;
+        }
+        return true;
     }
-    public static void ValidateAdress(string adress)
+    public static bool ValidateAdress(string adress)
     {
         if (string.IsNullOrWhiteSpace(adress))
+        {
             Console.WriteLine("Inkorrekt format på adressen");
+            return false;
+        }
+        return true;
     }
-    public static void ValidateEmail(string email)
+    public static bool ValidateEmail(string email)
     {
         if (string.IsNullOrWhiteSpace(email) || !email.Contains("@") && (!email.EndsWith(".se") && !email.EndsWith(".com")))
+        {
             Console.WriteLine("Inkorrekt format på e-postadressen");
+            return false;
+        }
+        return true;
     }
     public static async Task ValidateGuidExistAsync(Guid id, IKundService kundService)
     {

@@ -29,7 +29,7 @@ public class Kund
     }
     public override string ToString()
     {
-        return $"Namn: {Namn}, Adress: {Adress}, Stad: {Stad}, Postnummer: {Postnummer}, Telefonnummer: {MobilNummer}, E-post: {Epost}";
+        return $"Namn: {Namn}\nAdress: {Adress}\nStad: {Stad}\nPostnummer: {Postnummer}\nTelefonnummer: {MobilNummer}\nE-post: {Epost}";
     }
 }
 

@@ -29,32 +29,12 @@ public class AdminKund
 
             Console.WriteLine("Sammanfattning av kund du vill lägga till:");
             Console.WriteLine(kund);
-            //Console.WriteLine($"Namn: {kund.Namn}");
-            //Console.WriteLine($"Adress: {kund.Adress}");
-            //Console.WriteLine($"Stad: {kund.Stad}");
-            //Console.WriteLine($"Postnummer: {kund.Postnummer}");
-            //Console.WriteLine($"Telefonnummer: {kund.MobilNummer}");
-            //Console.WriteLine($"E-post: {kund.Epost}");
-            Console.WriteLine("Vill du lägga till kunden (J/N)");
 
-            var confirm = Console.ReadLine();
-            if (confirm.ToUpper() == "J")
-            {
-                await _kundService.AddAsync(kund);
-                Console.Clear();
-                Console.WriteLine("Kunden har lagts till.");
-                Meny.Wait();
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Kunden har inte lagts till.");
-                Meny.Wait();
-            }
+            await ConfirmationAddKund(kund);
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Fel: {ex.Message}");
+            Console.WriteLine($"Fel: {ex.Message}\n {ex.StackTrace}");
         }
     }
 
@@ -70,37 +50,26 @@ public class AdminKund
                 Meny.Wait();
                 return;
             }
-            Console.WriteLine("Välj kund att ta bort:");
-            for (int i = 0; i < kunder.Count; i++)
-                Console.WriteLine($"{i + 1}. Namn: {kunder[i].Namn}, Email: {kunder[i].Epost}, Adress: {kunder[i].Adress}");
-            
-            if(!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > kunder.Count)
+            ShowListSelection(kunder, "=== Välj kund att ta bort ===");
+
+            if (!DataValidering.ValidateListChoice(Console.ReadLine(), kunder.Count, out int choice))
             {
-                Console.WriteLine("Ogiltigt val. Vänligen ange ett nummer från listan.");
                 Meny.Wait();
                 return;
             }
-            Console.WriteLine($"Vill du ta bort kunden {kunder[choice - 1].Namn} (J/N)?");
-            var confirm = Console.ReadLine();
-            if (confirm.ToUpper() == "J")
-            {
-                await _kundService.DeleteAsync(kunder[choice - 1].Id);
-                Console.Clear();
-                Console.WriteLine("Kunden har tagits bort.");
-                Meny.Wait();
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Kunden har inte tagits bort.");
-                Meny.Wait();
-            }
+            await ConfirmationDeleteKund(kunder, choice);
 
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
+    }
+    private static void ShowListSelection(List<Kund> kunder, string rubrik)
+    {
+        Console.WriteLine(rubrik);
+        for (int i = 0; i < kunder.Count; i++)
+            Console.WriteLine($"{i + 1}. Namn: {kunder[i].Namn}, Email: {kunder[i].Epost}, Adress: {kunder[i].Adress}");
     }
 
     public async Task ShowKundList()
@@ -141,43 +110,78 @@ public class AdminKund
                 Meny.Wait();
                 return;
             }
-            Console.WriteLine("Välj kund att uppdatera:");
-            for (int i = 0; i < kunder.Count; i++)
+            ShowListSelection(kunder, "=== Välj kund att uppdatera ===");
+            if (!DataValidering.ValidateListChoice(Console.ReadLine(), kunder.Count, out int choice))
             {
-                Console.WriteLine($"Id: {i + 1}, Namn: {kunder[i].Namn}, Email: {kunder[i].Epost}, Adress: {kunder[i].Adress}");
-            }
-            if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > kunder.Count)
-            {
-                Console.WriteLine("Ogiltigt val. Vänligen ange ett nummer från listan.");
                 Meny.Wait();
                 return;
             }
             var newKund = await KundInput();
             UpdateSummary(kunder, choice, newKund);
-            Console.WriteLine("Vill du uppdatera kunden (J/N)?");
-
-            var confirm = Console.ReadLine();
-            if (confirm.ToUpper() == "J")
-            {
-                newKund.Id = kunder[choice - 1].Id;
-                await _kundService.UpdateAsync(newKund);
-                Console.Clear();
-                Console.WriteLine("Kunden har uppdaterats.");
-                Meny.Wait();
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Kunden har inte uppdaterats.");
-                Meny.Wait();
-            }
+            await ConfirmationUpdateKund(kunder, choice, newKund);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
+    private async Task ConfirmationDeleteKund(List<Kund> kunder, int choice)
+    {
+        Console.WriteLine($"Vill du ta bort kunden {kunder[choice - 1].Namn} (J/N)?");
+        var confirm = Console.ReadLine();
+        if (confirm.ToUpper() == "J")
+        {
+            await _kundService.DeleteAsync(kunder[choice - 1].Id);
+            Console.Clear();
+            Console.WriteLine("Kunden har tagits bort.");
+            Meny.Wait();
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Kunden har inte tagits bort.");
+            Meny.Wait();
+        }
+    }
+    private async Task ConfirmationUpdateKund(List<Kund> kunder, int choice, Kund newKund)
+    {
+        Console.WriteLine("Vill du uppdatera kunden (J/N)?");
+        var confirm = Console.ReadLine();
+        if (confirm.ToUpper() == "J")
+        {
+            newKund.Id = kunder[choice - 1].Id;
+            await _kundService.UpdateAsync(newKund);
+            Console.Clear();
+            Console.WriteLine("Kunden har uppdaterats.");
+            Meny.Wait();
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Kunden har inte uppdaterats.");
+            Meny.Wait();
+        }
+    }
 
+    private async Task ConfirmationAddKund(Kund kund)
+    {
+        Console.WriteLine("Vill du lägga till kunden (J/N)");
+
+        var confirm = Console.ReadLine();
+        if (confirm.ToUpper() == "J")
+        {
+            await _kundService.AddAsync(kund);
+            Console.Clear();
+            Console.WriteLine("Kunden har lagts till.");
+            Meny.Wait();
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Kunden har inte lagts till.");
+            Meny.Wait();
+        }
+    }
     private static void UpdateSummary(List<Kund> kunder, int choice, Kund newKund)
     {
         Console.WriteLine("Sammanfattning av ändrad kund: ");
@@ -207,16 +211,12 @@ public class AdminKund
         {
             Console.WriteLine("Ange namn: ");
             var namn = Console.ReadLine();
-            try
-            {
-                DataValidering.ValidateName(namn);
+            
+                if (!DataValidering.ValidateName(namn))
+                    continue;
+
                 Console.Clear();
                 return namn;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"Fel: {ex.Message}");
-            }
         }
     }
 
@@ -226,16 +226,12 @@ public class AdminKund
         {
             Console.WriteLine("Ange adress: ");
             var adress = Console.ReadLine();
-            try
-            {
-                KundValidering.ValidateAdress(adress);
+            
+                if (!KundValidering.ValidateAdress(adress))
+                    continue;
+
                 Console.Clear();
                 return adress;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"Fel: {ex.Message}");
-            }
         }
     }
 
@@ -245,16 +241,12 @@ public class AdminKund
         {
             Console.WriteLine("Ange stad: ");
             var city = Console.ReadLine();
-            try
-            {
-                KundValidering.ValidateCity(city);
+           
+                if (!KundValidering.ValidateCity(city))
+                    continue;
+
                 Console.Clear();
                 return city;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"Fel: {ex.Message}");
-            }
         }
     }
 
@@ -264,23 +256,12 @@ public class AdminKund
         {
             Console.WriteLine("Ange postnummer: ");
             var zipCode = Console.ReadLine();
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(zipCode))
-                {
-                    KundValidering.ValidateZipCode(zipCode);
-                    Console.Clear();
-                    return zipCode;
-                }
-                else
-                {
-                    Console.WriteLine("Fel: Postnumret måste vara 5 siffror.");
-                }
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"Fel: {ex.Message}");
-            }
+                
+                if (!KundValidering.ValidateZipCode(zipCode))
+                    continue;
+
+            Console.Clear();
+            return zipCode;
         }
     }
 
@@ -290,23 +271,14 @@ public class AdminKund
         {
             Console.WriteLine("Ange mobilnummer: ");
             var phoneNumberInput = Console.ReadLine();
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(phoneNumberInput))
-                {
-                    KundValidering.ValidatePhoneNumber(phoneNumberInput);
-                    Console.Clear();
-                    return phoneNumberInput;
-                }
-                else
-                {
-                    Console.WriteLine("Fel: Mobilnumret måste vara 11 siffror.");
-                }
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"Fel: {ex.Message}");
-            }
+           
+                
+            if(!KundValidering.ValidatePhoneNumber(phoneNumberInput))
+                continue;
+
+            Console.Clear();
+            return phoneNumberInput;
+                
         }
     }
 
@@ -316,16 +288,13 @@ public class AdminKund
         {
             Console.WriteLine("Ange e-postadress: ");
             var email = Console.ReadLine();
-            try
-            {
-                KundValidering.ValidateEmail(email);
+            
+                if (!KundValidering.ValidateEmail(email))
+                    continue;
+
                 Console.Clear();
                 return email;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"Fel: {ex.Message}");
-            }
+            
         }
     }
     
