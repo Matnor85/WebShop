@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Channels;
 using Webshop.Application.Interfaces;
 
 namespace Webshop.Application.Helpers;

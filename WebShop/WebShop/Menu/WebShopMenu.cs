@@ -13,11 +13,18 @@ public class WebShopMenu
     public void ShowWebShopMenu()
     {
         Console.Clear();
+        WelcomeText();
         Console.WriteLine("Webb-Shop val!");
         Console.WriteLine("1 - *****");
         Console.WriteLine("2 - *****");
         Console.WriteLine("3 - Tillbaka till startmenyn");
         ShowSales();
+    }
+
+    private void WelcomeText()
+    {
+        Console.WriteLine("Välkommen till vår webbshop!");
+        Console.WriteLine("Här kan du hitta de senaste produkterna och erbjudandena.");
     }
 
     private void ShowSales()
