@@ -10,7 +10,7 @@ public class KundValidering
 {
     public static bool ValidatePhoneNumber(string phoneNumber)
     {
-        if (string.IsNullOrWhiteSpace(phoneNumber) && phoneNumber.Length != 11)
+        if (string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length != 11)
         {
             Console.WriteLine("Inkorrekt format på mobilnumret");
             return false;
@@ -19,7 +19,7 @@ public class KundValidering
     }
     public static bool ValidateZipCode(string zipCode)
     {
-        if (string.IsNullOrWhiteSpace(zipCode) && zipCode.Length != 5)
+        if (string.IsNullOrWhiteSpace(zipCode) || zipCode.Length != 5)
         {
             Console.WriteLine("Inkorrekt format på postnumret");
             return false;
