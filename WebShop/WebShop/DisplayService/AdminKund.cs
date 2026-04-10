@@ -274,7 +274,7 @@ public class AdminKund
                 }
                 else
                 {
-                    Console.WriteLine("Fel: Postnumret får inte vara tomt.");
+                    Console.WriteLine("Fel: Postnumret måste vara 5 siffror.");
                 }
             }
             catch (ArgumentException ex)
@@ -300,7 +300,7 @@ public class AdminKund
                 }
                 else
                 {
-                    Console.WriteLine("Fel: Mobilnumret måste vara ett heltal.");
+                    Console.WriteLine("Fel: Mobilnumret måste vara 10 siffror.");
                 }
             }
             catch (ArgumentException ex)

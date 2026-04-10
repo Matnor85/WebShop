@@ -30,7 +30,7 @@ public class KundValidering
     }
     public static void ValidateEmail(string email)
     {
-        if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
+        if (string.IsNullOrWhiteSpace(email) || !email.Contains("@") && (!email.EndsWith(".se") && !email.EndsWith(".com")))
             Console.WriteLine("Inkorrekt format på e-postadressen");
     }
     public static async Task ValidateGuidExistAsync(Guid id, IKundService kundService)
