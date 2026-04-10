@@ -12,8 +12,8 @@ using Webshop.Infrastructure.EF;
 namespace Webshop.Infrastructure.Migrations
 {
     [DbContext(typeof(WebshopDbContext))]
-    [Migration("20260406084217_InitWithFixedRelation")]
-    partial class InitWithFixedRelation
+    [Migration("20260410074429_UppdataeradDatabas")]
+    partial class UppdataeradDatabas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,16 +76,18 @@ namespace Webshop.Infrastructure.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("MobilNummer")
-                        .HasColumnType("int");
+                    b.Property<string>("MobilNummer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Namn")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("Postnummer")
-                        .HasColumnType("int");
+                    b.Property<string>("Postnummer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Stad")
                         .IsRequired()

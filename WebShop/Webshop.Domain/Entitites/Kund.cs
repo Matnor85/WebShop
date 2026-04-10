@@ -10,14 +10,14 @@ public class Kund
     public string Namn { get; set; }
     public string Adress { get; set; }
     public string Stad { get; set; }
-    public int Postnummer { get; set; } // ev ändra till string om det behövs
-    public int MobilNummer { get; set; }
+    public string Postnummer { get; set; }
+    public string MobilNummer { get; set; }
     public string Epost { get; set; }
     public List<Order> Ordrar { get; set; } = new List<Order>();
 
     public Kund() { }
 
-    public Kund(string namn, string adress, string stad, int postnummer, int mobilNummer, string epost)
+    public Kund(string namn, string adress, string stad, string postnummer, string mobilNummer, string epost)
     {
         Id = Guid.NewGuid();
         Namn = namn;

@@ -19,13 +19,13 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
     private readonly ProduktMenu _produktMenu;
     private readonly KundMenu _kundMenu;
     private readonly SeederGenerator _seeder;
-    public AdminMenu(SeederGenerator seeder) { _seeder = seeder; }
 
-    public AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu)
+    public AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu, SeederGenerator seeder)
     {
         _kategoriMenu = kategoriMenu;
         _produktMenu = produktMenu;
         _kundMenu = kundMenu;
+        _seeder = seeder;
     }
 
 
@@ -63,10 +63,12 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
                 {
                     await _seeder.SeedAsync();
                     Console.WriteLine("Seeding lyckades.");
+                    Console.ReadLine();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Seeding misslyckades: {ex.Message}\n{ex.StackTrace}");
+                    Console.ReadLine();
                 }
                 break;
             case "6":

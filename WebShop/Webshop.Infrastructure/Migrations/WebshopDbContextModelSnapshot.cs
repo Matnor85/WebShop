@@ -73,16 +73,18 @@ namespace Webshop.Infrastructure.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("MobilNummer")
-                        .HasColumnType("int");
+                    b.Property<string>("MobilNummer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Namn")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("Postnummer")
-                        .HasColumnType("int");
+                    b.Property<string>("Postnummer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Stad")
                         .IsRequired()

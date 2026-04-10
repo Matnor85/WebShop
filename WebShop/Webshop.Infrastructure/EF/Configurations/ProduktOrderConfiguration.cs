@@ -16,6 +16,10 @@ public class ProduktOrderConfiguration : IEntityTypeConfiguration<ProduktOrder>
         builder.HasOne(x => x.Produkt)
             .WithMany(x => x.ProduktOrdrar)
             .HasForeignKey(x => x.ProduktId);
+
+        // Tar bort varningarna om decimal precision. Kommer behöva uppdatera databasen för att matcha detta.
+        builder.Property(x => x.PrisvidKöp)
+               .HasColumnType("decimal(18,2)");
             
     }
 }
