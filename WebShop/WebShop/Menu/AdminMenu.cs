@@ -68,6 +68,7 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
     }
     public async Task AdminRunAsync()
     {
+        _isRunning = true;
         while (_isRunning)
         {   
             ShowAdminMenu();

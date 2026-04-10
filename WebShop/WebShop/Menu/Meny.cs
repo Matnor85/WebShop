@@ -37,6 +37,13 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
             
             }
     }
+    public static void LineBreaks(int antal)
+    {
+        for (int i = 0; i < antal; i++)
+        {
+            Console.WriteLine();
+        }
+    }
 
     public static void Wait()
     {

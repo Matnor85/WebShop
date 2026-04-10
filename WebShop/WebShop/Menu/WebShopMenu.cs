@@ -1,4 +1,7 @@
-﻿namespace WebShop.Presentation.Menu;
+﻿using WebShop.Presentation.DisplayService;
+using WebShop.Presentation.Menu.Shop_Submenu;
+
+namespace WebShop.Presentation.Menu;
 /// <summary>
 /// 1. Visa webb-shopmeny
 /// 2. Hantera webb-shopval
@@ -6,19 +9,96 @@
 /// 4. Implementera funktionalitet för att hantera kundvagn och beställningar
 /// 5. Implementera funktionalitet för att hantera användarprofiler och orderhistorik
 /// </summary>
-public class WebShopMenu
+public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu searchProductMenu, BrowseCategoriesMenu browseCategoriesMenu)
 {
-    //Meny _meny = new Meny();
     bool _isRunning = true;
+
     public void ShowWebShopMenu()
     {
         Console.Clear();
         WelcomeText();
-        Console.WriteLine("Webb-Shop val!");
-        Console.WriteLine("1 - *****");
-        Console.WriteLine("2 - *****");
-        Console.WriteLine("3 - Tillbaka till startmenyn");
+        Meny.LineBreaks(3);
+        Console.WriteLine("=== Webb-Shop val ===");
+        Console.WriteLine("1 - Sök efter produkt");
+        Console.WriteLine("2 - Bläddra bland kategorier");
+        Console.WriteLine("3 - Hantera användarprofiler och orderhistorik");
+        Console.WriteLine("4 - Hantera kundvagn");
+        Console.WriteLine("5 - Tillbaka till startmenyn");
+        Meny.LineBreaks(3);
         ShowSales();
+    }
+
+    public void HandleInput()
+    {
+
+        var input = Console.ReadLine();
+        switch (input)
+        {
+            case "1":
+                SearchProduct();
+                break;
+            case "2":
+                BrowseCategories();
+                break;
+            case "3":
+                ManageOrderHistory();
+                break;
+            case "4":
+                ShoppingCart();
+                break;
+            case "5":
+                _isRunning = false;
+                break;
+            default:
+                Console.WriteLine("Ogiltigt val, försök igen.");
+                break;
+        }
+
+    }
+    
+    private void ShoppingCart()
+    {
+        Console.WriteLine("=== Kundvagn ===");
+        
+        foreach (var item in ShoppingCartService.CartItems)
+        {
+            Console.WriteLine($"{item.Product.Name} - Antal: {item.Quantity} - Pris: {item.Product.Price * item.Quantity}");
+        }
+        ShoppingCartMenu();
+    }
+
+    private void ShoppingCartMenu()
+    {
+        Console.WriteLine("=== Kundvagn val ===");
+        Console.WriteLine("1 - Ändra antal");
+        Console.WriteLine("2 - Ta bort produkt");
+        Console.WriteLine("3 - Gå vidare till kassan");
+        Console.WriteLine("4 - Tillbaka till webb-shopmenyn");
+    }
+
+    private void ManageOrderHistory()
+    {
+        Console.WriteLine("=== Användarprofiler och orderhistorik ===");
+
+    }
+
+    private async Task BrowseCategories()
+    {
+        Console.WriteLine("=== Kategorier ===");
+        try
+        {
+            
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ett fel inträffade: {ex.Message}\n{ex.StackTrace}");
+        }
+    }
+
+    private void SearchProduct()
+    {
+        Console.WriteLine("=== Sök produkt ===");
+
     }
 
     private void WelcomeText()
@@ -29,57 +109,19 @@ public class WebShopMenu
 
     private void ShowSales()
     {
-        Console.WriteLine("\nErbjudanden och kampanjer:");
+        Console.WriteLine("Erbjudanden och kampanjer:");
         Console.WriteLine("*****************");
         Console.WriteLine("*****************");
         Console.WriteLine("*****************");
-    }
-
-    public void HandleInput()
-    {
-       
-            var input = Console.ReadLine();
-            switch (input)
-            {
-                case "1":
-
-                    break;
-                case "2":
-
-                    break;
-                case "3":
-                    _isRunning = false;
-
-                    break;
-                case "4":
-
-                    break;
-                case "5":
-
-                    break;
-                case "6":
-
-                    break;
-                case "7":
-
-                    break;
-                case "8":
-                   // Console.WriteLine("Tack för att du besökte vår webshop. Ha en bra dag!");
-                    //_meny.MenuRun();
-                    return;
-                default:
-                    Console.WriteLine("Ogiltigt val, försök igen.");
-                    break;
-            }
-        
     }
     public void WebbRun()
     {
+        _isRunning = true;
         while (_isRunning)
         {
             ShowWebShopMenu();
             HandleInput();
-           
+
         }
     }
 }

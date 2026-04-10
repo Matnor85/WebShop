@@ -9,7 +9,7 @@ using Webshop.Infrastructure.EF.Seeds;
 
 namespace WebShop;
 
-internal class Program
+public class Program
 {
     static async Task Main(string[] args)
     {

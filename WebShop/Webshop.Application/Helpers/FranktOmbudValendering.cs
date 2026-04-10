@@ -5,7 +5,7 @@ using Webshop.Application.Interfaces;
 
 namespace Webshop.Application.Helpers;
 
-internal class FranktOmbudValendering
+public class FranktOmbudValendering
 {
     public static bool IsValidFraktOmbud(string name, string address, string postalCode, string city)
     {

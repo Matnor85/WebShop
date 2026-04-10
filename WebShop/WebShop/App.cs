@@ -13,6 +13,7 @@ using Webshop.Infrastructure.EF.Repositories;
 using Webshop.Infrastructure.EF.Seeds;
 using WebShop.Presentation.DisplayService;
 using WebShop.Presentation.Menu;
+using WebShop.Presentation.Menu.Shop_Submenu;
 using WebShop.Presentation.Menu.Submenu;
 
 namespace WebShop.Presentation;
@@ -62,6 +63,10 @@ public class App
         services.AddScoped<ProduktMenu>();
         services.AddScoped<KundMenu>();
         services.AddScoped<OrderMenu>();
+        // Webbshop meny
+        services.AddScoped<ShoppingCartMenu>();
+        services.AddScoped<SearchProductMenu>();
+        services.AddScoped<BrowseCategoriesMenu>();
 
         //displayservice
         services.AddScoped<AdminKund>();
