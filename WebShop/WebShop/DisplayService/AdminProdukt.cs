@@ -20,36 +20,24 @@ public class AdminProdukt
     }
     public async Task DeleteProdukt()
     {
+        try
+        {
             Console.WriteLine("=== Ta bort produkt ===");
             var produkter = await _produktService.GetAllAsync();
 
             if (produkter == null || produkter.Count <= 0) return;
-            Console.WriteLine("== Välj vilket produkt du vill ta bort ==");
-
-            for (int i = 0; i < produkter.Count; i++)
-            {
-                Console.WriteLine($"{i + 1} - {produkter[i].Namn}, Lagersaldo: {produkter[i].LagerAntal}");
-            }
+            ShowProduktListForSelection(produkter, "=== Välj vilken produkt du vill ta bort ===");
             if (!DataValidering.ValidateListChoice(Console.ReadLine(), produkter.Count, out int produktVal))
             {
                 Meny.Wait();
                 return;
             }
-            Console.WriteLine($"Vill du ta bort produkten? (J/N) {produkter[produktVal - 1].Namn}");
-            var confirm = Console.ReadLine();
-            if (confirm.ToUpper() == "J")
-            {
-                await _produktService.DeleteAsync(produkter[produktVal - 1].Id);
-                Console.Clear();
-                Console.WriteLine("Produkten har tagits bort.");
-                Meny.Wait();
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Produkten har inte tagits bort.");
-                Meny.Wait();
-            }
+            await ConfirmDeleteProdukt(produkter, produktVal);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
+        }
         
     }
     public async Task UpdateProdukt()
@@ -58,7 +46,7 @@ public class AdminProdukt
         {
             Console.WriteLine("=== Uppdatera produkt ===");
             var produkter = await _produktService.GetAllAsync();
-            ShowProduktLista(produkter);
+            ShowProduktListForSelection(produkter, "=== Välj vilken produkt du vill uppdatera ===");
 
             if (!DataValidering.ValidateListChoice(Console.ReadLine(), produkter.Count, out int produktVal))
             {
@@ -77,46 +65,72 @@ public class AdminProdukt
     }
     public async Task AddProduktAsync()
     {
+        try
+        {
             Console.Clear();
             Console.WriteLine("=== Lägg till produkt === ");
             var produktResult = await ProduktInput();
             Console.WriteLine(produktResult.produkt);
             Console.WriteLine($"Leverantör: {produktResult.leverantörNamn}\nKategori: {produktResult.kategoriNamn}");
-            
-            Console.WriteLine("Vill du lägga till produkten? (J/N)");
 
-            var confirm = Console.ReadLine();
-            if (confirm?.ToUpper() == "J")
-            {
-                if (produktResult.produkt == null) return;
-                await _produktService.AddAsync(produktResult.produkt);
-                Console.Clear();
-                Console.WriteLine("Produkten har lagts till.");
-                Meny.Wait();
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Produkten har inte lagts till.");
-                Meny.Wait();
-            }
+            await ConfirmAddProdukt(produktResult);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
+        }
     }
 
     public async Task ShowProduktList()
     {
-            Console.WriteLine("=== Visar produkter ===");
-            var produktList = await _produktService.GetAllAsync();
-            if (produktList == null || produktList.Count <= 0)
-            {
-                Console.WriteLine("inga produkter hittades.");
-                Meny.Wait();
-                return;
-            }
-            foreach (var p in produktList)
-            {
-                Console.WriteLine($"Namn: {p.Namn}, Lagersaldo: {p.LagerAntal} ");
-            }
+        Console.WriteLine("=== Visar produkter ===");
+        var produktList = await _produktService.GetAllAsync();
+        if (produktList == null || produktList.Count <= 0)
+        {
+            Console.WriteLine("Inga produkter hittades.");
             Meny.Wait();
+            return;
+        }
+        foreach (var p in produktList)
+            Console.WriteLine($"Namn: {p.Namn}, Lagersaldo: {p.LagerAntal}");
+        Meny.Wait();
+    }
+    private async Task ConfirmAddProdukt((Produkt produkt, string leverantörNamn, string kategoriNamn) produktResult)
+    {
+        Console.WriteLine("Vill du lägga till produkten? (J/N)");
+        var confirm = Console.ReadLine();
+        if (confirm?.ToUpper() == "J")
+        {
+            await _produktService.AddAsync(produktResult.produkt);
+            Console.Clear();
+            Console.WriteLine("Produkten har lagts till.");
+            Meny.Wait();
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Produkten har inte lagts till.");
+            Meny.Wait();
+        }
+    }
+
+    private async Task ConfirmDeleteProdukt(List<Produkt> produkter, int produktVal)
+    {
+        Console.WriteLine($"Vill du ta bort produkten? (J/N) {produkter[produktVal - 1].Namn}");
+        var confirm = Console.ReadLine();
+        if (confirm.ToUpper() == "J")
+        {
+            await _produktService.DeleteAsync(produkter[produktVal - 1].Id);
+            Console.Clear();
+            Console.WriteLine("Produkten har tagits bort.");
+            Meny.Wait();
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Produkten har inte tagits bort.");
+            Meny.Wait();
+        }
     }
     private static void UpdateSummary(List<Produkt> produkter, int produktVal, (Produkt produkt, string leverantörNamn, string kategoriNamn) newProdukt)
     {
@@ -130,13 +144,11 @@ public class AdminProdukt
         Console.WriteLine($"Leverantör: {produkter[produktVal - 1].Leverantör.Namn} - Leverantör: {newProdukt.leverantörNamn}");
         Console.WriteLine($"Kategori: {produkter[produktVal - 1].Kategori.Namn} - Kategori: {newProdukt.kategoriNamn}");
     }
-    private static void ShowProduktLista(List<Produkt> produkter)
+    private static void ShowProduktListForSelection(List<Produkt> produkter, string rubrik)
     {
-        Console.WriteLine("== Välj produkt att uppdatera ==");
+        Console.WriteLine(rubrik);
         for (int i = 0; i < produkter.Count; i++)
-        {
-            Console.WriteLine($"Id: {i + 1} - Namn: {produkter[i].Namn}, Lagersaldo: {produkter[i].LagerAntal}");
-        }
+            Console.WriteLine($"{i + 1} - Namn: {produkter[i].Namn}, Lagersaldo: {produkter[i].LagerAntal}");
     }
     private async Task ConfirmUpdateProdukt(List<Produkt> produkter, int produktVal, (Produkt produkt, string leverantörNamn, string kategoriNamn) newProdukt)
     {
@@ -291,11 +303,9 @@ public class AdminProdukt
             Console.WriteLine("Ange leverantör:");
             for (int i = 0; i < leverantörer.Count; i++)
                 Console.WriteLine($"{i + 1} - {leverantörer[i].Namn}");
-            if (!int.TryParse(Console.ReadLine(), out int val) || val < 1 || val > leverantörer.Count)
-            {
-                Console.WriteLine("Ogiltigt val av leverantör");
+            if (!DataValidering.ValidateListChoice(Console.ReadLine(), leverantörer.Count, out int val))
                 continue;
-            }
+            
             Console.Clear();
             return (leverantörer[val - 1].Id, leverantörer[val - 1].Namn);
         }
@@ -309,11 +319,9 @@ public class AdminProdukt
             Console.WriteLine("Ange kategori:");
             for (int i = 0; i < kategorier.Count; i++)
                 Console.WriteLine($"{i + 1} - {kategorier[i].Namn}");
-            if (!int.TryParse(Console.ReadLine(), out int val) || val < 1 || val > kategorier.Count)
-            {
-                Console.WriteLine("Ogiltigt val av kategori");
+            if (!DataValidering.ValidateListChoice(Console.ReadLine(), kategorier.Count, out int val))
                 continue;
-            }
+            
             Console.Clear();
             return (kategorier[val - 1].Id, kategorier[val - 1].Namn);
         }
