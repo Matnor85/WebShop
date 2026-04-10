@@ -5,21 +5,9 @@ using WebShop.Presentation.DisplayService;
 
 namespace WebShop.Presentation.Menu.Shop_Submenu;
 
-public class BrowseCategoriesMenu(ShopBrowseCategories browseCategoriesMenu)
+public class ManageOrderHistoryMenu(ShopManageOrderHistory shopManageOrderHistory)
 {
     bool _isRunning = true;
-    public async Task BrowseCategories()
-    {
-        Console.WriteLine("=== Kategorier ===");
-        try
-        {
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Ett fel inträffade: {ex.Message}\n{ex.StackTrace}");
-        }
-    }
     public static void ManageOrderHistory()
     {
         Console.WriteLine("=== Användarprofiler och orderhistorik ===");
@@ -46,12 +34,12 @@ public class BrowseCategoriesMenu(ShopBrowseCategories browseCategoriesMenu)
                 break;
         }
     }
-    public void BrowseCategoriesRun()
+    public void ManageOrderHistoryRun()
     {
         _isRunning = true;
         while (_isRunning)
         {
-            BrowseCategories();
+            ManageOrderHistory();
             HandleInput();
         }
     }

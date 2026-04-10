@@ -67,12 +67,17 @@ public class App
         services.AddScoped<ShoppingCartMenu>();
         services.AddScoped<SearchProductMenu>();
         services.AddScoped<BrowseCategoriesMenu>();
+        services.AddScoped<ManageOrderHistoryMenu>();
 
         //displayservice
         services.AddScoped<AdminKund>();
         services.AddScoped<AdminProdukt>();
         services.AddScoped<AdminKategori>();
         services.AddScoped<AdminOrder>();
+        services.AddScoped<ShopBrowseCategories>();
+        services.AddScoped<ShopSearchProduct>();
+        services.AddScoped<ShopShoppingCart>(); 
+        services.AddScoped<ShopManageOrderHistory>();
         // Logger
         services.AddLogging(builder =>
         {

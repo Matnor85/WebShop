@@ -11,7 +11,6 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
     public void ShowMainMenu()
     {
         Console.Clear();
-        Console.WriteLine("Välkommen till Webshop!");
         Console.WriteLine("1 - Till webb-Shop");
         Console.WriteLine("2 - Admin");
         Console.WriteLine("3 - Avsluta");
@@ -36,6 +35,11 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
                     break;
             
             }
+    }
+    public static void WelcomeText()
+    {
+        Console.WriteLine("Välkommen till vår webbshop!");
+        Console.WriteLine("Här kan du hitta de senaste produkterna och erbjudandena.");
     }
     public static void LineBreaks(int antal)
     {
