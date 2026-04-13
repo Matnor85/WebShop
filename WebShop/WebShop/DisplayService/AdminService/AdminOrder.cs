@@ -5,7 +5,7 @@ using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using WebShop.Presentation.Menu;
 
-namespace WebShop.Presentation.DisplayService;
+namespace WebShop.Presentation.DisplayService.AdminService;
 
 public class AdminOrder
 {

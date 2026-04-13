@@ -12,6 +12,7 @@ using Webshop.Infrastructure.EF;
 using Webshop.Infrastructure.EF.Repositories;
 using Webshop.Infrastructure.EF.Seeds;
 using WebShop.Presentation.DisplayService;
+using WebShop.Presentation.DisplayService.AdminService;
 using WebShop.Presentation.Menu;
 using WebShop.Presentation.Menu.Shop_Submenu;
 using WebShop.Presentation.Menu.Submenu;
@@ -74,15 +75,18 @@ public class App
         services.AddScoped<KampanjerMenu>();
 
         //displayservice
+        //Admin
         services.AddScoped<AdminKund>();
         services.AddScoped<AdminProdukt>();
         services.AddScoped<AdminKategori>();
         services.AddScoped<AdminOrder>();
+        services.AddScoped<AdminKampanj>();
+        //Shop
         services.AddScoped<ShopBrowseCategories>();
         services.AddScoped<ShopSearchProduct>();
         services.AddScoped<ShopShoppingCart>(); 
         services.AddScoped<ShopManageOrderHistory>();
-        services.AddScoped<AdminKampanj>();
+        services.AddScoped<ShopKampanj>();
         // Logger
         services.AddLogging(builder =>
         {

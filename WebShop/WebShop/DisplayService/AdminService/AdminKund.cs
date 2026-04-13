@@ -6,7 +6,7 @@ using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
 using WebShop.Presentation.Menu;
 
-namespace WebShop.Presentation.DisplayService;
+namespace WebShop.Presentation.DisplayService.AdminService;
 
 public class AdminKund
 {

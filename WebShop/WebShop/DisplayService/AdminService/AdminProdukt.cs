@@ -4,7 +4,7 @@ using Webshop.Domain.Entitites;
 using Webshop.Domain.Enums;
 using WebShop.Presentation.Menu;
 
-namespace WebShop.Presentation.DisplayService;
+namespace WebShop.Presentation.DisplayService.AdminService;
 
 public class AdminProdukt
 {

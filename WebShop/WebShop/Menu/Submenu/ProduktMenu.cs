@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WebShop.Presentation.DisplayService;
+using WebShop.Presentation.DisplayService.AdminService;
 
 namespace WebShop.Presentation.Menu.Submenu;
 

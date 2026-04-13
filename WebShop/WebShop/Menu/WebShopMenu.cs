@@ -3,11 +3,11 @@ using WebShop.Presentation.Menu.Shop_Submenu;
 
 namespace WebShop.Presentation.Menu;
 
-public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu searchProductMenu, BrowseCategoriesMenu browseCategoriesMenu, ManageOrderHistoryMenu manageOrderHistoryMenu)
+public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu searchProductMenu, BrowseCategoriesMenu browseCategoriesMenu, ManageOrderHistoryMenu manageOrderHistoryMenu, ShopKampanj kampanj)
 {
     bool _isRunning = true;
 
-    public void ShowWebShopMenu()
+    public async Task ShowWebShopMenu()
     {
         Console.Clear();
         Meny.WelcomeText();
@@ -19,7 +19,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
         Console.WriteLine("4 - Hantera kundvagn");
         Console.WriteLine("5 - Tillbaka till startmenyn");
         Meny.LineBreaks(3);
-        ShowSales();
+        await ShowSales();
     }
 
     public void HandleInput()
@@ -48,12 +48,9 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
                 break;
         }
     }
-    private void ShowSales()
+    private async Task ShowSales()
     {
-        Console.WriteLine("Erbjudanden och kampanjer:");
-        Console.WriteLine("*****************");
-        Console.WriteLine("*****************");
-        Console.WriteLine("*****************");
+        await kampanj.ShowKampanjAsync();
     }
     public void WebbRun()
     {
