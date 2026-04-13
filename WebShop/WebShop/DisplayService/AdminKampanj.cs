@@ -14,9 +14,10 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
     {
         try
         {
+            Console.Clear();
             Console.WriteLine("=== Lägg till kampanj ===");
             var produkter = await produktService.GetAllAsync();
-            ShowListSelection(produkter, "Välj produkt");
+            ShowListSelection(produkter, "Välj produkt med id");
             if (!DataValidering.ValidateListChoice(Console.ReadLine(), produkter.Count, out int val))
             {
                 return;
@@ -38,6 +39,7 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
     {
         try
         {
+            Console.Clear();
             Console.WriteLine("=== Ta bort kampanj ===");
             var kampanjer = await produktKampanjService.GetAllAsync();
             if (!DataValidering.ValidateList(kampanjer, "Inga kampanjer hittades"))
@@ -63,7 +65,8 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
 
     public async Task ShowKampanjList()
     {
-     var kampanjer = await produktKampanjService.GetAllAsync();
+        Console.Clear();
+        var kampanjer = await produktKampanjService.GetAllAsync();
         if (!DataValidering.ValidateList(kampanjer, "Inga kampanjer hittades"))
         {
             Meny.Wait();
@@ -77,6 +80,7 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
     {
         try
         {
+            Console.Clear();
             var kampanjer = await produktKampanjService.GetAllAsync();
             if (!DataValidering.ValidateList(kampanjer, "Inga kampanjer hittades"))
             {
@@ -90,6 +94,8 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
                 return;
             }
             var rabatt = GetRabatt();
+
+            if (await HandleZeroRabatt(kampanjer[val - 1], rabatt)) return;
             await ConfirmationUpdateKampanj(kampanjer, val, rabatt);
 
         }
@@ -97,6 +103,17 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
+    }
+
+    private async Task<bool> HandleZeroRabatt(ProduktKampanj produktKampanj, decimal rabatt)
+    {
+        if (rabatt != 0) return false;
+
+        await produktKampanjService.DeleteAsync(produktKampanj.Id);
+        Console.Clear();
+        Console.WriteLine("Kampanjen har tagits bort eftersom rabatten var 0.");
+        Meny.Wait();
+        return true;
     }
 
     private async Task ConfirmationUpdateKampanj(List<ProduktKampanj> kampanjer, int val, decimal rabatt)
