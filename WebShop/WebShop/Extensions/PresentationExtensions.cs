@@ -12,7 +12,7 @@ namespace WebShop.Presentation.Extensions;
 
 public static class PresentationExtensions
 {
-    public static IServiceCollection AddMenus(this IServiceCollection services)
+    public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
         //meny
         services.AddScoped<Meny>();
