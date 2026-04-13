@@ -2,20 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Interfaces;
-using Webshop.Application.Services;
-using Webshop.Domain.Interfaces;
+using Webshop.Application.Extensions;
 using Webshop.Infrastructure.EF;
-using Webshop.Infrastructure.EF.Repositories;
 using Webshop.Infrastructure.EF.Seeds;
-using WebShop.Presentation.DisplayService;
-using WebShop.Presentation.DisplayService.AdminService;
+using Webshop.Infrastructure.Extensions;
+using WebShop.Presentation.Extensions;
 using WebShop.Presentation.Menu;
-using WebShop.Presentation.Menu.Shop_Submenu;
-using WebShop.Presentation.Menu.Submenu;
 
 namespace WebShop.Presentation;
 
@@ -33,60 +25,13 @@ public class App
 
         var services = new ServiceCollection();
         services.AddDbContext<WebshopDbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
-        
+
+        //Repositories
+        services.AddRepositories();
         //Services
-        services.AddScoped<IProduktRepository, ProduktRepository>();
-        services.AddScoped<IProduktService, ProduktService>();
-
-        services.AddScoped<IProduktOrderRepository, ProduktOrderRepository>();
-        services.AddScoped<IProduktOrderService, ProduktOrderService>();
-
-        services.AddScoped<IKategoriRepository, KategoriRepository>();
-        services.AddScoped<IKategoriService, KategoriService>();
-
-        services.AddScoped<IKundRepository, KundRepository>();
-        services.AddScoped<IKundService, KundService>();
-
-        services.AddScoped<ILeverantörRepository, LeverantörRepository>();
-        services.AddScoped<ILeverantörService, LeverantörService>();
-
-        services.AddScoped<IFraktOmbudRepository, FraktOmbudRepository>();
-        services.AddScoped<IFraktOmbudService, FraktOmbudService>();
-
-        services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<IOrderService, OrderService>();
-
-        services.AddScoped<IProduktKampanjRepository, ProduktKampanjRepository>();
-        services.AddScoped<IProduktKampanjService, ProduktKampanjService>();
-
-        //meny
-        services.AddScoped<Meny>();
-        services.AddScoped<WebShopMenu>();
-        services.AddScoped<AdminMenu>();
-        services.AddScoped<KategoriMenu>();
-        services.AddScoped<ProduktMenu>();
-        services.AddScoped<KundMenu>();
-        services.AddScoped<OrderMenu>();
-        // Webbshop meny
-        services.AddScoped<ShoppingCartMenu>();
-        services.AddScoped<SearchProductMenu>();
-        services.AddScoped<BrowseCategoriesMenu>();
-        services.AddScoped<ManageOrderHistoryMenu>();
-        services.AddScoped<KampanjerMenu>();
-
-        //displayservice
-        //Admin
-        services.AddScoped<AdminKund>();
-        services.AddScoped<AdminProdukt>();
-        services.AddScoped<AdminKategori>();
-        services.AddScoped<AdminOrder>();
-        services.AddScoped<AdminKampanj>();
-        //Shop
-        services.AddScoped<ShopBrowseCategories>();
-        services.AddScoped<ShopSearchProduct>();
-        services.AddScoped<ShopShoppingCart>(); 
-        services.AddScoped<ShopManageOrderHistory>();
-        services.AddScoped<ShopKampanj>();
+        services.AddServices();
+        //Presentation
+        services.AddPresentation();
         // Logger
         services.AddLogging(builder =>
         {
