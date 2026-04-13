@@ -41,4 +41,13 @@ public class DataValidering
         return true;
     }
 
+    public static bool ValidateList<T>(List<T> list, string message)
+    {
+        if (list == null || list.Count == 0)
+        {
+            Console.WriteLine(message);
+            return false;
+        }
+        return true;
+    }
 }

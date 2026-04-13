@@ -25,7 +25,11 @@ public class AdminProdukt
             Console.WriteLine("=== Ta bort produkt ===");
             var produkter = await _produktService.GetAllAsync();
 
-            if (produkter == null || produkter.Count <= 0) return;
+            if (!DataValidering.ValidateList(produkter, "Inga produkter hittades"))
+            {
+                Meny.Wait();
+                return;
+            }
             ShowProduktListForSelection(produkter, "=== Välj vilken produkt du vill ta bort ===");
             if (!DataValidering.ValidateListChoice(Console.ReadLine(), produkter.Count, out int produktVal))
             {
@@ -46,6 +50,11 @@ public class AdminProdukt
         {
             Console.WriteLine("=== Uppdatera produkt ===");
             var produkter = await _produktService.GetAllAsync();
+            if (!DataValidering.ValidateList(produkter, "Inga produkter hittades"))
+            {
+                Meny.Wait();
+                return;
+            }
             ShowProduktListForSelection(produkter, "=== Välj vilken produkt du vill uppdatera ===");
 
             if (!DataValidering.ValidateListChoice(Console.ReadLine(), produkter.Count, out int produktVal))
@@ -85,9 +94,8 @@ public class AdminProdukt
     {
         Console.WriteLine("=== Visar produkter ===");
         var produktList = await _produktService.GetAllAsync();
-        if (produktList == null || produktList.Count <= 0)
+        if (!DataValidering.ValidateList(produktList, "Inga produkter hittades"))
         {
-            Console.WriteLine("Inga produkter hittades.");
             Meny.Wait();
             return;
         }

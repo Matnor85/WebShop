@@ -13,9 +13,8 @@ public class AdminKategori(IKategoriService _kategoriService)
         {
             Console.WriteLine("=== Ta bort kategori ===");
             var kategorier = await _kategoriService.GetAllAsync();
-            if (kategorier == null || kategorier.Count <= 0)
+            if (!DataValidering.ValidateList(kategorier, "Inga kategorier hittades"))
             {
-                Console.WriteLine("Inga kategorier hittades.");
                 Meny.Wait();
                 return;
             }
@@ -38,9 +37,8 @@ public class AdminKategori(IKategoriService _kategoriService)
         {
             Console.WriteLine("=== Uppdatera kategori ===");
             var kategorier = await _kategoriService.GetAllAsync();
-            if (kategorier == null || kategorier.Count <= 0)
+            if (!DataValidering.ValidateList(kategorier, "Inga kategorier hittades"))
             {
-                Console.WriteLine("Inga kategorier hittades.");
                 Meny.Wait();
                 return;
             }
@@ -80,9 +78,8 @@ public class AdminKategori(IKategoriService _kategoriService)
         {
             Console.WriteLine("=== Visar kategorier ===");
             var kategorier = await _kategoriService.GetAllAsync();
-            if (kategorier == null || kategorier.Count <= 0)
+            if (!DataValidering.ValidateList(kategorier, "Inga kategorier hittades"))
             {
-                Console.WriteLine("Inga kategorier hittades.");
                 Meny.Wait();
                 return;
             }
@@ -157,7 +154,7 @@ public class AdminKategori(IKategoriService _kategoriService)
             Meny.Wait();
         }
     }
-    private static void ShowListSelection(List<Kategori> kategorier, string rubrik)
+    private void ShowListSelection(List<Kategori> kategorier, string rubrik)
     {
         Console.WriteLine(rubrik);
         for (int i = 0; i < kategorier.Count; i++)
@@ -166,7 +163,7 @@ public class AdminKategori(IKategoriService _kategoriService)
         }
     }
 
-    private static string GetKategoriName()
+    private string GetKategoriName()
     {
         while (true)
         {

@@ -44,9 +44,8 @@ public class AdminKund
         {
             Console.WriteLine("=== Ta bort kund ===");
             var kunder = await _kundService.GetAllAsync();
-            if (kunder == null || kunder.Count <= 0)
+            if (!DataValidering.ValidateList(kunder, "Inga kunder hittades"))
             {
-                Console.WriteLine("Inga kunder hittades.");
                 Meny.Wait();
                 return;
             }
@@ -78,20 +77,17 @@ public class AdminKund
         {
             Console.WriteLine("=== Visar kunder ===");
             var kunder = await _kundService.GetAllAsync();
-            if (kunder != null && kunder.Count > 0)
+            if (!DataValidering.ValidateList(kunder, "Inga kunder hittades"))
             {
-                foreach (var kund in kunder)
-                {
-                    Console.WriteLine($"Namn: {kund.Namn}, Email: {kund.Epost}, Adress: {kund.Adress}");
-                }
+                Meny.Wait();
+                return;
             }
-            else
+            foreach (var kund in kunder)
             {
-                Console.WriteLine("Inga kunder att visa.");
+                Console.WriteLine($"Namn: {kund.Namn}, Email: {kund.Epost}, Adress: {kund.Adress}");
             }
              Meny.Wait();
-
-            }
+        }
         catch (Exception ex)
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
@@ -104,9 +100,8 @@ public class AdminKund
         {
             Console.WriteLine("=== Uppdatera kund ===");
             var kunder = await _kundService.GetAllAsync();
-            if (kunder == null || kunder.Count <= 0)
+            if (!DataValidering.ValidateList(kunder, "Inga kunder hittades"))
             {
-                Console.WriteLine("Inga kunder hittades.");
                 Meny.Wait();
                 return;
             }
