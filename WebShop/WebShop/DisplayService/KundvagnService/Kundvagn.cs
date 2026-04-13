@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Domain.Entitites;
-using WebShop.Presentation.DisplayService.KundvagnService;
 
-namespace WebShop.Presentation.DisplayService.Models;
+namespace WebShop.Presentation.DisplayService.KundvagnService;
 
 public class Kundvagn
 {
