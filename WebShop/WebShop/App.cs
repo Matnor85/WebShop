@@ -55,6 +55,9 @@ public class App
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderService, OrderService>();
 
+        services.AddScoped<IProduktKampanjRepository, ProduktKampanjRepository>();
+        services.AddScoped<IProduktKampanjService, ProduktKampanjService>();
+
         //meny
         services.AddScoped<Meny>();
         services.AddScoped<WebShopMenu>();
@@ -68,6 +71,7 @@ public class App
         services.AddScoped<SearchProductMenu>();
         services.AddScoped<BrowseCategoriesMenu>();
         services.AddScoped<ManageOrderHistoryMenu>();
+        services.AddScoped<KampanjerMenu>();
 
         //displayservice
         services.AddScoped<AdminKund>();
@@ -78,6 +82,7 @@ public class App
         services.AddScoped<ShopSearchProduct>();
         services.AddScoped<ShopShoppingCart>(); 
         services.AddScoped<ShopManageOrderHistory>();
+        services.AddScoped<AdminKampanj>();
         // Logger
         services.AddLogging(builder =>
         {
