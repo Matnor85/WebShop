@@ -12,7 +12,7 @@ namespace WebShop.Presentation.Menu;
 /// 6. Implementera funktionalitet för att hantera fraktalternativ och leveransstatus
 /// 
 /// </summary>
-public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu, OrderMenu orderMenu, SeederGenerator seeder)
+public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundMenu kundMenu, OrderMenu orderMenu, KampanjerMenu kampanjerMenu, SeederGenerator seeder)
 {
     bool _isRunning = true;
     public void ShowAdminMenu()
@@ -23,8 +23,9 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
         Console.WriteLine("2 - Hantera kategorier");
         Console.WriteLine("3 - Hantera kunder");
         Console.WriteLine("4 - Hantera ordrar");
-        Console.WriteLine("5 - Lägg till Seed-data");
-        Console.WriteLine("6 - Tillbaka till startmenyn");
+        Console.WriteLine("5 - Hantera kampanjer");
+        Console.WriteLine("6 - Lägg till Seed-data");
+        Console.WriteLine("7 - Tillbaka till startmenyn");
     }
     public async Task HandleInputAsync()
     {
@@ -45,19 +46,22 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
                 await orderMenu.OrderMenuRunAsync();
                 break;
             case "5":
+                await kampanjerMenu.KampanjerMenuRunAsync();
+                break;
+            case "6":
                 try
                 {
                     await seeder.SeedAsync();
                     Console.WriteLine("Seeding lyckades.");
-                    Console.ReadLine();
+                    Meny.Wait();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Seeding misslyckades: {ex.Message}\n{ex.StackTrace}");
-                    Console.ReadLine();
+                    Meny.Wait();
                 }
                 break;
-            case "6":
+            case "7":
                     _isRunning = false;
                     return;
                 default:
