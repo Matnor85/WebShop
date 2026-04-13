@@ -15,7 +15,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
         Console.WriteLine("=== Webb-Shop val ===");
         Console.WriteLine("1 - Sök efter produkt");
         Console.WriteLine("2 - Bläddra bland kategorier");
-        Console.WriteLine("3 - Hantera användarprofiler och orderhistorik");
+        Console.WriteLine("****3 - Hantera användarprofiler och orderhistorik****");
         Console.WriteLine("4 - Hantera kundvagn");
         Console.WriteLine("5 - Tillbaka till startmenyn");
         Meny.LineBreaks(3);
@@ -35,7 +35,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
                 browseCategoriesMenu.BrowseCategoriesRun();
                 break;
             case "3":
-                manageOrderHistoryMenu.ManageOrderHistoryRun();
+                //manageOrderHistoryMenu.ManageOrderHistoryRun();
                 break;
             case "4":
                 shoppingCartMenu.ShoppingCartRun();
