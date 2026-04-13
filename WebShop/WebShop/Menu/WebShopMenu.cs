@@ -1,85 +1,67 @@
-﻿namespace WebShop.Presentation.Menu;
-/// <summary>
-/// 1. Visa webb-shopmeny
-/// 2. Hantera webb-shopval
-/// 3. Implementera funktionalitet för att visa produkter, kategorier och kampanjer
-/// 4. Implementera funktionalitet för att hantera kundvagn och beställningar
-/// 5. Implementera funktionalitet för att hantera användarprofiler och orderhistorik
-/// </summary>
-public class WebShopMenu
+﻿using WebShop.Presentation.DisplayService;
+using WebShop.Presentation.Menu.Shop_Submenu;
+
+namespace WebShop.Presentation.Menu;
+
+public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu searchProductMenu, BrowseCategoriesMenu browseCategoriesMenu, ManageOrderHistoryMenu manageOrderHistoryMenu)
 {
-    //Meny _meny = new Meny();
     bool _isRunning = true;
+
     public void ShowWebShopMenu()
     {
         Console.Clear();
-        WelcomeText();
-        Console.WriteLine("Webb-Shop val!");
-        Console.WriteLine("1 - *****");
-        Console.WriteLine("2 - *****");
-        Console.WriteLine("3 - Tillbaka till startmenyn");
+        Meny.WelcomeText();
+        Meny.LineBreaks(3);
+        Console.WriteLine("=== Webb-Shop val ===");
+        Console.WriteLine("1 - Sök efter produkt");
+        Console.WriteLine("2 - Bläddra bland kategorier");
+        Console.WriteLine("****3 - Hantera användarprofiler och orderhistorik****");
+        Console.WriteLine("4 - Hantera kundvagn");
+        Console.WriteLine("5 - Tillbaka till startmenyn");
+        Meny.LineBreaks(3);
         ShowSales();
-    }
-
-    private void WelcomeText()
-    {
-        Console.WriteLine("Välkommen till vår webbshop!");
-        Console.WriteLine("Här kan du hitta de senaste produkterna och erbjudandena.");
-    }
-
-    private void ShowSales()
-    {
-        Console.WriteLine("\nErbjudanden och kampanjer:");
-        Console.WriteLine("*****************");
-        Console.WriteLine("*****************");
-        Console.WriteLine("*****************");
     }
 
     public void HandleInput()
     {
-       
-            var input = Console.ReadLine();
-            switch (input)
-            {
-                case "1":
 
-                    break;
-                case "2":
-
-                    break;
-                case "3":
-                    _isRunning = false;
-
-                    break;
-                case "4":
-
-                    break;
-                case "5":
-
-                    break;
-                case "6":
-
-                    break;
-                case "7":
-
-                    break;
-                case "8":
-                   // Console.WriteLine("Tack för att du besökte vår webshop. Ha en bra dag!");
-                    //_meny.MenuRun();
-                    return;
-                default:
-                    Console.WriteLine("Ogiltigt val, försök igen.");
-                    break;
-            }
-        
+        var input = Console.ReadLine();
+        switch (input)
+        {
+            case "1":
+                searchProductMenu.SearchProductRun();
+                break;
+            case "2":
+                browseCategoriesMenu.BrowseCategoriesRun();
+                break;
+            case "3":
+                //manageOrderHistoryMenu.ManageOrderHistoryRun();
+                break;
+            case "4":
+                shoppingCartMenu.ShoppingCartRun();
+                break;
+            case "5":
+                _isRunning = false;
+                break;
+            default:
+                Console.WriteLine("Ogiltigt val, försök igen.");
+                break;
+        }
+    }
+    private void ShowSales()
+    {
+        Console.WriteLine("Erbjudanden och kampanjer:");
+        Console.WriteLine("*****************");
+        Console.WriteLine("*****************");
+        Console.WriteLine("*****************");
     }
     public void WebbRun()
     {
+        _isRunning = true;
         while (_isRunning)
         {
             ShowWebShopMenu();
             HandleInput();
-           
         }
     }
 }
