@@ -64,7 +64,7 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, 
             // return false;
         }
         shoppingCart.ShowCartSelected();
-        Console.WriteLine("Alternativ [C] Ändra antal \t[T] Ta bort\t[B]Gå tillbaka\t[K] Betala");
+        Console.WriteLine("Alternativ [C] Ändra antal \t[T] Ta bort\t[B] Gå tillbaka\t[K] Betala");
         return true;
     }
 
