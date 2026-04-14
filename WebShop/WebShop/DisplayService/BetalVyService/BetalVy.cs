@@ -1,0 +1,99 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Webshop.Application.Helpers;
+using Webshop.Application.Interfaces;
+using Webshop.Domain.Entitites;
+using WebShop.Presentation.DisplayService.KundvagnService;
+using WebShop.Presentation.Menu;
+using WebShop.Presentation.Menu.Submenu;
+
+namespace WebShop.Presentation.DisplayService.BetalVyService;
+
+public class BetalVy(Kundvagn kundVagn, IOrderService orderService, IProduktOrderService produktOrderService)
+{
+    public void SummaryPayment(FraktOmbud fraktOmbud)
+    {
+        Console.WriteLine("=== Betalning ===");
+        PrintCartItems();
+        PrintPaymentSummary(fraktOmbud);
+    }
+
+    private void PrintCartItems()
+    {
+        foreach (var item in kundVagn.Items)
+        {
+            Console.WriteLine($"{item.Produkt.Namn} - {item.Antal} st -  {item.Delsumma:C}");
+        }
+    }
+
+    private void PrintPaymentSummary(FraktOmbud fraktOmbud)
+    {
+        var moms = kundVagn.TotalSumma * 0.25m;
+        Console.WriteLine($"Varor: {kundVagn.TotalSumma:C}");
+        Console.WriteLine($"Moms (25%): {moms:C}");
+        Console.WriteLine($"Frakt: {fraktOmbud.Pris:C}");
+        Console.WriteLine($"Totalt: {kundVagn.TotalSumma + moms + fraktOmbud.Pris:C}");
+    }
+
+    public string? ChoosePaymentMethod()
+    {
+        Console.WriteLine("=== Välj betalningsmetod ===");
+
+        PrintAvailablePaymentMethods();
+
+        var input = Console.ReadLine();
+        if (!DataValidering.ValidateListChoice(input, PaymentMethods.Count, out int choice))
+        {
+            Meny.Wait();
+            return null;
+        }
+        return PaymentMethods[choice - 1];
+    }
+
+    public async Task SaveOrderAsync(Kund kund, FraktOmbud fraktOmbud, string betalningsMetod)
+    {
+        var moms = kundVagn.TotalSumma * 0.25m;
+
+        var order = new Order
+        {
+           OrderDatum = DateTime.Now,
+           TotalPris = kundVagn.TotalSumma + moms + fraktOmbud.Pris,
+           KundId = kund.Id,
+           FraktOmbudId = fraktOmbud.Id,
+           BetalningsMetod = betalningsMetod
+        };
+        await orderService.AddAsync(order);
+
+        foreach (var item in kundVagn.Items)
+        {
+            var produktOrder = new ProduktOrder
+            {
+                OrderId = order.Id,
+                ProduktId = item.Produkt.Id,
+                Antal = item.Antal,
+                PrisvidKöp = item.PrisVidKöp
+            };
+            await produktOrderService.AddAsync(produktOrder);
+        }
+
+        kundVagn.ClearCart();
+        Console.WriteLine("Tack för din beställning!");
+    }
+
+    private static void PrintAvailablePaymentMethods()
+    {
+        for (int i = 0; i < PaymentMethods.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {PaymentMethods[i]}");
+        }
+    }
+
+    private static readonly List<string> PaymentMethods = new()
+    {
+        "Kortbetalning",
+        "PayPal",
+        "Banköverföring"
+    };
+}
+
