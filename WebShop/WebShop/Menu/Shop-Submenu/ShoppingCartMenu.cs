@@ -9,7 +9,7 @@ namespace WebShop.Presentation.Menu.Shop_Submenu;
 public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn)
 {
         bool _isRunning = true;
-    public void ShowCart()
+    public async Task ShowCart()
     {
         if (!PrepareCartDisplay())
             return;
@@ -52,7 +52,7 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn)
         return true;
     }
 
-    public void ShoppingCartRun()
+    public async Task ShoppingCartRun()
     {
         _isRunning = true;
         while (_isRunning)
