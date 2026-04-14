@@ -12,37 +12,39 @@ public class SearchProductMenu(WebshopDbContext context, ShopSearchProduct searc
 {
     bool _isRunning = true;
    
-    public async Task HandleInput()
-    {
-        var input = Console.ReadLine();
-        switch (input)
-        {
-            case "1":
-                await SearchForProduct();
-                break;
-            case "2":
+    //public async Task HandleInput()
+    //{
+    //    var input = Console.ReadLine().ToUpper();
+    //    switch (input)
+    //    {
+    //        case "1":
+    //            await SearchForProduct();
+    //            break;
+    //        case "2":
 
-                break;
-            case "3":
-                _isRunning = false;
-                break;
-            default:
-                Console.WriteLine("Ogiltigt val, försök igen.");
-                Meny.Wait();
-                break;
-        }
-    }
-    
-  
+    //            break;
+    //        case "B":
+    //            _isRunning = false;
+    //            break;
+    //        default:
+    //            Console.WriteLine("Ogiltigt val, försök igen.");
+    //            Meny.Wait();
+    //            break;
+    //    }
+    //}
 
     public async Task SearchForProduct()
     {
         Console.Clear();
-        Console.Write("=== Sök efter produkt ===\nNamn: ");
-        var input = Console.ReadLine().Trim().ToLower();
+        Console.Write("=== Sök efter produkt ===\n[B] - Tillbaka\nNamn: ");
+        var input = Console.ReadLine().Trim().ToUpper();
         if (string.IsNullOrEmpty(input))
         {
             Console.WriteLine("Ingen söksträng angiven.");
+            return;
+        }
+        if (input == "B")
+        {
             return;
         }
        
@@ -85,7 +87,8 @@ public class SearchProductMenu(WebshopDbContext context, ShopSearchProduct searc
         while (_isRunning)
         {
             await SearchForProduct();
-            await HandleInput();
+            break;
+            //await HandleInput();
         }
     }
 }

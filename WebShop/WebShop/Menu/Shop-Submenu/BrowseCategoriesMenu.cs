@@ -122,7 +122,6 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kun
     private static void ProductChosies()
     {
         Meny.CreateLines('-', 30);
-        //Console.WriteLine("1 - Välj Produkt");
         Console.WriteLine("[B] - Tillbaka till kategorier");
         Console.WriteLine("[K] - Gå till kundvagn");
         Console.WriteLine("\nVälj produkt: ");
