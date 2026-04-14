@@ -1,58 +1,125 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using WebShop.Presentation.DisplayService.ShopService;
+using Webshop.Application.Interfaces;
+using Webshop.Domain.Entitites;
+using Webshop.Infrastructure.EF;
+using WebShop.Presentation.DisplayService;
 
 namespace WebShop.Presentation.Menu.Shop_Submenu;
 
-public class BrowseCategoriesMenu(ShopBrowseCategories browseCategoriesMenu)
+public class BrowseCategoriesMenu(IKategoriService kategoriService)
 {
-    bool _isRunning = true;
-    public async Task BrowseCategories()
-    {
-        Console.WriteLine("=== Kategorier ===");
-        try
-        {
+    private bool _isRunning = true;
+    private List<Kategori> _categories = new();     
 
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Ett fel inträffade: {ex.Message}\n{ex.StackTrace}");
-        }
-    }
-    public static void ManageOrderHistory()
+    public async Task BrowseCategoriesRun()
     {
-        Console.WriteLine("=== Användarprofiler och orderhistorik ===");
-        Console.WriteLine("1 - Se orderhistorik");
-        Console.WriteLine("2 - Se användarprofiler");
-        Console.WriteLine("3 - Tillbaka till webb-shopmenyn");
-    }
-    public void HandleInput()
-    {
-        var input = Console.ReadLine();
-        switch (input)
-        {
-            case "1":
-
-                break;
-            case "2":
-
-                break;
-            case "3":
-                _isRunning = false;
-                break;
-            default:
-                Console.WriteLine("Ogiltigt val, försök igen.");
-                break;
-        }
-    }
-    public void BrowseCategoriesRun()
-    {
+        _categories = await kategoriService.GetAllAsync();
         _isRunning = true;
+
         while (_isRunning)
         {
-            BrowseCategories();
-            HandleInput();
+            ShowMenu();
+            await HandleInput();
         }
     }
+
+    private void ShowMenu()
+    {
+        Console.Clear();
+        Console.WriteLine("=== Bläddra bland Kategorier ===");
+
+        for (int i = 0; i < _categories.Count; i++)
+        {
+            Console.WriteLine($"{i + 1} - {_categories[i].Namn}");
+        }
+
+        Meny.CreateLines('-', 30);
+        Console.WriteLine("0 - Tillbaka till huvudmenyn\nVal: ");
+    }
+
+    public async Task HandleInput()
+    {
+        var input = Console.ReadLine();
+        if (input == "0")
+        {
+            _isRunning = false;
+            return;
+        }
+        if (int.TryParse(input, out int choice) && choice > 0 && choice <= _categories.Count)
+        {
+            var selectedCategory = _categories[choice - 1];
+            await ShowProducts(selectedCategory);
+        }
+        else
+        {
+            Console.WriteLine("Ogiltigt val, försök igen.");
+            Console.ReadLine();
+        }
+    }
+
+    private async Task ShowProducts(Kategori selectedCategory)
+    {
+        bool browsingProducts = true;
+        while (browsingProducts)
+        {
+            Console.Clear();
+            Console.WriteLine($"=== Produkter i {selectedCategory.Namn} ===");
+            var products = selectedCategory.Produkter
+                .OrderBy(p => p.Namn)
+                .ThenByDescending(p => p.LagerAntal)
+                .ToList() ?? new List<Produkt>();
+            if (!products.Any())
+            {
+                Console.Clear();
+                Console.WriteLine("Inga produkter hittades i denna kategori.");
+            }
+            else
+            {
+                for (int i = 0; i < products.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1} - {products[i].Namn} ({products[i].Pris:C})");
+                }
+                //Meny.Wait();
+                browsingProducts = false;
+            }
+
+            ProductChosies();
+
+            var input = Console.ReadLine();
+
+            if (input == "0")
+            {
+                browsingProducts = false;
+            }
+            else if (int.TryParse(input, out int choice) && choice > 0 && choice <= products.Count)
+            {
+                var selectedProduct = products[choice - 1];
+
+                await AddProductToCart(selectedProduct);
+            }
+            else
+            {
+
+            }
+        }
+    }
+
+    private static void ProductChosies()
+    {
+        Meny.CreateLines('-', 30);
+        Console.Write("\nVal: ");
+        Console.WriteLine("1 - Lägg till i kundvagn");
+        Console.WriteLine("0 - Tillbaka till kategorier");
+    }
+
+    private async Task AddProductToCart(Produkt selectedProduct)
+    {
+        Console.WriteLine($"Produkten {selectedProduct.Namn} har lagts till i kundvagnen.");
+        Meny.Wait();
+    }
+   
 }

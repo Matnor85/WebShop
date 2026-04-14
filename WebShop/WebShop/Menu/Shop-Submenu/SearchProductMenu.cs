@@ -79,13 +79,13 @@ public class SearchProductMenu(WebshopDbContext context, ShopSearchProduct searc
         Meny.Wait();
     }
 
-    public void SearchProductRun()
+    public async Task SearchProductRun()
     {
         _isRunning = true;
         while (_isRunning)
         {
-            SearchForProduct();
-            HandleInput();
+            await SearchForProduct();
+            await HandleInput();
         }
     }
 }
