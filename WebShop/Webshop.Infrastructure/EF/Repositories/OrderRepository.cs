@@ -37,7 +37,12 @@ public class OrderRepository : IOrderRepository
 
     public async Task<List<Order>> GetAllAsync()
     {
-        return await _context.Ordrar.ToListAsync();
+        return await _context.Ordrar
+            .Include(o => o.Kund)
+            .Include(o => o.FraktOmbud)
+            .Include(o => o.ProduktOrdrar)
+            .ThenInclude(po => po.Produkt)
+            .ToListAsync();
     }
 
     public Task<List<Order>> GetByDatumSpannAsync(DateTime från, DateTime till)
@@ -47,7 +52,12 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Order> GetByIdAsync(Guid id)
     {
-        return await _context.Ordrar.FindAsync(id);
+        return await _context.Ordrar
+            .Include(o => o.Kund)
+            .Include(o => o.FraktOmbud)
+            .Include(o => o.ProduktOrdrar)
+            .ThenInclude(po => po.Produkt)
+            .FirstOrDefaultAsync(o => o.Id == id);
     }
 
     public Task<List<Order>> GetOrdersByFraktOmbudIdAsync(Guid fraktOmbudId)
