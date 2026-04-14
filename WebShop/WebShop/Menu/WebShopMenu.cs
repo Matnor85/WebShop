@@ -17,7 +17,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
         Console.WriteLine("2 - Bläddra bland kategorier");
         //Console.WriteLine("****3 - Hantera användarprofiler och orderhistorik****");
         Console.WriteLine("3 - Hantera kundvagn");
-        Console.WriteLine("4 - Tillbaka till startmenyn");
+        Console.WriteLine("5 - Tillbaka till startmenyn");
         Meny.LineBreaks(3);
         await ShowSales();
     }
