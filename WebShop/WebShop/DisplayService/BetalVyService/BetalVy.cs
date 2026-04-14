@@ -38,7 +38,7 @@ public class BetalVy(Kundvagn kundVagn, IOrderService orderService, IProduktOrde
 
     public string? ChoosePaymentMethod()
     {
-        Console.WriteLine("=== Välj betalningsmetod ===");
+        Console.WriteLine("\n=== Välj betalningsmetod ===");
 
         PrintAvailablePaymentMethods();
 
