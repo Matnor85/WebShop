@@ -26,7 +26,7 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, 
                 if (CheckShoppingCart())
                     shoppingCart.RemoveItem();
                 break;
-            case "P":
+            case "K":
                 // Add payment logic here
                 if (CheckShoppingCart())
                     Console.WriteLine("Betalning genomförd! Tack för ditt köp.");
@@ -64,7 +64,7 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, 
             // return false;
         }
         shoppingCart.ShowCartSelected();
-        Console.WriteLine("Alternativ [C] Ändra antal \t[T] Ta bort\t[B]Gå tillbaka\t[P] Betala");
+        Console.WriteLine("Alternativ [C] Ändra antal \t[T] Ta bort\t[B]Gå tillbaka\t[K] Betala");
         return true;
     }
 
