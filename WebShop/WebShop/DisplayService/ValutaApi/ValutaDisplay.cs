@@ -11,6 +11,7 @@ public class ValutaDisplay(IValutaService valutaService, ValutaSession valutaSes
 {
     public async Task ChooseRateAsync()
     {
+        Console.Clear();
         var valuta = GetValutaVal();
         if (valuta == null) return;
         await ApplyExchangeRate(valuta);

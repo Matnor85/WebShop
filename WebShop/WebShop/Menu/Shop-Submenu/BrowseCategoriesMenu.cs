@@ -89,7 +89,7 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kun
             {
                 for (int i = 0; i < products.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1} - {products[i].Namn} ({valutaSession.KonverteraPris(products[i].Pris):C})");
+                    Console.WriteLine($"{i + 1} - {products[i].Namn} ({valutaSession.FormatPris(products[i].Pris)})");
                 }
                 //Meny.Wait();
                 browsingProducts = false;

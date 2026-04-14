@@ -24,17 +24,17 @@ public class BetalVy(Kundvagn kundVagn, IOrderService orderService, IProduktOrde
     {
         foreach (var item in kundVagn.Items)
         {
-            Console.WriteLine($"{item.Produkt.Namn} - {item.Antal} st -  {valutaSession.KonverteraPris(item.Delsumma):C}");
+            Console.WriteLine($"{item.Produkt.Namn} - {item.Antal} st -  {valutaSession.FormatPris(item.Delsumma)}");
         }
     }
 
     private void PrintPaymentSummary(FraktOmbud fraktOmbud)
     {
         var moms = kundVagn.TotalSumma * 0.25m;
-        Console.WriteLine($"Varor: {valutaSession.KonverteraPris(kundVagn.TotalSumma):C}");
-        Console.WriteLine($"Moms (25%): {valutaSession.KonverteraPris(moms):C}");
-        Console.WriteLine($"Frakt: {valutaSession.KonverteraPris(fraktOmbud.Pris):C}");
-        Console.WriteLine($"Totalt: {valutaSession.KonverteraPris(kundVagn.TotalSumma + moms + fraktOmbud.Pris):C}");
+        Console.WriteLine($"Varor: {valutaSession.FormatPris(kundVagn.TotalSumma)}");
+        Console.WriteLine($"Moms (25%): {valutaSession.FormatPris(moms)}");
+        Console.WriteLine($"Frakt: {valutaSession.FormatPris(fraktOmbud.Pris)}");
+        Console.WriteLine($"Totalt: {valutaSession.FormatPris(kundVagn.TotalSumma + moms + fraktOmbud.Pris)}");
     }
 
     public string? ChoosePaymentMethod()

@@ -40,7 +40,7 @@ public class CheckOut(IFraktOmbudService fraktService, IKundService kundService,
         Console.WriteLine("=== Välj fraktmetod ===");
         for (int i = 0; i < fraktOmbudList.Count; i++)
         {
-            Console.WriteLine($" {i + 1}. {fraktOmbudList[i].Namn} - {valutaSession.KonverteraPris(fraktOmbudList[i].Pris):C}");
+            Console.WriteLine($" {i + 1}. {fraktOmbudList[i].Namn} - {valutaSession.FormatPris(fraktOmbudList[i].Pris)}");
         }
     }
 

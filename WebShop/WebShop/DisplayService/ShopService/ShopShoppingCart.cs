@@ -15,9 +15,9 @@ public class ShopShoppingCart(Kundvagn kundvagn, ValutaSession valutaSession)
         for (int i = 0; i < kundvagn.Items.Count; i++)
         {
             var item = kundvagn.Items[i];
-            Console.WriteLine($"{i + 1}. {item.Produkt.Namn} - {item.Antal} st - {valutaSession.KonverteraPris(item.PrisVidKöp):C} st - {valutaSession.KonverteraPris(item.Delsumma):C}");
+            Console.WriteLine($"{i + 1}. {item.Produkt.Namn} - {item.Antal} st - {valutaSession.FormatPris(item.PrisVidKöp)} st - {valutaSession.FormatPris(item.Delsumma)}");
         }
-        Console.WriteLine($"Total summa: {valutaSession.KonverteraPris(kundvagn.TotalSumma):C}");
+        Console.WriteLine($"Total summa: {valutaSession.FormatPris(kundvagn.TotalSumma)}");
     }
 
     public void ChangeStock()

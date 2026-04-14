@@ -12,7 +12,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
     {
         Console.Clear();
         Meny.WelcomeText();
-        Meny.LineBreaks(3);
+        Meny.LineBreaks(2);
         Console.WriteLine("=== Webb-Shop val ===");
         Console.WriteLine("1 - Sök efter produkt");
         Console.WriteLine("2 - Bläddra bland kategorier");
@@ -20,7 +20,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
         Console.WriteLine("3 - Hantera kundvagn");
         Console.WriteLine("5 - Välj valuta");
         Console.WriteLine("6 - Tillbaka till startmenyn");
-        Meny.LineBreaks(3);
+        Meny.LineBreaks(2);
         await ShowSales();
     }
 

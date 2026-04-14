@@ -71,7 +71,7 @@ public class SearchProductMenu(WebshopDbContext context, ShopSearchProduct searc
         foreach (var product in products)
         {
             Console.WriteLine($"Namn: {product.Namn}");
-            Console.WriteLine($"Pris: {valutaSession.KonverteraPris(product.Pris):c}");
+            Console.WriteLine($"Pris: {valutaSession.FormatPris(product.Pris)}");
             Console.WriteLine($"Antal i lager: {product.LagerAntal}");
             Console.WriteLine($"Kategori: {product.Kategori?.Namn}");
             Console.WriteLine($"Färg: {product.Färg}");
