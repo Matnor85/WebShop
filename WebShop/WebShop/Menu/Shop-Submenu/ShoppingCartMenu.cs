@@ -18,10 +18,13 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn)
         switch (input)
         {
             case "C":
-                shoppingCart.ÄndraAntal();
+                shoppingCart.ChangeStock();
                 break;
             case "T":
-                shoppingCart.TaBort();
+                shoppingCart.RemoveItem();
+                break;
+            case "P":
+                // Add payment logic here
                 break;
             case "B":
                 _isRunning = false;
@@ -45,7 +48,7 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn)
             return false;
         }
         shoppingCart.ShowCartSelected();
-        Console.WriteLine("Alternativ [C] Ändra antal \n[T] Ta bort\n[B]Gå tillbaks");
+        Console.WriteLine("Alternativ [C] Ändra antal \n[T] Ta bort\n[B]Gå tillbaka\n[P] Betala");
         return true;
     }
 

@@ -19,9 +19,9 @@ public class ShopShoppingCart(Kundvagn kundvagn)
         Console.WriteLine($"Total summa: {kundvagn.TotalSumma:C}");
     }
 
-    public void ÄndraAntal()
+    public void ChangeStock()
     {
-        var item = VäljItem("Ange nummer på produkten du vill ändra antal på:");
+        var item = ChooseItem("Ange nummer på produkten du vill ändra antal på:");
         if (item == null) return;
         
         Console.WriteLine($"Ange nytt antal för {item.Produkt.Namn}:");
@@ -33,14 +33,14 @@ public class ShopShoppingCart(Kundvagn kundvagn)
 
         item.Antal = nyttAntal;
     }
-    public void TaBort()
+    public void RemoveItem()
     {
-        var item = VäljItem("Ange nummer på produkten du vill ta bort:");
+        var item = ChooseItem("Ange nummer på produkten du vill ta bort:");
         if (item == null) return;
-        kundvagn.TaBort(item.Produkt.Id);
+        kundvagn.RemoveItem(item.Produkt.Id);
     }
 
-    private KundvagnItem? VäljItem(string prompt)
+    private KundvagnItem? ChooseItem(string prompt)
     {
         Console.WriteLine(prompt);
         var input = Console.ReadLine();

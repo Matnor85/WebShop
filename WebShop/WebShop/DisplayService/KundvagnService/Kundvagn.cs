@@ -11,7 +11,7 @@ public class Kundvagn
     public decimal TotalSumma => Items.Sum(i => i.Delsumma);
 
 
-    public void LäggTill(Produkt produkt, int antal)
+    public void AddItem(Produkt produkt, int antal)
     {
         var existingItem = Items.FirstOrDefault(i => i.Produkt.Id == produkt.Id);
         if (existingItem != null)
@@ -24,7 +24,7 @@ public class Kundvagn
         }
     }
 
-    public void TaBort(Guid produktId) => Items.RemoveAll(i => i.Produkt.Id == produktId);
+    public void RemoveItem(Guid produktId) => Items.RemoveAll(i => i.Produkt.Id == produktId);
 
-    public void TömVagn() => Items.Clear();
+    public void ClearCart() => Items.Clear();
 }
