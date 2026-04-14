@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using WebShop.Presentation.DisplayService.KundvagnService;
 using WebShop.Presentation.DisplayService.ShopService;
+using WebShop.Presentation.Menu.Submenu;
 
 namespace WebShop.Presentation.Menu.Shop_Submenu;
 
-public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn)
+public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, CheckOutMenu checkOut)
 {
     bool _isRunning = true;
     public async Task ShowCart()

@@ -34,13 +34,14 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
             case "2":
                 await browseCategoriesMenu.BrowseCategoriesRun();
                 break;
-            //case "3":
-            //manageOrderHistoryMenu.ManageOrderHistoryRun();
-            //  break;
             case "3":
-               await shoppingCartMenu.ShoppingCartRun();
+               await shoppingCartMenu.ShoppingCartRunAsync();
                 break;
             case "4":
+                //manageOrderHistoryMenu.ManageOrderHistoryRun();
+                //  break;
+                break;
+            case "5":
                 _isRunning = false;
                 break;
             default:
