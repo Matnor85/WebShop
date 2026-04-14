@@ -50,4 +50,14 @@ public class DataValidering
         }
         return true;
     }
+
+    public static bool ValidateAntal(string input, out int antal)
+    {
+        if (!int.TryParse(input, out antal) || antal < 1)
+        {
+            Console.WriteLine("Antal måste vara minst 1.");
+            return false;
+        }
+        return true;
+    }
 }

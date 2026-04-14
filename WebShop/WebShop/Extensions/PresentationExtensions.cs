@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using WebShop.Presentation.DisplayService.AdminService;
+using WebShop.Presentation.DisplayService.KundvagnService;
 using WebShop.Presentation.DisplayService.ShopService;
 using WebShop.Presentation.Menu;
 using WebShop.Presentation.Menu.Shop_Submenu;
@@ -42,6 +43,8 @@ public static class PresentationExtensions
         services.AddScoped<ShopShoppingCart>();
         services.AddScoped<ShopManageOrderHistory>();
         services.AddScoped<ShopKampanj>();
+        //Kundvagn
+        services.AddScoped<Kundvagn>();
         return services;
     }
 }
