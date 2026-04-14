@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Text;
 using Webshop.Application.Helpers;
 using WebShop.Presentation.DisplayService.KundvagnService;
+using WebShop.Presentation.DisplayService.ValutaApi;
 using WebShop.Presentation.Menu;
 
 namespace WebShop.Presentation.DisplayService.ShopService;
 
-public class ShopShoppingCart(Kundvagn kundvagn)
+public class ShopShoppingCart(Kundvagn kundvagn, ValutaSession valutaSession)
 {
     public void ShowCartSelected()
     {
         for (int i = 0; i < kundvagn.Items.Count; i++)
         {
             var item = kundvagn.Items[i];
-            Console.WriteLine($"{i + 1}. {item.Produkt.Namn} - {item.Antal} st - {item.PrisVidKöp:C} st - {item.Delsumma:c}");
+            Console.WriteLine($"{i + 1}. {item.Produkt.Namn} - {item.Antal} st - {valutaSession.KonverteraPris(item.PrisVidKöp):C} st - {valutaSession.KonverteraPris(item.Delsumma):C}");
         }
-        Console.WriteLine($"Total summa: {kundvagn.TotalSumma:C}");
+        Console.WriteLine($"Total summa: {valutaSession.KonverteraPris(kundvagn.TotalSumma):C}");
     }
 
     public void ChangeStock()

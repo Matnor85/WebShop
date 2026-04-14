@@ -5,12 +5,13 @@ using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
 using WebShop.Presentation.DisplayService.KundvagnService;
+using WebShop.Presentation.DisplayService.ValutaApi;
 using WebShop.Presentation.Menu;
 using WebShop.Presentation.Menu.Submenu;
 
 namespace WebShop.Presentation.DisplayService.BetalVyService;
 
-public class BetalVy(Kundvagn kundVagn, IOrderService orderService, IProduktOrderService produktOrderService)
+public class BetalVy(Kundvagn kundVagn, IOrderService orderService, IProduktOrderService produktOrderService, ValutaSession valutaSession)
 {
     public void SummaryPayment(FraktOmbud fraktOmbud)
     {
@@ -23,17 +24,17 @@ public class BetalVy(Kundvagn kundVagn, IOrderService orderService, IProduktOrde
     {
         foreach (var item in kundVagn.Items)
         {
-            Console.WriteLine($"{item.Produkt.Namn} - {item.Antal} st -  {item.Delsumma:C}");
+            Console.WriteLine($"{item.Produkt.Namn} - {item.Antal} st -  {valutaSession.KonverteraPris(item.Delsumma):C}");
         }
     }
 
     private void PrintPaymentSummary(FraktOmbud fraktOmbud)
     {
         var moms = kundVagn.TotalSumma * 0.25m;
-        Console.WriteLine($"Varor: {kundVagn.TotalSumma:C}");
-        Console.WriteLine($"Moms (25%): {moms:C}");
-        Console.WriteLine($"Frakt: {fraktOmbud.Pris:C}");
-        Console.WriteLine($"Totalt: {kundVagn.TotalSumma + moms + fraktOmbud.Pris:C}");
+        Console.WriteLine($"Varor: {valutaSession.KonverteraPris(kundVagn.TotalSumma):C}");
+        Console.WriteLine($"Moms (25%): {valutaSession.KonverteraPris(moms):C}");
+        Console.WriteLine($"Frakt: {valutaSession.KonverteraPris(fraktOmbud.Pris):C}");
+        Console.WriteLine($"Totalt: {valutaSession.KonverteraPris(kundVagn.TotalSumma + moms + fraktOmbud.Pris):C}");
     }
 
     public string? ChoosePaymentMethod()

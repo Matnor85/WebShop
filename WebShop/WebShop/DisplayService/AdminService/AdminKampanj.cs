@@ -4,11 +4,12 @@ using System.Text;
 using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
+using WebShop.Presentation.DisplayService.ValutaApi;
 using WebShop.Presentation.Menu;
 
 namespace WebShop.Presentation.DisplayService.AdminService;
 
-public class AdminKampanj(IProduktKampanjService produktKampanjService, IProduktService produktService)
+public class AdminKampanj(IProduktKampanjService produktKampanjService, IProduktService produktService, ValutaSession valutaSession)
 {
     public async Task AddKampanjAsync()
     {
@@ -195,9 +196,9 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
     private void SummaryKampanj(Produkt produkt, ProduktKampanj kampanj)
     {
         Console.WriteLine($"Produkt: {produkt.Namn}");
-        Console.WriteLine($"Ordinare pris: {produkt.Pris:C}");
+        Console.WriteLine($"Ordinare pris: {valutaSession.KonverteraPris(produkt.Pris):C}");
         Console.WriteLine($"Rabatt: {kampanj.Rabatt * 100}%");
-        Console.WriteLine($"Nytt pris: {BeräknaRabattPris(produkt.Pris, kampanj.Rabatt):C}");
+        Console.WriteLine($"Nytt pris: {valutaSession.KonverteraPris(BeräknaRabattPris(produkt.Pris, kampanj.Rabatt)):C}");
     }
 
     private decimal BeräknaRabattPris(decimal pris, decimal rabatt) => pris * (1 - rabatt);

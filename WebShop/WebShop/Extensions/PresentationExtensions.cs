@@ -7,6 +7,7 @@ using WebShop.Presentation.DisplayService.BetalVyService;
 using WebShop.Presentation.DisplayService.CheckoutService;
 using WebShop.Presentation.DisplayService.KundvagnService;
 using WebShop.Presentation.DisplayService.ShopService;
+using WebShop.Presentation.DisplayService.ValutaApi;
 using WebShop.Presentation.Menu;
 using WebShop.Presentation.Menu.Shop_Submenu;
 using WebShop.Presentation.Menu.Submenu;
@@ -35,6 +36,9 @@ public static class PresentationExtensions
         services.AddScoped<KampanjerMenu>();
 
         //displayservice
+        //API
+        services.AddScoped<ValutaSession>();
+        services.AddScoped<ValutaDisplay>();
         //Admin
         services.AddScoped<AdminKund>();
         services.AddScoped<AdminProdukt>();

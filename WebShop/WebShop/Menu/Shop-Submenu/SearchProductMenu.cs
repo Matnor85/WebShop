@@ -5,10 +5,11 @@ using System.Text;
 using Webshop.Domain.Entitites;
 using Webshop.Infrastructure.EF;
 using WebShop.Presentation.DisplayService.ShopService;
+using WebShop.Presentation.DisplayService.ValutaApi;
 
 namespace WebShop.Presentation.Menu.Shop_Submenu;
 
-public class SearchProductMenu(WebshopDbContext context, ShopSearchProduct searchProduct)
+public class SearchProductMenu(WebshopDbContext context, ShopSearchProduct searchProduct, ValutaSession valutaSession)
 {
     bool _isRunning = true;
    
@@ -56,7 +57,7 @@ public class SearchProductMenu(WebshopDbContext context, ShopSearchProduct searc
         InputCheck(input, products);
     }
 
-    private static void InputCheck(string input, List<Produkt> products)
+    private void InputCheck(string input, List<Produkt> products)
     {
         Console.Clear();
         if (products == null || products.Count == 0)
@@ -70,7 +71,7 @@ public class SearchProductMenu(WebshopDbContext context, ShopSearchProduct searc
         foreach (var product in products)
         {
             Console.WriteLine($"Namn: {product.Namn}");
-            Console.WriteLine($"Pris: {product.Pris:c}");
+            Console.WriteLine($"Pris: {valutaSession.KonverteraPris(product.Pris):c}");
             Console.WriteLine($"Antal i lager: {product.LagerAntal}");
             Console.WriteLine($"Kategori: {product.Kategori?.Namn}");
             Console.WriteLine($"Färg: {product.Färg}");
