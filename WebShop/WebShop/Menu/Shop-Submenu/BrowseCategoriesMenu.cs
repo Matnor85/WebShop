@@ -87,9 +87,7 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService)
                 browsingProducts = false;
             }
 
-            Meny.CreateLines('-', 30);
-            Console.WriteLine("0 - Tillbaka till kategorier");
-            Console.Write("\nVal: ");
+            ProductChosies();
 
             var input = Console.ReadLine();
 
@@ -101,13 +99,27 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService)
             {
                 var selectedProduct = products[choice - 1];
 
-                await ShowProductDetails(selectedProduct);
+                await AddProductToCart(selectedProduct);
+            }
+            else
+            {
+
             }
         }
     }
 
-    private async Task ShowProductDetails(Produkt selectedProduct)
+    private static void ProductChosies()
     {
-        throw new NotImplementedException();
+        Meny.CreateLines('-', 30);
+        Console.Write("\nVal: ");
+        Console.WriteLine("1 - Lägg till i kundvagn");
+        Console.WriteLine("0 - Tillbaka till kategorier");
     }
+
+    private async Task AddProductToCart(Produkt selectedProduct)
+    {
+        Console.WriteLine($"Produkten {selectedProduct.Namn} har lagts till i kundvagnen.");
+        Meny.Wait();
+    }
+   
 }
