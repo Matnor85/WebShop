@@ -6,24 +6,14 @@ using WebShop.Presentation.Menu;
 
 namespace WebShop.Presentation.DisplayService.AdminService;
 
-public class AdminProdukt
+public class AdminProdukt(IProduktService produktService, IKategoriService kategoriService, ILeverantörService leverantörService)
 {
-    IProduktService _produktService;
-    IKategoriService _kategoriService;
-    ILeverantörService _leverantörService;
-
-    public AdminProdukt(IProduktService produktService, IKategoriService kategoriService, ILeverantörService leverantörService)
-    {
-        _produktService = produktService;
-        _kategoriService = kategoriService;
-        _leverantörService = leverantörService;
-    }
     public async Task DeleteProdukt()
     {
         try
         {
             Console.WriteLine("=== Ta bort produkt ===");
-            var produkter = await _produktService.GetAllAsync();
+            var produkter = await produktService.GetAllAsync();
 
             if (!DataValidering.ValidateList(produkter, "Inga produkter hittades"))
             {
@@ -49,7 +39,7 @@ public class AdminProdukt
         try
         {
             Console.WriteLine("=== Uppdatera produkt ===");
-            var produkter = await _produktService.GetAllAsync();
+            var produkter = await produktService.GetAllAsync();
             if (!DataValidering.ValidateList(produkter, "Inga produkter hittades"))
             {
                 Meny.Wait();
@@ -93,7 +83,7 @@ public class AdminProdukt
     public async Task ShowProduktList()
     {
         Console.WriteLine("=== Visar produkter ===");
-        var produktList = await _produktService.GetAllAsync();
+        var produktList = await produktService.GetAllAsync();
         if (!DataValidering.ValidateList(produktList, "Inga produkter hittades"))
         {
             Meny.Wait();
@@ -110,7 +100,7 @@ public class AdminProdukt
         var confirm = Console.ReadLine();
         if (confirm?.ToUpper() == "J")
         {
-            await _produktService.AddAsync(produktResult.produkt);
+            await produktService.AddAsync(produktResult.produkt);
             Console.Clear();
             Console.WriteLine("Produkten har lagts till.");
             Meny.Wait();
@@ -127,9 +117,9 @@ public class AdminProdukt
     {
         Console.WriteLine($"Vill du ta bort produkten? (J/N) {produkter[produktVal - 1].Namn}");
         var confirm = Console.ReadLine();
-        if (confirm.ToUpper() == "J")
+        if (confirm?.ToUpper() == "J")
         {
-            await _produktService.DeleteAsync(produkter[produktVal - 1].Id);
+            await produktService.DeleteAsync(produkter[produktVal - 1].Id);
             Console.Clear();
             Console.WriteLine("Produkten har tagits bort.");
             Meny.Wait();
@@ -163,10 +153,10 @@ public class AdminProdukt
     {
         Console.WriteLine("Vill du uppdatera produkten? (J/N)");
         var confirm = Console.ReadLine();
-        if (confirm.ToUpper() == "J")
+        if (confirm?.ToUpper() == "J")
         {
             newProdukt.produkt.Id = produkter[produktVal - 1].Id;
-            await _produktService.UpdateAsync(newProdukt.produkt);
+            await produktService.UpdateAsync(newProdukt.produkt);
             Console.Clear();
             Console.WriteLine("Produkten har uppdaterats.");
             Meny.Wait();
@@ -306,7 +296,7 @@ public class AdminProdukt
     public async Task<(Guid id, string namn)> GetLeverantörAsync()
     {
         
-        var leverantörer = await _leverantörService.GetAllAsync();
+        var leverantörer = await leverantörService.GetAllAsync();
         while (true)
         {
             Console.WriteLine("Ange leverantör:");
@@ -322,7 +312,7 @@ public class AdminProdukt
 
     public async Task<(Guid id, string namn)> GetKategoriAsync()
     {
-        var kategorier = await _kategoriService.GetAllAsync();
+        var kategorier = await kategoriService.GetAllAsync();
         while (true)
         {
             Console.WriteLine("Ange kategori:");

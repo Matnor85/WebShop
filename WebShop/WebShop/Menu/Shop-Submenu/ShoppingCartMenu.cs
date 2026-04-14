@@ -11,37 +11,44 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn)
         bool _isRunning = true;
     public void ShowCart()
     {
-            Console.Clear();
-            Console.WriteLine("Din kundvagn:");
-            if (kundvagn.Items.Count == 0)
-            {
-                Console.WriteLine("Din kundvagn är tom.");
-                Meny.Wait();
-                return;
-            }
-            shoppingCart.ShowCartSelected();
-            Console.WriteLine("Alternativ [C] Ändra antal \n[T] Ta bort\n[B]Gå tillbaks");
-            var input = Console.ReadLine()?.Trim().ToUpper();
-
-            switch (input)
-            {
-                case "C":
-                    shoppingCart.ÄndraAntal();
-                    break;
-                case "T":
-                    shoppingCart.TaBort();
-                    break;
-                case "B":
+        if (!PrepareCartDisplay())
+            return;
+        
+        var input = Console.ReadLine()?.Trim().ToUpper();
+        switch (input)
+        {
+            case "C":
+                shoppingCart.ÄndraAntal();
+                break;
+            case "T":
+                shoppingCart.TaBort();
+                break;
+            case "B":
                 _isRunning = false;
-                    return;
-                    
-                default:
-                    Console.WriteLine("Ogiltigt val. Försök igen.");
-                    Meny.Wait();
-                    break;
-            }
+                return;
+
+            default:
+                Console.WriteLine("Ogiltigt val. Försök igen.");
+                Meny.Wait();
+                break;
         }
-    
+    }
+
+    private bool PrepareCartDisplay()
+    {
+        Console.Clear();
+        Console.WriteLine("Din kundvagn:");
+        if (kundvagn.Items.Count == 0)
+        {
+            Console.WriteLine("Din kundvagn är tom.");
+            Meny.Wait();
+            return false;
+        }
+        shoppingCart.ShowCartSelected();
+        Console.WriteLine("Alternativ [C] Ändra antal \n[T] Ta bort\n[B]Gå tillbaks");
+        return true;
+    }
+
     public void ShoppingCartRun()
     {
         _isRunning = true;
