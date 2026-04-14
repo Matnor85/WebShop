@@ -5,7 +5,7 @@ namespace WebShop.Presentation.Menu.Submenu;
 
 public class CheckOutMenu(CheckOut checkOut, BetalMenu betalMenu)
 {
-    public async Task FraktRun()
+    public async Task CheckOutRun()
     {
         var kund = await checkOut.CreateCustomerAsync();
         var fraktOmbud = await checkOut.ChooseDelivery();

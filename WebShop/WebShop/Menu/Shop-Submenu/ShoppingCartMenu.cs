@@ -7,7 +7,7 @@ using WebShop.Presentation.Menu.Submenu;
 
 namespace WebShop.Presentation.Menu.Shop_Submenu;
 
-public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, CheckOutMenu fraktMenu)
+public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, CheckOutMenu checkOut)
 {
         bool _isRunning = true;
     public async Task ShowCartAsync()
@@ -25,7 +25,7 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, 
                 shoppingCart.RemoveItem();
                 break;
             case "K":
-                await fraktMenu.FraktRun();
+                await checkOut.CheckOutRun();
                 break;
             case "B":
                 _isRunning = false;
