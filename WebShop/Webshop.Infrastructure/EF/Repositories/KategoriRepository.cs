@@ -37,7 +37,9 @@ public class KategoriRepository : IKategoriRepository
 
     public async Task<List<Kategori>> GetAllAsync()
     {
-        return await _context.Kategorier.ToListAsync();
+        return await _context.Kategorier
+            .Include(p => p.Produkter)
+            .ToListAsync();
     }
 
     public async Task<Kategori> GetByIdAsync(Guid id)

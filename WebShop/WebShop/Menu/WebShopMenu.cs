@@ -15,27 +15,30 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
         Console.WriteLine("=== Webb-Shop val ===");
         Console.WriteLine("1 - Sök efter produkt");
         Console.WriteLine("2 - Bläddra bland kategorier");
-        Console.WriteLine("****3 - Hantera användarprofiler och orderhistorik****");
-        Console.WriteLine("4 - Hantera kundvagn");
-        Console.WriteLine("5 - Tillbaka till startmenyn");
+        //Console.WriteLine("****3 - Hantera användarprofiler och orderhistorik****");
+        Console.WriteLine("3 - Hantera kundvagn");
+        Console.WriteLine("4 - Tillbaka till startmenyn");
         Meny.LineBreaks(3);
         await ShowSales();
     }
 
-    public void HandleInput()
+    public async Task HandleInput()
     {
 
         var input = Console.ReadLine();
         switch (input)
         {
             case "1":
-                searchProductMenu.SearchProductRun();
+                await searchProductMenu.SearchProductRun();
                 break;
             case "2":
-                browseCategoriesMenu.BrowseCategoriesRun();
+                await browseCategoriesMenu.BrowseCategoriesRun();
                 break;
+            //case "3":
+            //manageOrderHistoryMenu.ManageOrderHistoryRun();
+            //  break;
             case "3":
-                //manageOrderHistoryMenu.ManageOrderHistoryRun();
+               await shoppingCartMenu.ShoppingCartRun();
                 break;
             case "4":
                 shoppingCartMenu.ShoppingCartRunAsync();
@@ -52,13 +55,13 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
     {
         await kampanj.ShowKampanjAsync();
     }
-    public void WebbRun()
+    public async Task WebbRun()
     {
         _isRunning = true;
         while (_isRunning)
         {
-            ShowWebShopMenu();
-            HandleInput();
+            await ShowWebShopMenu();
+            await HandleInput();
         }
     }
 }

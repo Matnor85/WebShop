@@ -21,7 +21,7 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
             switch (input)
             {
                 case "1":
-                    webShopMenu.WebbRun();
+                   await webShopMenu.WebbRun();
                     break;
                 case "2":
                    await adminMenu.AdminRunAsync();
@@ -52,7 +52,7 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
     public static void Wait()
     {
         Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
-        Console.ReadKey();
+        Console.ReadLine();
     }
     public static void CreateLines(char input, int length)
     {
