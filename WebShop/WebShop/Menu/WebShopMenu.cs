@@ -22,23 +22,23 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
         await ShowSales();
     }
 
-    public void HandleInput()
+    public async Task HandleInput()
     {
 
         var input = Console.ReadLine();
         switch (input)
         {
             case "1":
-                searchProductMenu.SearchProductRun();
+                await searchProductMenu.SearchProductRun();
                 break;
             case "2":
-                browseCategoriesMenu.BrowseCategoriesRun();
+                await browseCategoriesMenu.BrowseCategoriesRun();
                 break;
             //case "3":
-                //manageOrderHistoryMenu.ManageOrderHistoryRun();
-              //  break;
+            //manageOrderHistoryMenu.ManageOrderHistoryRun();
+            //  break;
             case "3":
-                shoppingCartMenu.ShoppingCartRun();
+               await shoppingCartMenu.ShoppingCartRun();
                 break;
             case "4":
                 _isRunning = false;
@@ -52,13 +52,13 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
     {
         await kampanj.ShowKampanjAsync();
     }
-    public void WebbRun()
+    public async Task WebbRun()
     {
         _isRunning = true;
         while (_isRunning)
         {
-            ShowWebShopMenu();
-            HandleInput();
+            await ShowWebShopMenu();
+            await HandleInput();
         }
     }
 }

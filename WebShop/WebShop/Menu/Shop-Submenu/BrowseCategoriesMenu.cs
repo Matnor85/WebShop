@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
@@ -12,7 +13,7 @@ namespace WebShop.Presentation.Menu.Shop_Submenu;
 public class BrowseCategoriesMenu(IKategoriService kategoriService)
 {
     private bool _isRunning = true;
-    private List<Kategori> _categories = new();
+    private List<Kategori> _categories = new();     
 
     public async Task BrowseCategoriesRun()
     {
@@ -67,14 +68,10 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService)
         {
             Console.Clear();
             Console.WriteLine($"=== Produkter i {selectedCategory.Namn} ===");
-            var kategoriList = kategoriService.GetAllAsync();
-            var products = await kategoriService.GetAllAsync()
-                .Where(k => k.Id == selectedCategory.Id)
-                .Include(k => k.Produkter)
-                .SelectMany(k => k.Produkter)
-                .OrderBy(p => p.Namn)
-                .ThenByDescending(p => p.LagerAntal)
-                .ToListAsync();
+            var products = selectedCategory.Produkter
+                //.OrderBy(p => p.Namn)
+                .OrderByDescending(p => p.Pris)
+                .ToList() ?? new List<Produkt>();
             if (!products.Any())
             {
                 Console.Clear();
@@ -86,7 +83,7 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService)
                 {
                     Console.WriteLine($"{i + 1} - {products[i].Namn} ({products[i].Pris:C})");
                 }
-                Meny.Wait();
+                //Meny.Wait();
                 browsingProducts = false;
             }
 
@@ -100,12 +97,17 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService)
             {
                 browsingProducts = false;
             }
-            //else if (int.TryParse(input, out int choice) && choice > 0 && choice <= products.Count)
-            //{
-            //    var selectedProduct = products[choice - 1];
-            //    // Här kan du gå ännu djupare till en produkt-detaljsida
-            //    await ShowProductDetails(selectedProduct);
-            //}
+            else if (int.TryParse(input, out int choice) && choice > 0 && choice <= products.Count)
+            {
+                var selectedProduct = products[choice - 1];
+
+                await ShowProductDetails(selectedProduct);
+            }
         }
+    }
+
+    private async Task ShowProductDetails(Produkt selectedProduct)
+    {
+        throw new NotImplementedException();
     }
 }

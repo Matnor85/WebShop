@@ -26,7 +26,7 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart)
         //}
         //ShoppingCartMenu();
     }
-    public void HandleInput()
+    public async Task HandleInput()
     {
         var input = Console.ReadLine();
         switch (input)
@@ -52,13 +52,13 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart)
         }
 
     }
-    public void ShoppingCartRun()
+    public async Task ShoppingCartRun()
     {
         _isRunning = true;
         while (_isRunning)
         {
             ShoppingCartDisplay();
-            HandleInput();
+            await HandleInput();
         }
     }
 }

@@ -21,7 +21,7 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
             switch (input)
             {
                 case "1":
-                    webShopMenu.WebbRun();
+                   await webShopMenu.WebbRun();
                     break;
                 case "2":
                    await adminMenu.AdminRunAsync();
