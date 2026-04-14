@@ -29,7 +29,7 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, 
             case "K":
                 // Add payment logic here
                 if (CheckShoppingCart())
-                    Console.WriteLine("Betalning genomförd! Tack för ditt köp.");
+                    await checkOut.CheckOutRun();
                 break;
             case "B":
                 _isRunning = false;
