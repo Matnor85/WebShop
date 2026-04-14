@@ -195,9 +195,9 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
     private void SummaryKampanj(Produkt produkt, ProduktKampanj kampanj)
     {
         Console.WriteLine($"Produkt: {produkt.Namn}");
-        Console.WriteLine($"Ordinare pris: {produkt.Pris:c}");
+        Console.WriteLine($"Ordinare pris: {produkt.Pris:C}");
         Console.WriteLine($"Rabatt: {kampanj.Rabatt * 100}%");
-        Console.WriteLine($"Nytt pris: {BeräknaRabattPris(produkt.Pris, kampanj.Rabatt)}");
+        Console.WriteLine($"Nytt pris: {BeräknaRabattPris(produkt.Pris, kampanj.Rabatt):C}");
     }
 
     private decimal BeräknaRabattPris(decimal pris, decimal rabatt) => pris * (1 - rabatt);
