@@ -69,8 +69,8 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService)
             Console.Clear();
             Console.WriteLine($"=== Produkter i {selectedCategory.Namn} ===");
             var products = selectedCategory.Produkter
-                //.OrderBy(p => p.Namn)
-                .OrderByDescending(p => p.Pris)
+                .OrderBy(p => p.Namn)
+                .ThenByDescending(p => p.LagerAntal)
                 .ToList() ?? new List<Produkt>();
             if (!products.Any())
             {
