@@ -38,7 +38,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
                 //manageOrderHistoryMenu.ManageOrderHistoryRun();
                 break;
             case "4":
-                shoppingCartMenu.ShoppingCartRun();
+                shoppingCartMenu.ShoppingCartRunAsync();
                 break;
             case "5":
                 _isRunning = false;

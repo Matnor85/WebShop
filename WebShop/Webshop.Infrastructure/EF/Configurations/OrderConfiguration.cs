@@ -25,6 +25,10 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
                .HasForeignKey(po => po.OrderId)
                .OnDelete(DeleteBehavior.Cascade);
 
+        builder.Property(o => o.BetalningsMetod)
+               .IsRequired()
+               .HasMaxLength(50);
+
         // Tar bort varningarna om decimal precision. Kommer behöva uppdatera databasen för att matcha detta.
         builder.Property(o => o.TotalPris)
                .HasColumnType("decimal(18,2)");
