@@ -35,7 +35,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
                 await browseCategoriesMenu.BrowseCategoriesRun();
                 break;
             case "3":
-               await shoppingCartMenu.ShoppingCartRunAsync();
+               await shoppingCartMenu.ShoppingCartRun();
                 break;
             case "4":
                 //manageOrderHistoryMenu.ManageOrderHistoryRun();
