@@ -1,4 +1,4 @@
-﻿using WebShop.Presentation.DisplayService;
+﻿using WebShop.Presentation.DisplayService.ShopService;
 using WebShop.Presentation.Menu.Shop_Submenu;
 
 namespace WebShop.Presentation.Menu;

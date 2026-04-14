@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Webshop.Domain.Entitites;
 using Webshop.Infrastructure.EF;
-using WebShop.Presentation.DisplayService;
+using WebShop.Presentation.DisplayService.ShopService;
 
 namespace WebShop.Presentation.Menu.Shop_Submenu;
 

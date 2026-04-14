@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebShop.Presentation.DisplayService;
+namespace WebShop.Presentation.DisplayService.ShopService;
 
 public class ShopManageOrderHistory
 {

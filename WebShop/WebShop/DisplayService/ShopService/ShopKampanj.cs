@@ -4,7 +4,7 @@ using System.Text;
 using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 
-namespace WebShop.Presentation.DisplayService;
+namespace WebShop.Presentation.DisplayService.ShopService;
 
 public class ShopKampanj(IProduktKampanjService produktKampanjService, IProduktService produktService)
 {
