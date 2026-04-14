@@ -17,8 +17,8 @@ public class BetalMenu(BetalVy betalVy)
         if (paymentMethod == null)
             return;
 
-        Console.WriteLine($"Betalar sker med {paymentMethod}...");
-        await Task.Delay(2000);
+        Console.WriteLine($"Betalning sker med {paymentMethod}...");
+        await Task.Delay(3000);
 
         await betalVy.SaveOrderAsync(kund, fraktOmbud, paymentMethod);
     }
