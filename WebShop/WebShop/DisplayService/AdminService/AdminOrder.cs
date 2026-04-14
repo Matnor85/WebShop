@@ -28,7 +28,7 @@ public class AdminOrder
             }
             for (int i = 0; i < orders.Count; i++)
             {
-                Console.WriteLine($"Id {i + 1}, Kund: {orders[i].Kund.Namn}, Totalpris: {orders[i].TotalPris}, Fraktombud: {orders[i].FraktOmbud.Namn}");
+                Console.WriteLine($"Id {i + 1}, Kund: {orders[i].Kund.Namn}, Totalpris: {orders[i].TotalPris}, Fraktombud: {orders[i].FraktOmbud.Namn}, Betalningsmetod: {orders[i].BetalningsMetod}");
             }
             Meny.Wait();
         }
