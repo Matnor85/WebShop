@@ -6,7 +6,7 @@ namespace Webshop.Domain.Entitites;
 
 public class ProduktOrder
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public int Antal { get; set; }
     public decimal PrisvidKöp { get; set; }
     public Guid OrderId { get; set; }

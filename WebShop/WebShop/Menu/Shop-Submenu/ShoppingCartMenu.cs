@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using WebShop.Presentation.DisplayService.KundvagnService;
 using WebShop.Presentation.DisplayService.ShopService;
+using WebShop.Presentation.Menu.Submenu;
 
 namespace WebShop.Presentation.Menu.Shop_Submenu;
 
-public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn)
+public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, CheckOutMenu checkOut)
 {
         bool _isRunning = true;
-    public void ShowCart()
+    public async Task ShowCartAsync()
     {
         if (!PrepareCartDisplay())
             return;
@@ -23,8 +24,8 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn)
             case "T":
                 shoppingCart.RemoveItem();
                 break;
-            case "P":
-                // Add payment logic here
+            case "K":
+                await checkOut.CheckOutRun();
                 break;
             case "B":
                 _isRunning = false;
@@ -48,16 +49,16 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn)
             return false;
         }
         shoppingCart.ShowCartSelected();
-        Console.WriteLine("Alternativ [C] Ändra antal \n[T] Ta bort\n[B]Gå tillbaka\n[P] Betala");
+        Console.WriteLine("Alternativ [C] Ändra antal \n[T] Ta bort\n[B]Gå tillbaka\n[K] Betala");
         return true;
     }
 
-    public void ShoppingCartRun()
+    public async Task ShoppingCartRunAsync()
     {
         _isRunning = true;
         while (_isRunning)
         {
-            ShowCart();
+            await ShowCartAsync();
         }
     }
 }

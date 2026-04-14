@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using WebShop.Presentation.DisplayService.AdminService;
+using WebShop.Presentation.DisplayService.BetalVyService;
+using WebShop.Presentation.DisplayService.CheckoutService;
 using WebShop.Presentation.DisplayService.KundvagnService;
 using WebShop.Presentation.DisplayService.ShopService;
 using WebShop.Presentation.Menu;
@@ -23,6 +25,8 @@ public static class PresentationExtensions
         services.AddScoped<ProduktMenu>();
         services.AddScoped<KundMenu>();
         services.AddScoped<OrderMenu>();
+        services.AddScoped<CheckOutMenu>();
+        services.AddScoped<BetalMenu>();
         // Webbshop meny
         services.AddScoped<ShoppingCartMenu>();
         services.AddScoped<SearchProductMenu>();
@@ -43,6 +47,9 @@ public static class PresentationExtensions
         services.AddScoped<ShopShoppingCart>();
         services.AddScoped<ShopManageOrderHistory>();
         services.AddScoped<ShopKampanj>();
+        services.AddScoped<BetalVy>();
+        services.AddScoped<CheckOut>();
+
         //Kundvagn
         services.AddScoped<Kundvagn>();
         return services;

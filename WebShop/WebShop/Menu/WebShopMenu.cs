@@ -41,6 +41,9 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
                await shoppingCartMenu.ShoppingCartRun();
                 break;
             case "4":
+                shoppingCartMenu.ShoppingCartRunAsync();
+                break;
+            case "5":
                 _isRunning = false;
                 break;
             default:
