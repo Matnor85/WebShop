@@ -15,7 +15,6 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
         Console.Clear();
         Console.WriteLine("1 - Till webb-Shop");
         Console.WriteLine("2 - Admin");
-        // Meny.LineBreaks(2);
         Console.WriteLine("0 - Avsluta");
     }
     public async Task HandleInput()
