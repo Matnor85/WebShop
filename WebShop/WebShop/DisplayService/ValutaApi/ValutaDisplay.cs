@@ -24,15 +24,16 @@ public class ValutaDisplay(IValutaService valutaService, ValutaSession valutaSes
         Console.WriteLine("1. USD");
         Console.WriteLine("2. EUR");
         Console.WriteLine("3. GBP");
-        Console.WriteLine("4. Tillbaka");
+        Console.WriteLine("4. SEK");
+        Console.WriteLine("5. Tillbaka");
 
         return Console.ReadLine() switch
         {
             "1" => "USD",
             "2" => "EUR",
             "3" => "GBP",
-            "4" => null,
-            _ => "SEK"
+            "4" => "SEK",
+            "5" => null
         };
     }
 
