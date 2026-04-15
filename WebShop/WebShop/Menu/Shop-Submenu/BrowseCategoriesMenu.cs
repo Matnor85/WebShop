@@ -40,8 +40,8 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kun
         }
 
         Meny.CreateLines('-', 30);
-        Console.WriteLine("[Esc] - Tillbaka till huvudmenyn");
-        Console.WriteLine("[K] - Gå till kundvagn");
+        Meny.LineBreaks(1);
+        Console.WriteLine("[Esc] - Tillbaka till huvudmenyn   [K] - Gå till kundvagn");
         Console.Write("Välj kategori: ");
     }
 

@@ -11,6 +11,7 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
 
     public void ShowMainMenu()
     {
+        Console.CursorVisible = false;
         Console.Clear();
         Console.WriteLine("1 - Till webb-Shop");
         Console.WriteLine("2 - Admin");

@@ -18,6 +18,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
         Console.WriteLine("2 - Bläddra bland kategorier");
         Console.WriteLine("3 - Hantera kundvagn");
         Console.WriteLine("4 - Välj valuta");
+        Meny.LineBreaks(2);
         Console.WriteLine("[Esc] - Tillbaka till startmenyn");
         Meny.LineBreaks(2);
         await ShowSales();

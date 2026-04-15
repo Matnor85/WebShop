@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Webshop.Application.Interfaces;
@@ -25,15 +26,18 @@ public class ValutaDisplay(IValutaService valutaService, ValutaSession valutaSes
         Console.WriteLine("2. EUR");
         Console.WriteLine("3. GBP");
         Console.WriteLine("4. SEK");
-        Console.WriteLine("5. Tillbaka");
+        Meny.LineBreaks(1);
+        Console.WriteLine("[Esc] - Tillbaka");
 
-        return Console.ReadLine() switch
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        return key.Key switch
         {
-            "1" => "USD",
-            "2" => "EUR",
-            "3" => "GBP",
-            "4" => "SEK",
-            "5" => null
+            ConsoleKey.D1 => "USD",
+            ConsoleKey.D2 => "EUR",
+            ConsoleKey.D3 => "GBP",
+            ConsoleKey.D4 => "SEK",
+            ConsoleKey.Escape => null,
+            _ => null
         };
     }
 
