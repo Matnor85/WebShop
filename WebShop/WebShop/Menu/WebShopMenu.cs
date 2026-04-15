@@ -26,23 +26,24 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, ShopSearchProduct se
 
     public async Task HandleInput()
     {
-
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        switch (key.Key)
+var input = Console.ReadLine()?.Trim().ToLower();
+        switch (input)
         {
-            case ConsoleKey.D1:
+            case "1":
                 await searchProduct.SearchProductRun();
                 break;
-            case ConsoleKey.D2:
+            case "2":
                 await browseCategoriesMenu.BrowseCategoriesRun();
                 break;
-            case ConsoleKey.D3:
+            case "3":
                await shoppingCartMenu.ShoppingCartRun();
                 break;
-            case ConsoleKey.D4:
+            case "4":
                 await valutaDisplay.ChooseRateAsync();
                 break;
-            case ConsoleKey.Escape:
+            case "esc":
+            case "escape":
+            case "avbryt":
                 _isRunning = false;
                 break;
             default:

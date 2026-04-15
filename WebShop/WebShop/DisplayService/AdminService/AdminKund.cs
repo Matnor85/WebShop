@@ -51,8 +51,8 @@ public class AdminKund
             }
             ShowListSelection(kunder, "=== Välj kund att ta bort ===");
 
-            ConsoleKeyInfo key = Console.ReadKey(true);
-            if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), kunder.Count, out int choice))
+            var input = Console.ReadLine()!.Trim().ToLower();
+            if (!DataValidering.ValidateListChoice(input!, kunder.Count, out int choice))
             {
                 Meny.Wait();
                 return;

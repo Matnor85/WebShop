@@ -39,19 +39,19 @@ public class ShopBrowseCategories(ValutaSession valutaSession, Kundvagn kundvagn
 
             ProductChosies();
 
-            ConsoleKeyInfo key = Console.ReadKey(true);
+            var input = Console.ReadLine()?.Trim().ToLower();
 
-            if (key.Key == ConsoleKey.Escape)
+            if (input == "esc" || input == "escape" || input == "avbryt")
             {
                 browsingProducts = false;
             }
-            else if (int.TryParse(key.KeyChar.ToString(), out int choice) && choice > 0 && choice <= products.Count)
+            else if (int.TryParse(input, out int choice) && choice > 0 && choice <= products.Count)
             {
                 var selectedProduct = products[choice - 1];
 
                 await AddProductToCart(selectedProduct);
             }
-            else if (key.Key == ConsoleKey.K)
+            else if (input == "k")
             {
                 await shoppingCartMenu.ShoppingCartRun();
             }
@@ -62,7 +62,7 @@ public class ShopBrowseCategories(ValutaSession valutaSession, Kundvagn kundvagn
     private static void ProductChosies()
     {
         Meny.CreateLines('-', 30);
-        Console.WriteLine("[Esc] - Tillbaka till kategorier");
+        Console.WriteLine("Skriv 'avbryt' för att gå tillbaka till kategorier");
         Console.WriteLine("[K] - Gå till kundvagn");
         Console.WriteLine("\nVälj produkt: ");
     }
@@ -87,8 +87,8 @@ public class ShopBrowseCategories(ValutaSession valutaSession, Kundvagn kundvagn
     private bool ConfirmToAdd(int amount, Produkt selectedProduct)
     {
         Console.WriteLine("Är du säker på att du vill lägga till denna produkt i kundvagnen? (J/N)");
-        var key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             Console.Clear();
             Console.WriteLine($"{amount} st {selectedProduct.Namn} har lagts till i kundvagnen.");

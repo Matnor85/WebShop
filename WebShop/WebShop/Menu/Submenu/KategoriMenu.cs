@@ -25,23 +25,25 @@ public class KategoriMenu(AdminKategori _adminKategori)
     {
         Console.Clear();
         ShowAdminKategoriMenu();
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        switch (key.Key)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        switch (input)
         {
-            case ConsoleKey.D1:
+            case "1":
                 Console.Clear();
                 await _adminKategori.ShowKategoriList();
                 break;
-            case ConsoleKey.D2:
+            case "2":
                 await _adminKategori.AddKategoriAsync();
                 break;
-            case ConsoleKey.D3:
+            case "3":
                 await _adminKategori.UpdateKategoriAsync();
                 break;
-            case ConsoleKey.D4:
+            case "4":
                 await _adminKategori.DeleteKategoriAsync();
                 break;
-            case ConsoleKey.Escape:
+            case "esc":
+            case "escape":
+            case "avbryt":
                 _isRunning = false;
                 break;
             default:

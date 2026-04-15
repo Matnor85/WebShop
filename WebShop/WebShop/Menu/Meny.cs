@@ -20,16 +20,18 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
     }
     public async Task HandleInput()
     {
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        switch (key.Key)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        switch (input)
             {
-                case ConsoleKey.D1:
+                case "1":
                    await webShopMenu.WebbRun();
                     break;
-                case ConsoleKey.D2:
+                case "2":
                    await adminMenu.AdminRunAsync();
                     break;
-                case ConsoleKey.Escape:
+                case "esc":
+                case "escape":
+                case "avbryt":
                     Console.WriteLine("Tack för att du besökte vår webshop. Ha en bra dag!");
                     Environment.Exit(0);
                     break;

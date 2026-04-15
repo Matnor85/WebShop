@@ -15,22 +15,24 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, 
         if (!PrepareCartDisplay())
             return;
 
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        switch (key.Key)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        switch (input)
         {
-            case ConsoleKey.C:
+            case "c":
                 if (CheckShoppingCart())
-                shoppingCart.ChangeStock();
+                    shoppingCart.ChangeStock();
                 break;
-            case ConsoleKey.T:
+            case "t":
                 if (CheckShoppingCart())
                     shoppingCart.RemoveItem();
                 break;
-            case ConsoleKey.K:
+            case "k":
                 if (CheckShoppingCart())
                     await checkOut.CheckOutRun();
                 break;
-            case ConsoleKey.Escape:
+            case "esc":
+            case "escape":
+            case "avbryt":
                 _isRunning = false;
                 break;
 

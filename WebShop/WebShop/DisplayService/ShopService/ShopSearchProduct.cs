@@ -17,9 +17,9 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
         Console.Clear();
         Console.Write("=== Sök efter produkt ===\nSkriv 'avbryt' för att gå tillbaka\nNamn: ");
         // ConsoleKeyInfo key; // = Console.ReadKey(true);
-        var input = Console.ReadLine().ToLower();
+        var input = Console.ReadLine()!.Trim().ToLower();
        // key = Console.ReadKey();
-        if (input?.ToLower() == "avbryt")
+        if (input == "avbryt" || input == "esc" || input == "escape")
         {
          _isRunning = false;
             return;
@@ -32,10 +32,10 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
         }
 
         var products = (await produktService.GetAllAsync())
-            .Where(p => p.Namn != null && p.Namn.Contains(input!.ToLower()))
+            .Where(p => p.Namn != null && p.Namn.Contains(input))
             .ToList();
 
-        InputCheck(input!, products);
+        InputCheck(input, products);
     }
 
     private void InputCheck(string input, List<Produkt> products)

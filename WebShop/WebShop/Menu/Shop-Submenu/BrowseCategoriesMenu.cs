@@ -49,13 +49,13 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, ShoppingCart
     public async Task HandleInput()
     {
        // ConsoleKeyInfo key = Console.ReadKey(true);
-        var input = Console.ReadLine();
-        if (input?.ToLower() == "avbryt")
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "avbryt" || input == "esc" || input == "escape")
         {
             _isRunning = false;
             return;
         }
-        else if (input?.ToLower() == "k")
+        else if (input == "k")
         {
             await shoppingCartMenu.ShoppingCartRun();
             _isRunning = false;

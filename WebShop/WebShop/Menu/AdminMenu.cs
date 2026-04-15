@@ -31,25 +31,25 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
     public async Task HandleInputAsync()
     {
 
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        switch (key.Key)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        switch (input)
             {
-            case ConsoleKey.D1:
+            case "1":
                 await produktMenu.ProduktMenuRunAsync();
                 break;
-            case ConsoleKey.D2:
+            case "2":
                 await kategoriMenu.KategoriMenuRunAsync();
                 break;
-            case ConsoleKey.D3:
+            case "3":
                 await kundMenu.KundMenuRunAsync();
                 break;
-            case ConsoleKey.D4:
+            case "4":
                 await orderMenu.OrderMenuRunAsync();
                 break;
-            case ConsoleKey.D5:
+            case "5":
                 await kampanjerMenu.KampanjerMenuRunAsync();
                 break;
-            case ConsoleKey.D6:
+            case "6":
                 try
                 {
                     await seeder.SeedAsync();
@@ -62,7 +62,9 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
                     Meny.Wait();
                 }
                 break;
-            case ConsoleKey.Escape:
+            case "esc":
+            case "escape":
+            case "avbryt":
                     _isRunning = false;
                     return;
                 default:

@@ -26,7 +26,7 @@ public class ShopShoppingCart(Kundvagn kundvagn, ValutaSession valutaSession)
         if (item == null) return;
         
         Console.WriteLine($"Ange nytt antal för {item.Produkt.Namn}:");
-        if (!DataValidering.ValidateAntal(Console.ReadLine(), out int nyttAntal))
+        if (!DataValidering.ValidateAntal(Console.ReadLine()!, out int nyttAntal))
         {
             Meny.Wait();
             return;
@@ -45,7 +45,7 @@ public class ShopShoppingCart(Kundvagn kundvagn, ValutaSession valutaSession)
     {
         Console.WriteLine(prompt);
         var input = Console.ReadLine();
-        if (!DataValidering.ValidateListChoice(input, kundvagn.Items.Count, out int val))
+        if (!DataValidering.ValidateListChoice(input!, kundvagn.Items.Count, out int val))
         {
             Meny.Wait();
             return null;

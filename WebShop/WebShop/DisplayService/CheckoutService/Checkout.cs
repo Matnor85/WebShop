@@ -26,8 +26,8 @@ public class CheckOut(IFraktOmbudService fraktService, IKundService kundService,
         if (!DataValidering.ValidateList(fraktOmbudList, "Inga fraktombud tillgängliga"))
             return null;
         ShowFraktOmbudList(fraktOmbudList);
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), fraktOmbudList.Count, out int val))
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (!DataValidering.ValidateListChoice(input!, fraktOmbudList.Count, out int val))
         {
             Meny.Wait();
             return null;
