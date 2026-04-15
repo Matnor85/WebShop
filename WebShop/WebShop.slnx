@@ -15,6 +15,7 @@
     <Project Path="UnitTests/UnitTests.csproj" Id="e0065b1e-23c4-4dc1-aad5-034c25c2f149" />
   </Folder>
   <Folder Name="/Skolan/">
+    <File Path="Reserv.txt" />
     <File Path="Uppgifter.txt" />
   </Folder>
 </Solution>

@@ -3,7 +3,7 @@ using WebShop.Presentation.Menu.Shop_Submenu;
 
 namespace WebShop.Presentation.Menu;
 
-public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu searchProductMenu, BrowseCategoriesMenu browseCategoriesMenu, ManageOrderHistoryMenu manageOrderHistoryMenu, ShopKampanj kampanj)
+public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu searchProductMenu, BrowseCategoriesMenu browseCategoriesMenu, ShopKampanj kampanj)
 {
     bool _isRunning = true;
 
@@ -15,7 +15,6 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
         Console.WriteLine("=== Webb-Shop val ===");
         Console.WriteLine("1 - Sök efter produkt");
         Console.WriteLine("2 - Bläddra bland kategorier");
-        //Console.WriteLine("****3 - Hantera användarprofiler och orderhistorik****");
         Console.WriteLine("3 - Hantera kundvagn");
         Console.WriteLine("5 - Tillbaka till startmenyn");
         Meny.LineBreaks(3);
@@ -38,10 +37,6 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
                await shoppingCartMenu.ShoppingCartRun();
                 break;
             case "4":
-                //manageOrderHistoryMenu.ManageOrderHistoryRun();
-                //  break;
-                break;
-            case "5":
                 _isRunning = false;
                 break;
             default:

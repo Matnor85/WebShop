@@ -31,7 +31,7 @@ public static class PresentationExtensions
         services.AddScoped<ShoppingCartMenu>();
         services.AddScoped<SearchProductMenu>();
         services.AddScoped<BrowseCategoriesMenu>();
-        services.AddScoped<ManageOrderHistoryMenu>();
+       // services.AddScoped<ManageOrderHistoryMenu>();
         services.AddScoped<KampanjerMenu>();
 
         //displayservice
@@ -45,7 +45,7 @@ public static class PresentationExtensions
         services.AddScoped<ShopBrowseCategories>();
         services.AddScoped<ShopSearchProduct>();
         services.AddScoped<ShopShoppingCart>();
-        services.AddScoped<ShopManageOrderHistory>();
+      //  services.AddScoped<ShopManageOrderHistory>();
         services.AddScoped<ShopKampanj>();
         services.AddScoped<BetalVy>();
         services.AddScoped<CheckOut>();

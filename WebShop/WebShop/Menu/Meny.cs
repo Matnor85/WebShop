@@ -60,6 +60,7 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
     }
     public async Task MenuRunAsync()
     {
+        _isRunning = true;
         while (_isRunning)
         {
             ShowMainMenu();
