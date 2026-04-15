@@ -76,7 +76,6 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
         while (_isRunning)
         {
             await SearchForProduct();
-            break;
         }
     }
 }
