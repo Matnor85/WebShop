@@ -51,6 +51,7 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
         foreach (var product in products)
         {
             Console.WriteLine($"Namn: {product.Namn}");
+            Console.WriteLine($"Beskrivning: {product.Beskrivning}");
             Console.WriteLine($"Pris: {valutaSession.FormatPris(product.Pris)}");
             Console.WriteLine($"Antal i lager: {product.LagerAntal}");
             Console.WriteLine($"Kategori: {product.Kategori?.Namn}");
