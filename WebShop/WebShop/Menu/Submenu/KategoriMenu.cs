@@ -17,30 +17,31 @@ public class KategoriMenu(AdminKategori _adminKategori)
         Console.WriteLine("2 - Skapa ny kategori");
         Console.WriteLine("3 - Uppdatera kategori");
         Console.WriteLine("4 - Ta bort kategori");
-        Console.WriteLine("5 - Tillbaka till huvudmenyn");
+        Meny.LineBreaks(2);
+        Console.WriteLine("[Esc] - Tillbaka till huvudmenyn");
     }
 
     public async Task HanteraKategorierAsync()
     {
         Console.Clear();
         ShowAdminKategoriMenu();
-        var input = Console.ReadLine();
-        switch (input)
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        switch (key.Key)
         {
-            case "1":
+            case ConsoleKey.D1:
                 Console.Clear();
                 await _adminKategori.ShowKategoriList();
                 break;
-            case "2":
+            case ConsoleKey.D2:
                 await _adminKategori.AddKategoriAsync();
                 break;
-            case "3":
+            case ConsoleKey.D3:
                 await _adminKategori.UpdateKategoriAsync();
                 break;
-            case "4":
+            case ConsoleKey.D4:
                 await _adminKategori.DeleteKategoriAsync();
                 break;
-            case "5":
+            case ConsoleKey.Escape:
                 _isRunning = false;
                 break;
             default:

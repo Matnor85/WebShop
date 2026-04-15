@@ -18,30 +18,31 @@ public class KampanjerMenu(AdminKampanj adminKampanj)
         Console.WriteLine("2 - Skapa ny kampanj");
         Console.WriteLine("3 - Uppdatera kampanj");
         Console.WriteLine("4 - Ta bort kampanj");
-        Console.WriteLine("5 - Tillbaka till huvudmenyn");
+        Meny.LineBreaks(2);
+        Console.WriteLine("[Esc] - Tillbaka till huvudmenyn");
     }
 
     public async Task HanteraKampanjerAsync()
     {
         Console.Clear();
         ShowAdminKampanjMenu();
-        var input = Console.ReadLine();
-        switch (input)
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        switch (key.Key)
         {
-            case "1":
+            case ConsoleKey.D1:
                 Console.Clear();
                 await adminKampanj.ShowKampanjList();
                 break;
-            case "2":
+            case ConsoleKey.D2:
                 await adminKampanj.AddKampanjAsync();
                 break;
-            case "3":
+            case ConsoleKey.D3:
                 await adminKampanj.UpdateKampanjAsync();
                 break;
-            case "4":
+            case ConsoleKey.D4:
                 await adminKampanj.DeleteKampanjAsync();
                 break;
-            case "5":
+            case ConsoleKey.Escape:
                 _isRunning = false;
                 break;
             default:

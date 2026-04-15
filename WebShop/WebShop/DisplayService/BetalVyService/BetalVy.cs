@@ -43,8 +43,8 @@ public class BetalVy(Kundvagn kundVagn, IOrderService orderService, IProduktOrde
 
         PrintAvailablePaymentMethods();
 
-        var input = Console.ReadLine();
-        if (!DataValidering.ValidateListChoice(input, PaymentMethods.Count, out int choice))
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), PaymentMethods.Count, out int choice))
         {
             Meny.Wait();
             return null;
