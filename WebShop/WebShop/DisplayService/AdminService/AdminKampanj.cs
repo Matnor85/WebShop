@@ -178,7 +178,7 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
         SummaryKampanj(produkt, kampanj);
         Console.WriteLine("Vill du lägga till kampanjen? (J/N)");
         var confirm = Console.ReadLine();
-        if (confirm.ToUpper() == "J")
+        if (confirm?.ToUpper() == "J")
         {
             await produktKampanjService.AddAsync(kampanj);
             Console.Clear();

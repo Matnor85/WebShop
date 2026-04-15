@@ -19,6 +19,7 @@ public static class InfrastructureExtensions
         services.AddScoped<IFraktOmbudRepository, FraktOmbudRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IProduktKampanjRepository, ProduktKampanjRepository>();
+        services.AddHttpClient<IValutaRepository, ValutaRepository>();
 
         return services;
     }

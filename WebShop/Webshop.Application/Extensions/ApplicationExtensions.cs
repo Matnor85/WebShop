@@ -21,7 +21,7 @@ public static class ApplicationExtensions
         services.AddScoped<IFraktOmbudService, FraktOmbudService>();
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IProduktKampanjService, ProduktKampanjService>();
-        services.AddHttpClient<IValutaService, ValutaService>();
+        services.AddScoped<IValutaService, ValutaService>();
         
 
         return services;

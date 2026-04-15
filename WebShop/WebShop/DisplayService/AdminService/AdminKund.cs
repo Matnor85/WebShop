@@ -124,7 +124,7 @@ public class AdminKund
     {
         Console.WriteLine($"Vill du ta bort kunden {kunder[choice - 1].Namn} (J/N)?");
         var confirm = Console.ReadLine();
-        if (confirm.ToUpper() == "J")
+        if (confirm?.ToUpper() == "J")
         {
             await _kundService.DeleteAsync(kunder[choice - 1].Id);
             Console.Clear();
@@ -142,7 +142,7 @@ public class AdminKund
     {
         Console.WriteLine("Vill du uppdatera kunden (J/N)?");
         var confirm = Console.ReadLine();
-        if (confirm.ToUpper() == "J")
+        if (confirm?.ToUpper() == "J")
         {
             newKund.Id = kunder[choice - 1].Id;
             await _kundService.UpdateAsync(newKund);

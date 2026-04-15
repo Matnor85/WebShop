@@ -47,7 +47,7 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kun
 
     public async Task HandleInput()
     {
-        var input = Console.ReadLine().ToUpper();
+        var input = Console.ReadLine()?.ToUpper();
         if (input == "B")
         {
             _isRunning = false;
