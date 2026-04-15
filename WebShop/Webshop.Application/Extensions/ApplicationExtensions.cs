@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,9 @@ public static class ApplicationExtensions
         services.AddScoped<IFraktOmbudService, FraktOmbudService>();
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IProduktKampanjService, ProduktKampanjService>();
+        services.AddHttpClient<IValutaService, ValutaService>();
+        
+
         return services;
     }
 }

@@ -19,6 +19,9 @@ public class App
 
     public static async Task RunAsync()
     {
+        // För valuta API:et och för att kunna visa €-tecknet i konsolen.
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+
         var config = new ConfigurationBuilder()
              .AddUserSecrets<App>()
              .Build();
@@ -41,6 +44,7 @@ public class App
             // Dölj EF Core SQL/info-loggar. Visa bara warnings/errors från EF.
             builder.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Warning);
             builder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+            builder.AddFilter("System.Net.Http.HttpClient", LogLevel.Warning);
 
             builder.SetMinimumLevel(LogLevel.Information);
         });
