@@ -8,7 +8,7 @@ namespace WebShop.Presentation.DisplayService.Helpers;
 
 public class KundInputHelper
 {
-    public async Task<Kund> KundInput()
+    public Kund KundInput()
     {
         var namn = GetKundName();
         var adress = GetAddress();

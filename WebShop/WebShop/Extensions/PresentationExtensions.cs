@@ -5,6 +5,7 @@ using System.Text;
 using WebShop.Presentation.DisplayService.AdminService;
 using WebShop.Presentation.DisplayService.BetalVyService;
 using WebShop.Presentation.DisplayService.CheckoutService;
+using WebShop.Presentation.DisplayService.Helpers;
 using WebShop.Presentation.DisplayService.KundvagnService;
 using WebShop.Presentation.DisplayService.ShopService;
 using WebShop.Presentation.DisplayService.ValutaApi;
@@ -35,6 +36,8 @@ public static class PresentationExtensions
         services.AddScoped<KampanjerMenu>();
 
         //displayservice
+        //Helpers
+        services.AddScoped<KundInputHelper>();
         //API
         services.AddScoped<ValutaSession>();
         services.AddScoped<ValutaDisplay>();

@@ -16,7 +16,7 @@ public class CheckOut(IFraktOmbudService fraktService, IKundService kundService,
     {
         Console.WriteLine("=== Kassa ===");
         Console.WriteLine("skapa konto för att beräkna fraktkostnad");
-        var kund = await kundInputHelper.KundInput();
+        var kund =  kundInputHelper.KundInput();
         return await kundService.AddAsync(kund);
     }
 

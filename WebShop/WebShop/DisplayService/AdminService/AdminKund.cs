@@ -16,7 +16,7 @@ public class AdminKund(IKundService kundService, KundInputHelper kundInputHelper
         try
         {
             Console.WriteLine("=== Lägg till kund ===");
-            var kund = await kundInputHelper.KundInput();
+            var kund =  kundInputHelper.KundInput();
             if (kund == null)
             {
                 Console.WriteLine("Kunden kunde inte skapas.");
@@ -109,7 +109,7 @@ public class AdminKund(IKundService kundService, KundInputHelper kundInputHelper
                 Meny.Wait();
                 return;
             }
-            var newKund = await kundInputHelper.KundInput();
+            var newKund =  kundInputHelper.KundInput();
             UpdateSummary(kunder, choice, newKund);
             await ConfirmationUpdateKund(kunder, choice, newKund);
         }
