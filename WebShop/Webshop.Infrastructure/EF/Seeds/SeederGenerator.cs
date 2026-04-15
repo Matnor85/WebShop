@@ -65,15 +65,19 @@ public class SeederGenerator
 
     public async Task SeedAsync(CancellationToken ct = default) // Huvudmetod som körs för att fylla databasen med initial data
     {
-        await _ctx.Database.MigrateAsync(ct); // Säkerställer att databasen är uppdaterad med senaste schema
+        // Säkerställer att databasen är uppdaterad med senaste schema
+        await _ctx.Database.MigrateAsync(ct);
 
-        using var tx = await _ctx.Database.BeginTransactionAsync(ct); // Startar en transaktion så att allt seedande sker atomärt
+        // Startar en transaktion så att allt seedande sker atomärt
+        using var tx = await _ctx.Database.BeginTransactionAsync(ct);
         try
         {
-            // Find seed files. When running from different working directories the files might not be in the current directory.
+            /* För att göra det mer robust att hitta seed-filerna, oavsett var applikationen körs ifrån, försöker vi först hitta dem relativt
+               till AppContext.BaseDirectory och går uppåt i katalogstrukturen. Om det inte lyckas, försöker vi från CurrentDirectory.
+               Detta gör att det fungerar både i utvecklingsmiljöer och när applikationen är publicerad. */
             string ResolveSeedFile(string relativePath)
             {
-                // try AppContext.BaseDirectory and walk up a few levels to find the repository root
+                // Försök hitta filen genom att gå uppåt i katalogstrukturen från AppContext.BaseDirectory
                 var start = AppContext.BaseDirectory;
                 for (int i = 0; i < 6; i++)
                 {
@@ -81,7 +85,7 @@ public class SeederGenerator
                     if (File.Exists(candidate)) return candidate;
                     start = Path.GetDirectoryName(start) ?? start;
                 }
-                // fallback to current directory search
+                // Om det inte hittas där, försök från CurrentDirectory
                 start = Directory.GetCurrentDirectory();
                 for (int i = 0; i < 6; i++)
                 {
@@ -89,7 +93,9 @@ public class SeederGenerator
                     if (File.Exists(candidate)) return candidate;
                     start = Path.GetDirectoryName(start) ?? start;
                 }
-                return Path.Combine(AppContext.BaseDirectory, relativePath); // last resort (may not exist)
+                // Om det inte hittas alls, returnera den ursprungliga sökvägen relativt till AppContext.BaseDirectory som en sista utväg
+                // (vilket sannolikt inte kommer att fungera)
+                return Path.Combine(AppContext.BaseDirectory, relativePath);
             }
 
             var relative = Path.Combine("Webshop.Infrastructure", "EF", "Seeds", "Json");
@@ -100,75 +106,124 @@ public class SeederGenerator
             _log.LogInformation("Master JSON path: {p} exists={e}", masterPath, File.Exists(masterPath));
             _log.LogInformation("Trans JSON path: {p} exists={e}", transPath, File.Exists(transPath));
 
-            if (File.Exists(masterPath)) // Kontrollerar att huvud-JSON-filen finns innan den läses
+            // Kontrollerar att huvud-JSON-filen finns innan den läses
+            if (File.Exists(masterPath))
             {
-                var masterJson = await File.ReadAllTextAsync(masterPath, ct); // Läser in JSON-innehållet som text
-                using var doc = JsonDocument.Parse(masterJson); // Parser JSON-texten till ett JsonDocument för att kunna navigera i strukturen
-                var root = doc.RootElement; // Huvudroten i JSON-strukturen
+                // Läser in JSON-innehållet som text
+                var masterJson = await File.ReadAllTextAsync(masterPath, ct);
+                // Parser JSON-texten till ett JsonDocument för att kunna navigera i strukturen
+                using var doc = JsonDocument.Parse(masterJson);
+                // Huvudroten i JSON-strukturen
+                var root = doc.RootElement;
 
-               
-                if (root.TryGetProperty("Leverantorer", out var levers)) // Kontrollerar om "Leverantorer" finns i JSON och är en array
+                // Kontrollerar om "Leverantorer" finns i JSON och är en array
+                if (root.TryGetProperty("Leverantorer", out var levers))
                 {
-                    foreach (var lev in levers.EnumerateArray()) // Loopar igenom varje element i "Leverantorer"-arrayen
+                    // Loopar igenom varje element i "Leverantorer"-arrayen
+                    foreach (var lev in levers.EnumerateArray())
                     {
-                        var namn = lev.GetString(); // Hämtar namnet på leverantören som en sträng
-                        if (string.IsNullOrWhiteSpace(namn)) continue; // Hoppar över tomma eller whitespace-namn
-                        if (!await _ctx.Leverantörer.AnyAsync(l => l.Namn == namn, ct)) // Kontrollerar om en leverantör med samma namn redan finns i databasen
+                        // Hämtar namnet på leverantören som en sträng
+                        var namn = lev.GetString();
+                        // Hoppar över tomma eller whitespace-namn
+                        if (string.IsNullOrWhiteSpace(namn)) continue;
+                        // Kontrollerar om en leverantör med samma namn redan finns i databasen
+                        if (!await _ctx.Leverantörer.AnyAsync(l => l.Namn == namn, ct))
                         {
-                            _ctx.Leverantörer.Add(new Leverantör { Id = Guid.NewGuid(), Namn = namn }); // Om inte, läggs en ny leverantör till i databasen med ett nytt GUID som Id
+                            // Om inte, läggs en ny leverantör till i databasen med ett nytt GUID som Id
+                            _ctx.Leverantörer.Add(new Leverantör { Id = Guid.NewGuid(), Namn = namn });
                         }
                     }
                 }
 
                 // FraktOmbud
-                if (root.TryGetProperty("FraktOmbud", out var frakts)) // Kontrollerar om "FraktOmbud" finns i JSON och är en array
+
+                // Kontrollerar om "FraktOmbud" finns i JSON och är en array
+                if (root.TryGetProperty("FraktOmbud", out var frakts))
                 {
-                    foreach (var f in frakts.EnumerateArray()) // Loopar igenom varje element i "FraktOmbud"-arrayen
+                    // Loopar igenom varje element i "FraktOmbud"-arrayen
+                    foreach (var f in frakts.EnumerateArray())
                     {
-                        var namn = f.GetProperty("Namn").GetString(); // Hämtar namnet på fraktombudet som en sträng
-                        var pris = f.GetProperty("Pris").GetDecimal(); // Hämtar priset på fraktombudet som en decimal
-                        if (!await _ctx.FraktOmbud.AnyAsync(x => x.Namn == namn, ct)) // Kontrollerar om ett fraktombud med samma namn redan finns i databasen
+                        // Hämtar namnet på fraktombudet som en sträng
+                        var namn = f.GetProperty("Namn").GetString();
+                        // Hämtar priset på fraktombudet som en decimal
+                        var pris = f.GetProperty("Pris").GetDecimal();
+                        // Kontrollerar om ett fraktombud med samma namn redan finns i databasen
+                        if (!await _ctx.FraktOmbud.AnyAsync(x => x.Namn == namn, ct))
                         {
-                            _ctx.FraktOmbud.Add(new FraktOmbud { Id = Guid.NewGuid(), Namn = namn, Pris = pris }); // Om inte, läggs ett nytt fraktombud till i databasen med ett nytt GUID som Id
+                            // Om inte, läggs ett nytt fraktombud till i databasen med ett nytt GUID som Id
+                            _ctx.FraktOmbud.Add(new FraktOmbud { Id = Guid.NewGuid(), Namn = namn, Pris = pris });
                         }
                     }
                 }
 
                 // Kategorier och Produkter
-                if (root.TryGetProperty("Kategorier", out var cats)) // Kontrollerar om "Kategorier" finns i JSON och är en array
-                {
-                    foreach (var c in cats.EnumerateArray()) // Loopar igenom varje element i "Kategorier"-arrayen
-                    {
-                        var catName = c.GetProperty("Namn").GetString(); // Hämtar namnet på kategorin som en sträng
-                        if (string.IsNullOrWhiteSpace(catName)) continue; // Hoppar över tomma eller whitespace-kategorinamn
 
-                        var kategori = await _ctx.Kategorier.FirstOrDefaultAsync(k => k.Namn == catName, ct) ?? new Kategori { Id = Guid.NewGuid(), Namn = catName }; // Försöker hitta en befintlig kategori med samma namn i databasen, annars skapas en ny kategori med ett nytt GUID som Id
-                        if (kategori.Id == Guid.Empty) kategori.Id = Guid.NewGuid(); // Om kategorin inte har ett Id, tilldelas ett nytt GUID
-                        if (kategori.Produkter == null) kategori.Produkter = new List<Produkt>(); // Säkerställer att kategorin har en lista för produkter, även om den är tom
-                        if (kategori.Id != Guid.Empty && !_ctx.Kategorier.Local.Contains(kategori)) // Om kategorin har ett giltigt Id och inte redan är spårad i den lokala kontexten, läggs den till i databasen
+                // Kontrollerar om "Kategorier" finns i JSON och är en array
+                if (root.TryGetProperty("Kategorier", out var cats))
+                {
+                    // Loopar igenom varje element i "Kategorier"-arrayen
+                    foreach (var c in cats.EnumerateArray())
+                    {
+                        // Hämtar namnet på kategorin som en sträng
+                        var catName = c.GetProperty("Namn").GetString();
+                        // Hoppar över tomma eller whitespace-kategorinamn
+                        if (string.IsNullOrWhiteSpace(catName)) continue;
+
+                        // Försöker hitta en befintlig kategori med samma namn i databasen, annars skapas en ny kategori med ett nytt GUID som Id
+                        var kategori = await _ctx.Kategorier
+                            .FirstOrDefaultAsync(k => k.Namn == catName, ct) ?? new Kategori { Id = Guid.NewGuid(), Namn = catName };
+
+                        // Om kategorin inte har ett Id, tilldelas ett nytt GUID
+                        if (kategori.Id == Guid.Empty) kategori.Id = Guid.NewGuid();
+
+                        // Säkerställer att kategorin har en lista för produkter, även om den är tom
+                        if (kategori.Produkter == null) kategori.Produkter = new List<Produkt>();
+
+                        // Om kategorin har ett giltigt Id och inte redan är spårad i den lokala kontexten, läggs den till i databasen
+                        if (kategori.Id != Guid.Empty && !_ctx.Kategorier.Local.Contains(kategori))
                         {
-                            if (!await _ctx.Kategorier.AnyAsync(k => k.Namn == catName, ct)) // Kontrollerar om en kategori med samma namn redan finns i databasen
-                                _ctx.Kategorier.Add(kategori); // Om inte, läggs den nya kategorin till i databasen
+                            // Kontrollerar om en kategori med samma namn redan finns i databasen
+                            if (!await _ctx.Kategorier.AnyAsync(k => k.Namn == catName, ct))
+                                // Om inte, läggs den nya kategorin till i databasen
+                                _ctx.Kategorier.Add(kategori);
                         }
 
-                        if (c.TryGetProperty("Produkter", out var prods)) // Kontrollerar om "Produkter" finns i kategorin och är en array
+                        // Kontrollerar om "Produkter" finns i kategorin och är en array
+                        if (c.TryGetProperty("Produkter", out var prods))
                         {
-                            // choose a default leverantör if none provided
-                            var defaultSupplier = await _ctx.Leverantörer.FirstOrDefaultAsync(ct); // Hämtar den första leverantören i databasen som en standardleverantör för produkter som inte har en specifik leverantör angiven
-                            if (defaultSupplier == null) // Om det inte finns några leverantörer i databasen, skapas en standardleverantör
+
+                            // Hämtar den första leverantören i databasen som en standardleverantör för produkter som inte har en
+                            // specifik leverantör angiven
+                            var defaultSupplier = await _ctx.Leverantörer.FirstOrDefaultAsync(ct);
+
+                            // Om det inte finns några leverantörer i databasen, skapas en standardleverantör
+                            if (defaultSupplier == null)
                             {
-                                defaultSupplier = new Leverantör { Id = Guid.NewGuid(), Namn = "Default Supplier" }; // Skapar en ny leverantör med namnet "Default Supplier" och ett nytt GUID som Id
-                                _ctx.Leverantörer.Add(defaultSupplier); // Lägger till den nya leverantören i databasen
-                                await _ctx.SaveChangesAsync(ct); // Sparar ändringarna i databasen för att säkerställa att standardleverantören finns innan den används för produkter
+                                // Skapar en ny leverantör med namnet "Default Supplier" och ett nytt GUID som Id
+                                defaultSupplier = new Leverantör { Id = Guid.NewGuid(), Namn = "Default Supplier" };
+                                // Lägger till den nya leverantören i databasen
+                                _ctx.Leverantörer.Add(defaultSupplier);
+                                await _ctx.SaveChangesAsync(ct);
                             }
 
-                            foreach (var p in prods.EnumerateArray()) // Loopar igenom varje element i "Produkter"-arrayen inom kategorin
+                            // Loopar igenom varje element i "Produkter"-arrayen inom kategorin
+                            foreach (var p in prods.EnumerateArray())
                             {
-                                var prodName = p.GetProperty("Namn").GetString(); // Hämtar produktens namn från JSON
-                                if (string.IsNullOrWhiteSpace(prodName)) continue; // Hoppar över produkter som inte har ett giltigt namn
-                                var besk = p.TryGetProperty("Besk", out var b) ? b.GetString() : null; // Hämtar produktens beskrivning från JSON, eller sätter den till null om den inte finns
-                                var pris = p.TryGetProperty("Pris", out var pr) ? pr.GetDecimal() : 0m; // Hämtar produktens pris från JSON, eller sätter det till 0 om det inte finns
-                                var lager = p.TryGetProperty("Lager", out var l) ? l.GetInt32() : 0; // Hämtar produktens lagerantal från JSON, eller sätter det till 0 om det inte finns
+                                // Hämtar produktens namn från JSON
+                                var prodName = p.GetProperty("Namn").GetString();
+
+                                // Hoppar över produkter som inte har ett giltigt namn
+                                if (string.IsNullOrWhiteSpace(prodName)) continue;
+
+                                // Hämtar produktens beskrivning från JSON, eller sätter den till null om den inte finns
+                                var besk = p.TryGetProperty("Besk", out var b) ? b.GetString() : null;
+
+                                // Hämtar produktens pris från JSON, eller sätter det till 0 om det inte finns
+                                var pris = p.TryGetProperty("Pris", out var pr) ? pr.GetDecimal() : 0m;
+
+                                // Hämtar produktens lagerantal från JSON, eller sätter det till 0 om det inte finns
+                                var lager = p.TryGetProperty("Lager", out var l) ? l.GetInt32() : 0;
+
                                 // Färg och storlek: läs från JSON om angivet, annars försök inferera från produktnamn
                                 Färg färg = Färg.Okänd;
                                 Storlek storlek = Storlek.Okänd;
@@ -184,14 +239,17 @@ public class SeederGenerator
                                     if (!string.IsNullOrWhiteSpace(storStr) && Enum.TryParse<Storlek>(NormalizeEnumString(storStr), true, out var parsedStor))
                                         storlek = parsedStor;
                                 }
-                                // infer if still unknown
+                                // Om färg eller storlek inte explicit anges i JSON, försök inferera dem från produktnamnet
                                 if (färg == Färg.Okänd) färg = InferColorFromName(prodName);
                                 if (storlek == Storlek.Okänd) storlek = InferSizeFromName(prodName);
 
-                                var exists = await _ctx.Produkter.AnyAsync(x => x.Namn == prodName && x.Kategori != null && x.Kategori.Namn == catName, ct); // Kontrollerar om en produkt med samma namn och kategori redan finns i databasen för att undvika dubbletter
-                                if (!exists) // Om produkten inte redan finns, skapas en ny produkt och läggs till i databasen
+                                // Kontrollerar om en produkt med samma namn och kategori redan finns i databasen för att undvika dubbletter
+                                var exists = await _ctx.Produkter.AnyAsync(x => x.Namn == prodName && x.Kategori != null && x.Kategori.Namn == catName, ct);
+
+                                // Om produkten inte redan finns, skapas en ny produkt och läggs till i databasen
+                                if (!exists)
                                 {
-                                    var prod = new Produkt // Skapar en ny produkt med de hämtade värdena och kopplar den till rätt kategori och leverantör
+                                    var prod = new Produkt
                                     {
                                         Id = Guid.NewGuid(),
                                         Namn = prodName,
@@ -204,7 +262,7 @@ public class SeederGenerator
                                         LeverantörId = defaultSupplier.Id,
                                         ProduktOrdrar = new List<ProduktOrder>()
                                     };
-                                    _ctx.Produkter.Add(prod); // Lägger till den nya produkten i databasen
+                                    _ctx.Produkter.Add(prod);
                                 }
                             }
                         }
@@ -216,19 +274,28 @@ public class SeederGenerator
             _log.LogInformation("SaveChanges returned {count}", saved);
 
             // Transactions file (customers, orders)
-            if (File.Exists(transPath)) // Kontrollerar att transaktions-JSON-filen finns innan den läses
+            // Kontrollerar att transaktions-JSON-filen finns innan den läses
+            if (File.Exists(transPath))
             {
-                var transJson = await File.ReadAllTextAsync(transPath, ct); // Läser innehållet i transaktions-JSON-filen
-                using var tdoc = JsonDocument.Parse(transJson); // Parser JSON-texten till ett JsonDocument för att kunna navigera i strukturen
-                var troot = tdoc.RootElement; // Huvudroten i transaktions-JSON-strukturen
+                // Läser innehållet i transaktions-JSON-filen
+                var transJson = await File.ReadAllTextAsync(transPath, ct);
+                // Parser JSON-texten till ett JsonDocument för att kunna navigera i strukturen
+                using var tdoc = JsonDocument.Parse(transJson);
+                // Huvudroten i transaktions-JSON-strukturen
+                var troot = tdoc.RootElement;
 
-                if (troot.TryGetProperty("Kunder", out var kunder)) // Kontrollerar om "Kunder" finns i JSON och är en array
+                // Kontrollerar om "Kunder" finns i JSON och är en array
+                if (troot.TryGetProperty("Kunder", out var kunder))
                 {
-                    foreach (var k in kunder.EnumerateArray()) // Itererar över varje kund i JSON-arrayen
+                    // Itererar över varje kund i JSON-arrayen
+                    foreach (var k in kunder.EnumerateArray())
                     {
-                        var epost = k.GetProperty("Epost").GetString(); // Hämtar e-postadressen för kunden
-                        if (string.IsNullOrWhiteSpace(epost)) continue; // Hoppar över kunder som inte har en giltig e-postadress
-                        if (!await _ctx.Kunder.AnyAsync(x => x.Epost == epost, ct)) // Kontrollerar om en kund med samma e-postadress redan finns i databasen för att undvika dubbletter
+                        // Hämtar e-postadressen för kunden
+                        var epost = k.GetProperty("Epost").GetString();
+                        // Hoppar över kunder som inte har en giltig e-postadress
+                        if (string.IsNullOrWhiteSpace(epost)) continue;
+                        // Kontrollerar om en kund med samma e-postadress redan finns i databasen för att undvika dubbletter
+                        if (!await _ctx.Kunder.AnyAsync(x => x.Epost == epost, ct))
                         {
                             string GetStringSafe(JsonElement e)
                             {
@@ -240,7 +307,8 @@ public class SeederGenerator
                                 };
                             }
 
-                            var kund = new Kund // Skapar en ny kund med de hämtade värdena
+                            // Skapar en ny kund med de hämtade värdena
+                            var kund = new Kund
                             {
                                 Id = Guid.NewGuid(),
                                 Namn = k.GetProperty("Namn").GetString(),
@@ -250,32 +318,44 @@ public class SeederGenerator
                                 MobilNummer = k.TryGetProperty("MobilNummer", out var mn) ? GetStringSafe(mn) : null,
                                 Epost = epost
                             };
-                            _ctx.Kunder.Add(kund); // Lägger till den nya kunden i databasen
+                            _ctx.Kunder.Add(kund);
                         }
                     }
                 }
 
-                await _ctx.SaveChangesAsync(ct); // Sparar ändringar i databasen
+                // Sparar ändringar i databasen
+                await _ctx.SaveChangesAsync(ct);
 
-                if (troot.TryGetProperty("Ordrar", out var ordrar)) // Kontrollerar om "Ordrar" finns i JSON och är en array
+                // Kontrollerar om "Ordrar" finns i JSON och är en array
+                if (troot.TryGetProperty("Ordrar", out var ordrar))
                 {
-                    foreach (var o in ordrar.EnumerateArray()) // Itererar över varje order i JSON-arrayen
+                    // Itererar över varje order i JSON-arrayen
+                    foreach (var o in ordrar.EnumerateArray())
                     {
-                        var kundEpost = o.GetProperty("KundEpost").GetString(); // Hämtar e-postadressen för kunden som är kopplad till ordern
-                        var kund = await _ctx.Kunder.FirstOrDefaultAsync(x => x.Epost == kundEpost, ct); // Försöker hitta kunden i databasen baserat på e-postadressen
-                        if (kund == null) continue; // Hoppar över ordern om kunden saknas
+                        // Hämtar e-postadressen för kunden som är kopplad till ordern
+                        var kundEpost = o.GetProperty("KundEpost").GetString();
+                        // Försöker hitta kunden i databasen baserat på e-postadressen
+                        var kund = await _ctx.Kunder.FirstOrDefaultAsync(x => x.Epost == kundEpost, ct);
+                        // Hoppar över ordern om kunden saknas
+                        if (kund == null) continue;
 
-                        var orderDatum = o.TryGetProperty("OrderDatum", out var od) ? od.GetDateTime() : DateTime.UtcNow; // Hämtar orderdatumet eller använder aktuellt datum om det saknas
-                        // För att undvika dubbletter, kontrollerar om det redan finns en order för samma kund och datum i databasen innan den läggs till
-                        if (await _ctx.Ordrar.AnyAsync(x => x.KundId == kund.Id && x.OrderDatum == orderDatum, ct)) // Kontrollerar om en order med samma kund och datum redan finns i databasen för att undvika dubbletter
-                            continue; // Om en sådan order redan finns, hoppar över att lägga till den nya ordern
+                        // Hämtar orderdatumet eller använder aktuellt datum om det saknas
+                        var orderDatum = o.TryGetProperty("OrderDatum", out var od) ? od.GetDateTime() : DateTime.UtcNow;
+                        // Kontrollerar om en order med samma kund och datum redan finns i databasen för att undvika dubbletter
+                        if (await _ctx.Ordrar.AnyAsync(x => x.KundId == kund.Id && x.OrderDatum == orderDatum, ct))
+                            // Om en sådan order redan finns, hoppar över att lägga till den nya ordern
+                            continue;
 
-                        var fraktNamn = o.TryGetProperty("FraktOmbudNamn", out var fn) ? fn.GetString() : null; // Hämtar namnet på fraktombudet från JSON, eller sätter det till null om det inte finns
-                        var frakt = !string.IsNullOrWhiteSpace(fraktNamn) ? await _ctx.FraktOmbud.FirstOrDefaultAsync(f => f.Namn == fraktNamn, ct) : null; // Försöker hitta fraktombudet i databasen baserat på namnet, eller sätter det till null om namnet är tomt eller whitespace
+                        // Hämtar namnet på fraktombudet från JSON, eller sätter det till null om det inte finns
+                        var fraktNamn = o.TryGetProperty("FraktOmbudNamn", out var fn) ? fn.GetString() : null;
+                        // Försöker hitta fraktombudet i databasen baserat på namnet, eller sätter det till null om namnet är tomt eller whitespace
+                        var frakt = !string.IsNullOrWhiteSpace(fraktNamn) ? await _ctx.FraktOmbud.FirstOrDefaultAsync(f => f.Namn == fraktNamn, ct) : null;
 
-                        var totalPris = o.TryGetProperty("TotalPris", out var tp) ? tp.GetDecimal() : 0m; // Hämtar totalpriset för ordern från JSON, eller sätter det till 0 om det saknas
+                        // Hämtar totalpriset för ordern från JSON, eller sätter det till 0 om det saknas
+                        var totalPris = o.TryGetProperty("TotalPris", out var tp) ? tp.GetDecimal() : 0m;
 
-                        var order = new Order // Skapar en ny order med de hämtade värdena och kopplar den till rätt kund och fraktombud
+                        // Skapar en ny order med de hämtade värdena och kopplar den till rätt kund och fraktombud
+                        var order = new Order
                         {
                             Id = Guid.NewGuid(),
                             KundId = kund.Id,
@@ -285,19 +365,27 @@ public class SeederGenerator
                             ProduktOrdrar = new List<ProduktOrder>()
                         };
 
-                        if (o.TryGetProperty("ProduktRader", out var prader)) // Kontrollerar om "ProduktRader" finns i ordern och är en array
+                        // Kontrollerar om "ProduktRader" finns i ordern och är en array
+                        if (o.TryGetProperty("ProduktRader", out var prader))
                         {
-                            foreach (var r in prader.EnumerateArray()) // Itererar över varje produkt i "ProduktRader"-arrayen inom ordern
+                            // Itererar över varje produkt i "ProduktRader"-arrayen inom ordern
+                            foreach (var r in prader.EnumerateArray())
                             {
-                                var prodNamn = r.GetProperty("ProduktNamn").GetString(); // Hämtar produktnamnet från JSON
-                                var catNamn = r.GetProperty("KategoriNamn").GetString(); // Hämtar kategorinamnet från JSON för att kunna hitta rätt produkt i databasen baserat på både namn och kategori
-                                var antal = r.TryGetProperty("Antal", out var a) ? a.GetInt32() : 1; // Hämtar antalet av produkten som beställts från JSON, eller sätter det till 1 om det saknas
-                                var prisvid = r.TryGetProperty("PrisvidKöp", out var pk) ? pk.GetDecimal() : 0m; // Hämtar priset vid köp från JSON, eller sätter det till 0 om det saknas
+                                // Hämtar produktnamnet från JSON
+                                var prodNamn = r.GetProperty("ProduktNamn").GetString(); 
+                                // Hämtar kategorinamnet från JSON för att kunna hitta rätt produkt i databasen baserat på både namn och kategori
+                                var catNamn = r.GetProperty("KategoriNamn").GetString(); 
+                                // Hämtar antalet av produkten som beställts från JSON, eller sätter det till 1 om det saknas
+                                var antal = r.TryGetProperty("Antal", out var a) ? a.GetInt32() : 1; 
+                                // Hämtar priset vid köp från JSON, eller sätter det till 0 om det saknas
+                                var prisvid = r.TryGetProperty("PrisvidKöp", out var pk) ? pk.GetDecimal() : 0m; 
 
                                 var produkt = await _ctx.Produkter.Include(p => p.Kategori).FirstOrDefaultAsync(p => p.Namn == prodNamn && p.Kategori != null && p.Kategori.Namn == catNamn, ct); // Försöker hitta produkten i databasen baserat på både produktnamn och kategorinamn för att säkerställa att rätt produkt kopplas till ordern, eller sätter den till null om den inte hittas
-                                if (produkt == null) continue; // Hoppar över produktordern om produkten saknas i databasen
+                                // Hoppar över produktordern om produkten saknas i databasen
+                                if (produkt == null) continue; 
 
-                                var po = new ProduktOrder // Skapar en ny ProduktOrder som kopplar produkten till ordern med det angivna antalet och priset vid köp
+                                // Skapar en ny ProduktOrder som kopplar produkten till ordern med det angivna antalet och priset vid köp
+                                var po = new ProduktOrder 
                                 {
                                     Id = Guid.NewGuid(),
                                     ProduktId = produkt.Id,
@@ -305,23 +393,27 @@ public class SeederGenerator
                                     Antal = antal,
                                     PrisvidKöp = prisvid
                                 };
-                                order.ProduktOrdrar.Add(po); // Lägger till ProduktOrder-objektet i orderns lista över produktordrar, vilket skapar relationen mellan ordern och produkten
+                                order.ProduktOrdrar.Add(po); 
                             }
                         }
 
-                        _ctx.Ordrar.Add(order); // Lägger till ordern i databasen
+                        _ctx.Ordrar.Add(order); 
                     }
                 }
             }
-
-            await _ctx.SaveChangesAsync(ct); // Sparar ändringarna i databasen
-            await tx.CommitAsync(ct); // Bekräftar transaktionen
+            // Sparar alla ändringar i databasen inom transaktionen
+            await _ctx.SaveChangesAsync(ct); 
+            // Bekräftar transaktionen
+            await tx.CommitAsync(ct); 
         }
         catch (Exception ex)
         {
-            _log.LogError(ex, "Seed failed"); // Loggar eventuella fel som uppstår under seed-processen
-            await tx.RollbackAsync(ct); // Återställer transaktionen vid fel
-            throw; // Rethrow för att låta felet bubbla upp efter att det har loggats och transaktionen har rullats tillbaka
+            // Loggar eventuella fel som uppstår under seed-processen
+            _log.LogError(ex, "Seed failed"); 
+            // Återställer transaktionen vid fel
+            await tx.RollbackAsync(ct); 
+            // Rethrow för att låta felet bubbla upp efter att det har loggats och transaktionen har rullats tillbaka
+            throw; 
         }
     }
 }
