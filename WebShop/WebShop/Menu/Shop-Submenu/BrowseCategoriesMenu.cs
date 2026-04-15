@@ -48,6 +48,7 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kun
     public async Task HandleInput()
     {
         ConsoleKeyInfo key = Console.ReadKey(true);
+        var input = Console.ReadLine();
         if (key.Key == ConsoleKey.Escape)
         {
             _isRunning = false;
@@ -59,7 +60,7 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kun
             _isRunning = false;
             return;
         }
-        if (int.TryParse(key.KeyChar.ToString(), out int choice) && choice > 0 && choice <= _categories.Count)
+        if (int.TryParse(input, out int choice) && choice > 0 && choice <= _categories.Count)
         {
             var selectedCategory = _categories[choice - 1];
             await ShowProducts(selectedCategory);
