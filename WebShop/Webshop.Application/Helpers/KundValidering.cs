@@ -9,7 +9,7 @@ public class KundValidering
 {
     public static bool ValidatePhoneNumber(string phoneNumber)
     {
-        if (string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length != 11)
+        if (string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length != 10)
         {
             Console.WriteLine("Inkorrekt format på mobilnumret");
             return false;
@@ -45,7 +45,7 @@ public class KundValidering
     }
     public static bool ValidateEmail(string email)
     {
-        if (string.IsNullOrWhiteSpace(email) || !email.Contains("@") && (!email.EndsWith(".se") && !email.EndsWith(".com")))
+        if (string.IsNullOrWhiteSpace(email) || !email.Contains("@") || (!email.EndsWith(".se") && !email.EndsWith(".com")))
         {
             Console.WriteLine("Inkorrekt format på e-postadressen");
             return false;

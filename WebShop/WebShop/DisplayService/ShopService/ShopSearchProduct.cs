@@ -32,7 +32,7 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
         }
 
         var products = (await produktService.GetAllAsync())
-            .Where(p => p.Namn != null && p.Namn.Contains(input))
+            .Where(p => p.Namn != null && p.Namn.Contains(input!, StringComparison.OrdinalIgnoreCase))
             .ToList();
 
         InputCheck(input, products);
@@ -76,7 +76,6 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
         while (_isRunning)
         {
             await SearchForProduct();
-            break;
         }
     }
 }

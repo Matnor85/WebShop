@@ -11,7 +11,7 @@ using WebShop.Presentation.Menu.Submenu;
 
 namespace WebShop.Presentation.DisplayService.BetalVyService;
 
-public class BetalVy(Kundvagn kundVagn, IOrderService orderService, IProduktOrderService produktOrderService, ValutaSession valutaSession)
+public class BetalVy(Kundvagn kundVagn, IOrderService orderService,IProduktService produktService, IProduktOrderService produktOrderService, ValutaSession valutaSession)
 {
     public void SummaryPayment(FraktOmbud fraktOmbud)
     {
@@ -76,6 +76,9 @@ public class BetalVy(Kundvagn kundVagn, IOrderService orderService, IProduktOrde
                 PrisvidKöp = item.PrisVidKöp
             };
             await produktOrderService.AddAsync(produktOrder);
+
+            item.Produkt.LagerAntal -= item.Antal;
+            await produktService.UpdateAsync(item.Produkt);
         }
 
         kundVagn.ClearCart();
