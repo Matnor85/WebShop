@@ -19,7 +19,8 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
             Console.WriteLine("=== Lägg till kampanj ===");
             var produkter = await produktService.GetAllAsync();
             ShowListSelection(produkter, "Välj produkt med id");
-            if (!DataValidering.ValidateListChoice(Console.ReadLine(), produkter.Count, out int val))
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), produkter.Count, out int val))
             {
                 return;
             }
@@ -49,7 +50,8 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
                 return;
             }
             ShowKampanjListSelection(kampanjer, "Välj kampanj att ta bort");
-            if (!DataValidering.ValidateListChoice(Console.ReadLine(), kampanjer.Count, out int val))
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), kampanjer.Count, out int val))
             {
                 Meny.Wait();
                 return;
@@ -89,7 +91,8 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
                 return;
             }
             ShowKampanjListSelection(kampanjer, "Välj kampanj att uppdatera");
-            if (!DataValidering.ValidateListChoice(Console.ReadLine(), kampanjer.Count, out int val))
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), kampanjer.Count, out int val))
             {
                 Meny.Wait();
                 return;
@@ -120,8 +123,8 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
     private async Task ConfirmationUpdateKampanj(List<ProduktKampanj> kampanjer, int val, decimal rabatt)
     {
         Console.WriteLine($"Vill du uppdatera kampanjen? {kampanjer[val - 1].Produkt.Namn} (J/N)");
-        var confirm = Console.ReadLine();
-        if (confirm.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             kampanjer[val - 1].Rabatt = rabatt;
             await produktKampanjService.UpdateAsync(kampanjer[val - 1]);
@@ -158,8 +161,8 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
     private async Task ConfirmationDeleteKampanj(List<ProduktKampanj> kampanjer, int val)
     {
         Console.WriteLine($"Vill du ta bort kampanjen på: {kampanjer[val - 1].Produkt.Namn} (J/N)");
-        var confirm = Console.ReadLine();
-        if (confirm.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             await produktKampanjService.DeleteAsync(kampanjer[val - 1].Id);
             Console.Clear();
@@ -177,8 +180,8 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
     {
         SummaryKampanj(produkt, kampanj);
         Console.WriteLine("Vill du lägga till kampanjen? (J/N)");
-        var confirm = Console.ReadLine();
-        if (confirm?.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             await produktKampanjService.AddAsync(kampanj);
             Console.Clear();

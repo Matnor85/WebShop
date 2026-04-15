@@ -25,30 +25,31 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
         Console.WriteLine("4 - Hantera ordrar");
         Console.WriteLine("5 - Hantera kampanjer");
         Console.WriteLine("6 - Lägg till Seed-data");
-        Console.WriteLine("7 - Tillbaka till startmenyn");
+        Meny.LineBreaks(2);
+        Console.WriteLine("[Esc] - Tillbaka till startmenyn");
     }
     public async Task HandleInputAsync()
     {
-       
-            var input = Console.ReadLine();
-            switch (input)
+
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        switch (key.Key)
             {
-            case "1":
+            case ConsoleKey.D1:
                 await produktMenu.ProduktMenuRunAsync();
                 break;
-            case "2":
+            case ConsoleKey.D2:
                 await kategoriMenu.KategoriMenuRunAsync();
                 break;
-            case "3":
+            case ConsoleKey.D3:
                 await kundMenu.KundMenuRunAsync();
                 break;
-            case "4":
+            case ConsoleKey.D4:
                 await orderMenu.OrderMenuRunAsync();
                 break;
-            case "5":
+            case ConsoleKey.D5:
                 await kampanjerMenu.KampanjerMenuRunAsync();
                 break;
-            case "6":
+            case ConsoleKey.D6:
                 try
                 {
                     await seeder.SeedAsync();
@@ -61,7 +62,7 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
                     Meny.Wait();
                 }
                 break;
-            case "7":
+            case ConsoleKey.Escape:
                     _isRunning = false;
                     return;
                 default:

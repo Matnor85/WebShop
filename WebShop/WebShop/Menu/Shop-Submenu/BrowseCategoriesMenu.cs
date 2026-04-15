@@ -40,24 +40,26 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kun
         }
 
         Meny.CreateLines('-', 30);
-        Console.WriteLine("[B] - Tillbaka till huvudmenyn");
+        Console.WriteLine("[Esc] - Tillbaka till huvudmenyn");
         Console.WriteLine("[K] - Gå till kundvagn");
         Console.Write("Välj kategori: ");
     }
 
     public async Task HandleInput()
     {
-        var input = Console.ReadLine()?.ToUpper();
-        if (input == "B")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.Escape)
         {
             _isRunning = false;
             return;
         }
-        else if (input == "K")
+        else if (key.Key == ConsoleKey.K)
         {
             await shoppingCartMenu.ShoppingCartRun();
+            _isRunning = false;
+            return;
         }
-        if (int.TryParse(input, out int choice) && choice > 0 && choice <= _categories.Count)
+        if (int.TryParse(key.KeyChar.ToString(), out int choice) && choice > 0 && choice <= _categories.Count)
         {
             var selectedCategory = _categories[choice - 1];
             await ShowProducts(selectedCategory);
@@ -97,33 +99,30 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kun
 
             ProductChosies();
 
-            var input = Console.ReadLine().ToUpper();
+            ConsoleKeyInfo key = Console.ReadKey(true);
 
-            if (input == "B")
+            if (key.Key == ConsoleKey.Escape)
             {
                 browsingProducts = false;
             }
-            else if (int.TryParse(input, out int choice) && choice > 0 && choice <= products.Count)
+            else if (int.TryParse(key.KeyChar.ToString(), out int choice) && choice > 0 && choice <= products.Count)
             {
                 var selectedProduct = products[choice - 1];
 
                 await AddProductToCart(selectedProduct);
             }
-            else if (input == "K")
+            else if (key.Key == ConsoleKey.K)
             {
                 await shoppingCartMenu.ShoppingCartRun();
             }
-            //else
-            //{
-
-            //}
+           
         }
     }
 
     private static void ProductChosies()
     {
         Meny.CreateLines('-', 30);
-        Console.WriteLine("[B] - Tillbaka till kategorier");
+        Console.WriteLine("[Esc] - Tillbaka till kategorier");
         Console.WriteLine("[K] - Gå till kundvagn");
         Console.WriteLine("\nVälj produkt: ");
     }
@@ -142,5 +141,4 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kun
         Console.WriteLine($"{amount} st {selectedProduct.Namn} har lagts till i kundvagnen.");
         Meny.Wait();
     }
-   
 }

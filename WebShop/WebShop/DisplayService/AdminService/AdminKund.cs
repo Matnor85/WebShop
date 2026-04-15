@@ -51,7 +51,8 @@ public class AdminKund
             }
             ShowListSelection(kunder, "=== Välj kund att ta bort ===");
 
-            if (!DataValidering.ValidateListChoice(Console.ReadLine(), kunder.Count, out int choice))
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), kunder.Count, out int choice))
             {
                 Meny.Wait();
                 return;
@@ -106,7 +107,8 @@ public class AdminKund
                 return;
             }
             ShowListSelection(kunder, "=== Välj kund att uppdatera ===");
-            if (!DataValidering.ValidateListChoice(Console.ReadLine(), kunder.Count, out int choice))
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), kunder.Count, out int choice))
             {
                 Meny.Wait();
                 return;
@@ -123,8 +125,8 @@ public class AdminKund
     private async Task ConfirmationDeleteKund(List<Kund> kunder, int choice)
     {
         Console.WriteLine($"Vill du ta bort kunden {kunder[choice - 1].Namn} (J/N)?");
-        var confirm = Console.ReadLine();
-        if (confirm?.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             await _kundService.DeleteAsync(kunder[choice - 1].Id);
             Console.Clear();
@@ -141,8 +143,8 @@ public class AdminKund
     private async Task ConfirmationUpdateKund(List<Kund> kunder, int choice, Kund newKund)
     {
         Console.WriteLine("Vill du uppdatera kunden (J/N)?");
-        var confirm = Console.ReadLine();
-        if (confirm?.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             newKund.Id = kunder[choice - 1].Id;
             await _kundService.UpdateAsync(newKund);
@@ -162,8 +164,8 @@ public class AdminKund
     {
         Console.WriteLine("Vill du lägga till kunden (J/N)");
 
-        var confirm = Console.ReadLine();
-        if (confirm.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             await _kundService.AddAsync(kund);
             Console.Clear();

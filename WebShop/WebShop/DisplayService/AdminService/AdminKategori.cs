@@ -19,7 +19,8 @@ public class AdminKategori(IKategoriService _kategoriService)
                 return;
             }
             ShowListSelection(kategorier, "=== Välj kategori att ta bort ===");
-            if (!DataValidering.ValidateListChoice(Console.ReadLine(), kategorier.Count, out int kategoriVal))
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), kategorier.Count, out int kategoriVal))
             {
                 Meny.Wait();
                 return;
@@ -43,7 +44,8 @@ public class AdminKategori(IKategoriService _kategoriService)
                 return;
             }
             ShowListSelection(kategorier, "=== Välj kategori att uppdatera ===");
-            if (!DataValidering.ValidateListChoice(Console.ReadLine(), kategorier.Count, out int kategoriVal))
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), kategorier.Count, out int kategoriVal))
             {
                 Meny.Wait();
                 return;
@@ -99,8 +101,8 @@ public class AdminKategori(IKategoriService _kategoriService)
     private async Task ConfirmationAddKategori(string name, Kategori kategori)
     {
         Console.WriteLine($"Är du säker du vill lägga till {name}? (J/N)");
-        var confirm = Console.ReadLine();
-        if (confirm?.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             await _kategoriService.AddAsync(kategori);
             Console.Clear();
@@ -119,8 +121,8 @@ public class AdminKategori(IKategoriService _kategoriService)
     {
         Console.WriteLine($"Vald kategori: {kategorier[kategoriVal - 1].Namn}");
         Console.WriteLine("Är du säker på att du vill ta bort denna kategori? (J/N)");
-        var confirm = Console.ReadLine();
-        if (confirm?.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             await _kategoriService.DeleteAsync(kategorier[kategoriVal - 1].Id);
             Console.Clear();
@@ -139,8 +141,8 @@ public class AdminKategori(IKategoriService _kategoriService)
         Console.WriteLine("Sammanfattning av ändrad kategori:");
         Console.WriteLine($"Namn: {kategorier[kategoriVal - 1].Namn} - {nyttNamn}");
         Console.WriteLine("Vill du uppdatera denna kategori? (J/N)");
-        var confirm = Console.ReadLine();
-        if (confirm?.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             kategorier[kategoriVal - 1].Namn = nyttNamn;
             await _kategoriService.UpdateAsync(kategorier[kategoriVal - 1]);

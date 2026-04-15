@@ -97,8 +97,8 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
     private async Task ConfirmAddProdukt((Produkt produkt, string leverantörNamn, string kategoriNamn) produktResult)
     {
         Console.WriteLine("Vill du lägga till produkten? (J/N)");
-        var confirm = Console.ReadLine();
-        if (confirm?.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             await produktService.AddAsync(produktResult.produkt);
             Console.Clear();
@@ -116,8 +116,8 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
     private async Task ConfirmDeleteProdukt(List<Produkt> produkter, int produktVal)
     {
         Console.WriteLine($"Vill du ta bort produkten? (J/N) {produkter[produktVal - 1].Namn}");
-        var confirm = Console.ReadLine();
-        if (confirm?.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             await produktService.DeleteAsync(produkter[produktVal - 1].Id);
             Console.Clear();
@@ -152,8 +152,8 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
     private async Task ConfirmUpdateProdukt(List<Produkt> produkter, int produktVal, (Produkt produkt, string leverantörNamn, string kategoriNamn) newProdukt)
     {
         Console.WriteLine("Vill du uppdatera produkten? (J/N)");
-        var confirm = Console.ReadLine();
-        if (confirm?.ToUpper() == "J")
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.J)
         {
             newProdukt.produkt.Id = produkter[produktVal - 1].Id;
             await produktService.UpdateAsync(newProdukt.produkt);
@@ -244,9 +244,9 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
             {
                 Console.WriteLine($"{(int)color} - {color}");
             }
-            var input = Console.ReadLine();
+            ConsoleKeyInfo key = Console.ReadKey(true);
 
-            if (!ProduktValidering.ValidateFärg(input, out Färg färg))
+            if (!ProduktValidering.ValidateFärg(key.KeyChar.ToString(), out Färg färg))
                 continue;
 
             Console.Clear();
@@ -263,9 +263,9 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
             {
                 Console.WriteLine($"{(int)s} - {s}");
             }
-            var input = Console.ReadLine();
+            ConsoleKeyInfo key = Console.ReadKey(true);
 
-            if (!ProduktValidering.ValidateStorlek(input, out Storlek storlek))
+            if (!ProduktValidering.ValidateStorlek(key.KeyChar.ToString(), out Storlek storlek))
                 continue;
 
             Console.Clear();
@@ -302,7 +302,8 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
             Console.WriteLine("Ange leverantör:");
             for (int i = 0; i < leverantörer.Count; i++)
                 Console.WriteLine($"{i + 1} - {leverantörer[i].Namn}");
-            if (!DataValidering.ValidateListChoice(Console.ReadLine(), leverantörer.Count, out int val))
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), leverantörer.Count, out int val))
                 continue;
             
             Console.Clear();
@@ -318,7 +319,7 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
             Console.WriteLine("Ange kategori:");
             for (int i = 0; i < kategorier.Count; i++)
                 Console.WriteLine($"{i + 1} - {kategorier[i].Namn}");
-            if (!DataValidering.ValidateListChoice(Console.ReadLine(), kategorier.Count, out int val))
+            if (!DataValidering.ValidateListChoice(Console.ReadLine()!, kategorier.Count, out int val))
                 continue;
             
             Console.Clear();
