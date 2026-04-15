@@ -27,10 +27,16 @@ public class AdminKategori(IKategoriService _kategoriService)
             }
             await ConfirmationDeleteKategori(kategorier, kategoriVal);
         }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Fel: {ex.Message}");
+            Meny.Wait();
+        }
         catch (Exception ex)
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
+        
     }
     public async Task UpdateKategoriAsync()
     {
