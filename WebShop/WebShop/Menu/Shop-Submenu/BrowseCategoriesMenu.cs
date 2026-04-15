@@ -41,20 +41,20 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kun
 
         Meny.CreateLines('-', 30);
         Meny.LineBreaks(1);
-        Console.WriteLine("[Esc] - Tillbaka till huvudmenyn   [K] - Gå till kundvagn");
+        Console.WriteLine("Skriv 'avbryt' för att gå Tillbaka till huvudmenyn   [K] - Gå till kundvagn");
         Console.Write("Välj kategori: ");
     }
 
     public async Task HandleInput()
     {
-        ConsoleKeyInfo key = Console.ReadKey(true);
+       // ConsoleKeyInfo key = Console.ReadKey(true);
         var input = Console.ReadLine();
-        if (key.Key == ConsoleKey.Escape)
+        if (input?.ToLower() == "avbryt")
         {
             _isRunning = false;
             return;
         }
-        else if (key.Key == ConsoleKey.K)
+        else if (input?.ToLower() == "k")
         {
             await shoppingCartMenu.ShoppingCartRun();
             _isRunning = false;
