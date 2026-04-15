@@ -4,23 +4,19 @@ using System.Text;
 using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
+using WebShop.Presentation.DisplayService.Helpers;
 using WebShop.Presentation.Menu;
 
 namespace WebShop.Presentation.DisplayService.AdminService;
 
-public class AdminKund
+public class AdminKund(IKundService kundService, KundInputHelper kundInputHelper    )
 {
-    IKundService _kundService;
-    public AdminKund(IKundService kundService)
-    {
-         _kundService = kundService;
-    }
     public async Task AddKundAsync()
     {
         try
         {
             Console.WriteLine("=== Lägg till kund ===");
-            var kund = await KundInput();
+            var kund = await kundInputHelper.KundInput();
             if (kund == null)
             {
                 Console.WriteLine("Kunden kunde inte skapas.");
@@ -43,7 +39,7 @@ public class AdminKund
         try
         {
             Console.WriteLine("=== Ta bort kund ===");
-            var kunder = await _kundService.GetAllAsync();
+            var kunder = await kundService.GetAllAsync();
             if (!DataValidering.ValidateList(kunder, "Inga kunder hittades"))
             {
                 Meny.Wait();
@@ -77,7 +73,7 @@ public class AdminKund
         try
         {
             Console.WriteLine("=== Visar kunder ===");
-            var kunder = await _kundService.GetAllAsync();
+            var kunder = await kundService.GetAllAsync();
             if (!DataValidering.ValidateList(kunder, "Inga kunder hittades"))
             {
                 Meny.Wait();
@@ -100,7 +96,7 @@ public class AdminKund
         try
         {
             Console.WriteLine("=== Uppdatera kund ===");
-            var kunder = await _kundService.GetAllAsync();
+            var kunder = await kundService.GetAllAsync();
             if (!DataValidering.ValidateList(kunder, "Inga kunder hittades"))
             {
                 Meny.Wait();
@@ -113,7 +109,7 @@ public class AdminKund
                 Meny.Wait();
                 return;
             }
-            var newKund = await KundInput();
+            var newKund = await kundInputHelper.KundInput();
             UpdateSummary(kunder, choice, newKund);
             await ConfirmationUpdateKund(kunder, choice, newKund);
         }
@@ -128,7 +124,7 @@ public class AdminKund
         ConsoleKeyInfo key = Console.ReadKey(true);
         if (key.Key == ConsoleKey.J)
         {
-            await _kundService.DeleteAsync(kunder[choice - 1].Id);
+            await kundService.DeleteAsync(kunder[choice - 1].Id);
             Console.Clear();
             Console.WriteLine("Kunden har tagits bort.");
             Meny.Wait();
@@ -147,7 +143,7 @@ public class AdminKund
         if (key.Key == ConsoleKey.J)
         {
             newKund.Id = kunder[choice - 1].Id;
-            await _kundService.UpdateAsync(newKund);
+            await kundService.UpdateAsync(newKund);
             Console.Clear();
             Console.WriteLine("Kunden har uppdaterats.");
             Meny.Wait();
@@ -167,7 +163,7 @@ public class AdminKund
         ConsoleKeyInfo key = Console.ReadKey(true);
         if (key.Key == ConsoleKey.J)
         {
-            await _kundService.AddAsync(kund);
+            await kundService.AddAsync(kund);
             Console.Clear();
             Console.WriteLine("Kunden har lagts till.");
             Meny.Wait();
@@ -189,110 +185,4 @@ public class AdminKund
         Console.WriteLine($"Postnummer: {kunder[choice - 1].Postnummer} - {newKund.Postnummer}");
         Console.WriteLine($"Telefonnummer: {kunder[choice - 1].MobilNummer} - {newKund.MobilNummer}");
     }
-
-    public async Task<Kund> KundInput()
-    {
-        var namn = GetKundName();
-        var adress = GetAddress();
-        var city = GetCity();
-        var zipCode = GetZipCode();
-        var phoneNumber = GetPhoneNumber();
-        var email = GetEmail();
-
-        return new Kund(namn, adress, city, zipCode, phoneNumber, email);
-        
-    }
-    public string GetKundName()
-    {
-        while (true)
-        {
-            Console.WriteLine("Ange namn: ");
-            var namn = Console.ReadLine();
-            
-                if (!DataValidering.ValidateName(namn))
-                    continue;
-
-                Console.Clear();
-                return namn;
-        }
-    }
-
-    public string GetAddress()
-    {
-        while (true)
-        {
-            Console.WriteLine("Ange adress: ");
-            var adress = Console.ReadLine();
-            
-                if (!KundValidering.ValidateAdress(adress))
-                    continue;
-
-                Console.Clear();
-                return adress;
-        }
-    }
-
-    public string GetCity()
-    {
-        while (true)
-        {
-            Console.WriteLine("Ange stad: ");
-            var city = Console.ReadLine();
-           
-                if (!KundValidering.ValidateCity(city))
-                    continue;
-
-                Console.Clear();
-                return city;
-        }
-    }
-
-    public string GetZipCode()
-    {
-        while (true)
-        {
-            Console.WriteLine("Ange postnummer: ");
-            var zipCode = Console.ReadLine();
-                
-                if (!KundValidering.ValidateZipCode(zipCode))
-                    continue;
-
-            Console.Clear();
-            return zipCode;
-        }
-    }
-
-    public string GetPhoneNumber()
-    {
-        while (true)
-        {
-            Console.WriteLine("Ange mobilnummer: ");
-            var phoneNumberInput = Console.ReadLine();
-           
-                
-            if(!KundValidering.ValidatePhoneNumber(phoneNumberInput))
-                continue;
-
-            Console.Clear();
-            return phoneNumberInput;
-                
-        }
-    }
-
-    public string GetEmail()
-    {
-        while (true)
-        {
-            Console.WriteLine("Ange e-postadress: ");
-            var email = Console.ReadLine();
-            
-                if (!KundValidering.ValidateEmail(email))
-                    continue;
-
-                Console.Clear();
-                return email;
-            
-        }
-    }
-    
 }
