@@ -4,7 +4,7 @@ using WebShop.Presentation.Menu.Shop_Submenu;
 
 namespace WebShop.Presentation.Menu;
 
-public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu searchProductMenu, BrowseCategoriesMenu browseCategoriesMenu, ManageOrderHistoryMenu manageOrderHistoryMenu, ShopKampanj kampanj, ValutaDisplay valutaDisplay)
+public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu searchProductMenu, BrowseCategoriesMenu browseCategoriesMenu, ShopKampanj kampanj, ValutaDisplay valutaDisplay)
 {
     bool _isRunning = true;
 
