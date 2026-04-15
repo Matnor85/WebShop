@@ -55,6 +55,7 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
             Console.WriteLine($"Pris: {valutaSession.FormatPris(product.Pris)}");
             Console.WriteLine($"Antal i lager: {product.LagerAntal}");
             Console.WriteLine($"Kategori: {product.Kategori?.Namn}");
+            Console.WriteLine($"Leverantör: {product.Leverantör?.Namn}");
             Console.WriteLine($"Färg: {product.Färg}");
             Console.WriteLine($"Storlek: {product.Storlek}");
             Meny.CreateLines('-', 90);
