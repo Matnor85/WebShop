@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Webshop.Domain.Models;
+﻿namespace Webshop.Domain.Models;
 
 public class FrankfurterResponse
 {

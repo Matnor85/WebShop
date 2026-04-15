@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Interfaces;
+﻿using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
 using Webshop.Domain.Interfaces;
 
@@ -17,5 +14,4 @@ public class ProduktOrderService(IProduktOrderRepository _repository) : IProdukt
     public async Task<List<ProduktOrder>> GetByOrder(Guid orderId) => await _repository.GetByOrder(orderId);
     public async Task<List<ProduktOrder>> GetByProdukt(Guid produktId) => await _repository.GetByProdukt(produktId);
     public async Task UpdateAsync(ProduktOrder produktOrder) => await _repository.UpdateAsync(produktOrder);
-
 }

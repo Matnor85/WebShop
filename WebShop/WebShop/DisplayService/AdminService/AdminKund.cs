@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Helpers;
+﻿using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
 using WebShop.Presentation.DisplayService.Helpers;
@@ -54,7 +51,6 @@ public class AdminKund(IKundService kundService, KundInputHelper kundInputHelper
                 return;
             }
             await ConfirmationDeleteKund(kunder, choice);
-
         }
         catch (Exception ex)
         {

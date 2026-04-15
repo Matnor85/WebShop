@@ -1,5 +1,4 @@
 ﻿using Webshop.Infrastructure.EF.Seeds;
-using WebShop.Presentation.DisplayService;
 using WebShop.Presentation.Menu.Submenu;
 
 namespace WebShop.Presentation.Menu;
@@ -61,7 +60,6 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
                 Console.WriteLine("Ogiltigt val, försök igen.");
                 break;
         }
-
     }
     public async Task AdminRunAsync()
     {

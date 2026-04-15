@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebShop.Presentation.DisplayService.KundvagnService;
+﻿using WebShop.Presentation.DisplayService.KundvagnService;
 using WebShop.Presentation.DisplayService.ShopService;
 using WebShop.Presentation.Menu.Submenu;
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Helpers;
+﻿using Webshop.Application.Helpers;
 using WebShop.Presentation.DisplayService.KundvagnService;
 using WebShop.Presentation.DisplayService.ValutaApi;
 using WebShop.Presentation.Menu;

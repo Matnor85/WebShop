@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Interfaces;
+﻿using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
 using Webshop.Domain.Interfaces;
-
 
 namespace Webshop.Application.Services;
 

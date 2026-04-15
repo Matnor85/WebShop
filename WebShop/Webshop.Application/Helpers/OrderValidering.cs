@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Interfaces;
-
-namespace Webshop.Application.Helpers;
+﻿namespace Webshop.Application.Helpers;
 
 public class OrderValidering
 {
@@ -11,6 +6,5 @@ public class OrderValidering
     {
         if (orderDatum > DateTime.Now)
             Console.WriteLine("Orderdatum kan inte vara i framtiden.");
-        
     }
 }

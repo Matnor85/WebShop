@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using Webshop.Application.Interfaces;
+﻿using Webshop.Application.Interfaces;
 using Webshop.Domain.Enums;
 
 namespace Webshop.Application.Helpers;

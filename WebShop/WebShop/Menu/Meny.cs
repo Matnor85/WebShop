@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebShop.Presentation.Menu;
+﻿namespace WebShop.Presentation.Menu;
 
 public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
 {

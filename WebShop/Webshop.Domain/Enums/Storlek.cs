@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Webshop.Domain.Enums;
 
@@ -21,6 +18,5 @@ public enum Storlek
     [Display(Name = "XL")]
     XL = 6,
     [Display(Name = "XXL")]
-    XXL = 7,
+    XXL = 7
 }
-

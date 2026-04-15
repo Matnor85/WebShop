@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Webshop.Domain.Entitites;
 
 namespace Webshop.Infrastructure.EF.Configurations;
@@ -21,6 +18,5 @@ public class ProduktKampanjConfiguration : IEntityTypeConfiguration<ProduktKampa
                .WithMany()
                .HasForeignKey(pk => pk.ProduktId)
                .OnDelete(DeleteBehavior.Cascade);
-
     }
 }

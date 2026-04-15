@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Domain.Entitites;
+﻿using Webshop.Domain.Entitites;
 using WebShop.Presentation.DisplayService.KundvagnService;
 using WebShop.Presentation.DisplayService.ValutaApi;
 using WebShop.Presentation.Menu;
@@ -33,7 +30,6 @@ public class ShopBrowseCategories(ValutaSession valutaSession, Kundvagn kundvagn
                 {
                     Console.WriteLine($"{i + 1} - {products[i].Namn} ({valutaSession.FormatPris(products[i].Pris)})");
                 }
-                //Meny.Wait();
                 browsingProducts = false;
             }
 
@@ -41,7 +37,7 @@ public class ShopBrowseCategories(ValutaSession valutaSession, Kundvagn kundvagn
 
             var input = Console.ReadLine()?.Trim().ToLower();
 
-            if (input == "esc" || input == "escape" || input == "avbryt")
+            if (input == "0")
             {
                 browsingProducts = false;
             }
@@ -55,7 +51,6 @@ public class ShopBrowseCategories(ValutaSession valutaSession, Kundvagn kundvagn
             {
                 await shoppingCartMenu.ShoppingCartRun();
             }
-
         }
     }
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Helpers;
+﻿using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
 using WebShop.Presentation.DisplayService.ValutaApi;
@@ -28,14 +25,12 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
             var kampanj = new ProduktKampanj { ProduktId = produkter[val - 1].Id, Rabatt = rabatt };
             
             await ConfirmationAddKampanj(produkter[val - 1], kampanj);
-
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
-
 
     public async Task DeleteKampanjAsync()
     {
@@ -57,14 +52,12 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
                 return;
             }
             await ConfirmationDeleteKampanj(kampanjer, val);
-
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
     }
-
 
     public async Task ShowKampanjList()
     {
@@ -78,7 +71,6 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
         ShowKampanjListSelection(kampanjer, "=== Kampanjer ===");
         Meny.Wait();
     }
-
     public async Task UpdateKampanjAsync()
     {
         try
@@ -101,7 +93,6 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
 
             if (await HandleZeroRabatt(kampanjer[val - 1], rabatt)) return;
             await ConfirmationUpdateKampanj(kampanjer, val, rabatt);
-
         }
         catch (Exception ex)
         {
@@ -123,8 +114,8 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
     private async Task ConfirmationUpdateKampanj(List<ProduktKampanj> kampanjer, int val, decimal rabatt)
     {
         Console.WriteLine($"Vill du uppdatera kampanjen? {kampanjer[val - 1].Produkt.Namn} (J/N)");
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             kampanjer[val - 1].Rabatt = rabatt;
             await produktKampanjService.UpdateAsync(kampanjer[val - 1]);
@@ -155,14 +146,13 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
                 return rabatt / 100;
             }
         }
-
     }
 
     private async Task ConfirmationDeleteKampanj(List<ProduktKampanj> kampanjer, int val)
     {
         Console.WriteLine($"Vill du ta bort kampanjen på: {kampanjer[val - 1].Produkt.Namn} (J/N)");
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             await produktKampanjService.DeleteAsync(kampanjer[val - 1].Id);
             Console.Clear();
@@ -180,8 +170,8 @@ public class AdminKampanj(IProduktKampanjService produktKampanjService, IProdukt
     {
         SummaryKampanj(produkt, kampanj);
         Console.WriteLine("Vill du lägga till kampanjen? (J/N)");
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             await produktKampanjService.AddAsync(kampanj);
             Console.Clear();

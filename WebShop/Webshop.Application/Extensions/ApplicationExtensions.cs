@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Webshop.Application.Interfaces;
 using Webshop.Application.Services;
-using Webshop.Domain.Interfaces;
 
 namespace Webshop.Application.Extensions;
 
@@ -23,7 +18,6 @@ public static class ApplicationExtensions
         services.AddScoped<IProduktKampanjService, ProduktKampanjService>();
         services.AddScoped<IValutaService, ValutaService>();
         
-
         return services;
     }
 }

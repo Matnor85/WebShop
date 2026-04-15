@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Webshop.Domain.Entitites;
 using Webshop.Domain.Interfaces;
 
@@ -28,7 +25,6 @@ public class ProduktOrderRepository : IProduktOrderRepository
         if (produktOrder == null) return;
         _context.ProduktOrdrar.Remove(produktOrder);
         await _context.SaveChangesAsync();
-
     }
 
     public async Task<bool> ExistsAsync(Guid id)

@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Interfaces;
-using Webshop.Application.Services;
+﻿using Webshop.Application.Interfaces;
 using WebShop.Presentation.Menu;
 
 namespace WebShop.Presentation.DisplayService.ValutaApi;

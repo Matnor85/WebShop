@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Webshop.Domain.Entitites;
+﻿namespace Webshop.Domain.Entitites;
 
 public class Leverantör
 {
@@ -17,5 +13,4 @@ public class Leverantör
         Id = Guid.NewGuid();
         Namn = namn;
     }
-
 }

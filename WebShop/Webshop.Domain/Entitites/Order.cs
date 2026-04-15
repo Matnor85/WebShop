@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Webshop.Domain.Entitites;
+﻿namespace Webshop.Domain.Entitites;
 
 public class Order
 {
@@ -14,7 +10,5 @@ public class Order
     public Kund Kund { get; set; }
     public Guid FraktOmbudId { get; set; }
     public FraktOmbud FraktOmbud { get; set; }
-    public List<ProduktOrder> ProduktOrdrar { get; set; } = new List<ProduktOrder>();
-
-    
+    public List<ProduktOrder> ProduktOrdrar { get; set; } = new List<ProduktOrder>();   
 }

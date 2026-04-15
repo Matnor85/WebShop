@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Webshop.Domain.Entitites;
-using Webshop.Infrastructure.EF.Configurations;
 
 namespace Webshop.Infrastructure.EF;
 

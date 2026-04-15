@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Helpers;
+﻿using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
 using WebShop.Presentation.DisplayService.Helpers;
@@ -44,6 +41,4 @@ public class CheckOut(IFraktOmbudService fraktService, IKundService kundService,
             Console.WriteLine($" {i + 1}. {fraktOmbudList[i].Namn} - {valutaSession.FormatPris(fraktOmbudList[i].Pris)}");
         }
     }
-
-    
 }

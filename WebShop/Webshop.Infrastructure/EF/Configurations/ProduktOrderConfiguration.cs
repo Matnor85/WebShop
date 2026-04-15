@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Webshop.Domain.Entitites;
 
 namespace Webshop.Infrastructure.EF.Configurations;
@@ -17,9 +14,7 @@ public class ProduktOrderConfiguration : IEntityTypeConfiguration<ProduktOrder>
             .WithMany(x => x.ProduktOrdrar)
             .HasForeignKey(x => x.ProduktId);
 
-        // Tar bort varningarna om decimal precision. Kommer behöva uppdatera databasen för att matcha detta.
         builder.Property(x => x.PrisvidKöp)
                .HasColumnType("decimal(18,2)");
-            
     }
 }

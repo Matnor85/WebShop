@@ -21,7 +21,7 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
                 return;
             }
             ShowProduktListForSelection(produkter, "=== Välj vilken produkt du vill ta bort ===");
-            if (!DataValidering.ValidateListChoice(Console.ReadLine(), produkter.Count, out int produktVal))
+            if (!DataValidering.ValidateListChoice(Console.ReadLine()!, produkter.Count, out int produktVal))
             {
                 Meny.Wait();
                 return;
@@ -32,7 +32,6 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
-        
     }
     public async Task UpdateProdukt()
     {
@@ -47,7 +46,7 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
             }
             ShowProduktListForSelection(produkter, "=== Välj vilken produkt du vill uppdatera ===");
 
-            if (!DataValidering.ValidateListChoice(Console.ReadLine(), produkter.Count, out int produktVal))
+            if (!DataValidering.ValidateListChoice(Console.ReadLine()!, produkter.Count, out int produktVal))
             {
                 Meny.Wait();
                 return;
@@ -112,7 +111,6 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
             Meny.Wait();
         }
     }
-
     private async Task ConfirmDeleteProdukt(List<Produkt> produkter, int produktVal)
     {
         Console.WriteLine($"Vill du ta bort produkten? (J/N) {produkter[produktVal - 1].Namn}");
@@ -168,7 +166,6 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
             Meny.Wait();
         }
     }
-    //Skapa factory metod för att samla in all input för en produkt, inklusive val av leverantör och kategori, och returnera en "tuple" med produkten och de valda namnen för leverantör och kategori.
     public async Task<(Produkt produkt, string leverantörNamn, string kategoriNamn)> ProduktInput()
     {
         var namn = GetName();
@@ -195,8 +192,6 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
                 
             Console.Clear();
             return namn;
-            
-            
         }
     }
 
@@ -211,7 +206,6 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
             
             Console.Clear();
             return beskrivning;
-            
         }
     }
 
@@ -289,7 +283,6 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
 
             Console.Clear();
             return lagerAntal;
-            
         }
     }
 

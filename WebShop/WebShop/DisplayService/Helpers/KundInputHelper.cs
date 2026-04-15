@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Helpers;
+﻿using Webshop.Application.Helpers;
 using Webshop.Domain.Entitites;
 
 namespace WebShop.Presentation.DisplayService.Helpers;
@@ -18,7 +15,6 @@ public class KundInputHelper
         var email = GetEmail();
 
         return new Kund(namn, adress, city, zipCode, phoneNumber, email);
-
     }
     public string GetKundName()
     {
@@ -87,13 +83,11 @@ public class KundInputHelper
             Console.WriteLine("Ange mobilnummer: ");
             var phoneNumberInput = Console.ReadLine();
 
-
             if (!KundValidering.ValidatePhoneNumber(phoneNumberInput))
                 continue;
 
             Console.Clear();
             return phoneNumberInput;
-
         }
     }
 
@@ -109,7 +103,6 @@ public class KundInputHelper
 
             Console.Clear();
             return email;
-
         }
     }
 }

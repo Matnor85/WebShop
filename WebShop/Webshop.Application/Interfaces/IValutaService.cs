@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Webshop.Application.Interfaces;
+﻿namespace Webshop.Application.Interfaces;
 
 public interface IValutaService
 {

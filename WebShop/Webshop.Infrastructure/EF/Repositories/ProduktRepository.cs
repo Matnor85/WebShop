@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Webshop.Domain.Entitites;
 using Webshop.Domain.Interfaces;
 
@@ -69,5 +66,4 @@ public class ProduktRepository(WebshopDbContext context) : IProduktRepository
        context.Produkter.Update(produkt);
         await context.SaveChangesAsync();
     }
-   
 }

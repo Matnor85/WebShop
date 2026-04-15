@@ -36,7 +36,6 @@ public class AdminKategori(IKategoriService _kategoriService)
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
-        
     }
     public async Task UpdateKategoriAsync()
     {
@@ -73,7 +72,6 @@ public class AdminKategori(IKategoriService _kategoriService)
             string? name = GetKategoriName();
             var kategori = new Kategori(name);
             await ConfirmationAddKategori(name, kategori);
-
         }
         catch (Exception ex)
         {
@@ -96,7 +94,6 @@ public class AdminKategori(IKategoriService _kategoriService)
                 Console.WriteLine($"ID: {i + 1} - Namn: {kategorier[i].Namn}");
             }
             Meny.Wait();
-
         }
         catch (Exception ex)
         {
@@ -107,8 +104,8 @@ public class AdminKategori(IKategoriService _kategoriService)
     private async Task ConfirmationAddKategori(string name, Kategori kategori)
     {
         Console.WriteLine($"Är du säker du vill lägga till {name}? (J/N)");
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             await _kategoriService.AddAsync(kategori);
             Console.Clear();
@@ -127,8 +124,8 @@ public class AdminKategori(IKategoriService _kategoriService)
     {
         Console.WriteLine($"Vald kategori: {kategorier[kategoriVal - 1].Namn}");
         Console.WriteLine("Är du säker på att du vill ta bort denna kategori? (J/N)");
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             await _kategoriService.DeleteAsync(kategorier[kategoriVal - 1].Id);
             Console.Clear();
@@ -147,8 +144,8 @@ public class AdminKategori(IKategoriService _kategoriService)
         Console.WriteLine("Sammanfattning av ändrad kategori:");
         Console.WriteLine($"Namn: {kategorier[kategoriVal - 1].Namn} - {nyttNamn}");
         Console.WriteLine("Vill du uppdatera denna kategori? (J/N)");
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             kategorier[kategoriVal - 1].Namn = nyttNamn;
             await _kategoriService.UpdateAsync(kategorier[kategoriVal - 1]);
@@ -184,7 +181,5 @@ public class AdminKategori(IKategoriService _kategoriService)
             Console.Clear();
             return name;
         }
-
     }
 }
-

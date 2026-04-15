@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Domain.Entitites;
+﻿using Webshop.Domain.Entitites;
 
 namespace Webshop.Application.Interfaces;
 
@@ -14,4 +11,3 @@ public interface ILeverantörService
     Task<Leverantör> UpdateAsync(Leverantör leverantör);
     Task<bool> ExistsAsync(Guid id);
 }
-

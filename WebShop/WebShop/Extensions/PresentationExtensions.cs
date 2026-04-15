@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WebShop.Presentation.DisplayService.AdminService;
 using WebShop.Presentation.DisplayService.BetalVyService;
 using WebShop.Presentation.DisplayService.CheckoutService;
@@ -29,10 +26,8 @@ public static class PresentationExtensions
         services.AddScoped<OrderMenu>();
         services.AddScoped<CheckOutMenu>();
         services.AddScoped<BetalMenu>();
-        // Webbshop meny
         services.AddScoped<ShoppingCartMenu>();
         services.AddScoped<BrowseCategoriesMenu>();
-       // services.AddScoped<ManageOrderHistoryMenu>();
         services.AddScoped<KampanjerMenu>();
 
         //displayservice
@@ -51,7 +46,6 @@ public static class PresentationExtensions
         services.AddScoped<ShopBrowseCategories>();
         services.AddScoped<ShopSearchProduct>();
         services.AddScoped<ShopShoppingCart>();
-      //  services.AddScoped<ShopManageOrderHistory>();
         services.AddScoped<ShopKampanj>();
         services.AddScoped<BetalVy>();
         services.AddScoped<CheckOut>();

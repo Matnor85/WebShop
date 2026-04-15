@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Webshop.Domain.Entitites;
+﻿namespace Webshop.Domain.Entitites;
 
 public class Kund
 {
@@ -32,4 +28,3 @@ public class Kund
         return $"Namn: {Namn}\nAdress: {Adress}\nStad: {Stad}\nPostnummer: {Postnummer}\nTelefonnummer: {MobilNummer}\nE-post: {Epost}";
     }
 }
-

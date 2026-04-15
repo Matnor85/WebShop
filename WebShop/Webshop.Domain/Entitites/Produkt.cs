@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Domain.Enums;
+﻿using Webshop.Domain.Enums;
 
 namespace Webshop.Domain.Entitites;
 

@@ -1,15 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Webshop.Application.Interfaces;
+﻿using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
-using Webshop.Infrastructure.EF;
-using WebShop.Presentation.DisplayService;
-using WebShop.Presentation.DisplayService.KundvagnService;
 using WebShop.Presentation.DisplayService.ShopService;
-using WebShop.Presentation.DisplayService.ValutaApi;
 
 namespace WebShop.Presentation.Menu.Shop_Submenu;
 

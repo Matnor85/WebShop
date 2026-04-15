@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Helpers;
+﻿using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using WebShop.Presentation.DisplayService.ValutaApi;
+using WebShop.Presentation.Menu;
 
 namespace WebShop.Presentation.DisplayService.ShopService;
 
-public class ShopKampanj(IProduktKampanjService produktKampanjService, IProduktService produktService, ValutaSession valutaSession)
+public class ShopKampanj(IProduktKampanjService produktKampanjService, ValutaSession valutaSession)
 {
     public async Task ShowKampanjAsync()
     {
@@ -26,7 +24,7 @@ public class ShopKampanj(IProduktKampanjService produktKampanjService, IProduktS
             Console.WriteLine($"Ordinarie pris: {valutaSession.FormatPris(kampanj.Produkt.Pris)}");
             Console.WriteLine($"Rabatt: {kampanj.Rabatt * 100}%");
             Console.WriteLine($"Kampanjpris: {valutaSession.FormatPris(kampanj.Produkt.Pris * (1 - kampanj.Rabatt))}");
-            Console.WriteLine("--------------------------");
+            Meny.CreateLine('-', 30);
         }
     }
 }

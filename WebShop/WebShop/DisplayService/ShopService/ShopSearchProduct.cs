@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Interfaces;
+﻿using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
 using WebShop.Presentation.DisplayService.ValutaApi;
 using WebShop.Presentation.Menu;
@@ -15,10 +12,8 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
     public async Task SearchForProduct()
     {
         Console.Clear();
-        Console.Write("=== Sök efter produkt ===\nSkriv '0' för att gå tillbaka\nNamn: ");
-        // ConsoleKeyInfo key; // = Console.ReadKey(true);
+        Console.Write("=== Sök efter produkt ===\n[0] Tillbaka\nNamn: ");
         var input = Console.ReadLine()!.Trim().ToLower();
-       // key = Console.ReadKey();
         if (input == "0")
         {
          _isRunning = false;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Domain.Entitites;
+﻿using Webshop.Domain.Entitites;
 
 namespace Webshop.Domain.Interfaces;
 
@@ -16,5 +13,4 @@ public interface IProduktRepository
     Task UpdateAsync(Produkt produkt);
     Task DeleteAsync(Guid id);
     Task<bool> ExistsAsync(Guid id);
-    
 }

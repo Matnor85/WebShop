@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Helpers;
+﻿using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using WebShop.Presentation.DisplayService.ValutaApi;
 using WebShop.Presentation.Menu;
@@ -34,7 +31,5 @@ public class AdminOrder(IOrderService orderService, IKundService kundService, Va
         {
             Console.WriteLine($"Fel: {ex.Message} \n {ex.StackTrace}");
         }
-    }
-
-    
+    }   
 }

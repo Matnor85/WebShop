@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Interfaces;
+﻿using Webshop.Application.Interfaces;
 
 namespace Webshop.Application.Helpers;
 
@@ -19,7 +16,6 @@ public class FranktOmbudValendering
         {
             return false;
         }
-
         return true;
     }
     public static async Task ValidateGuidExistAsync(Guid id, IFraktOmbudService fraktOmbudService)

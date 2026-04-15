@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Webshop.Application.Helpers;
+﻿using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
 using WebShop.Presentation.DisplayService.KundvagnService;
 using WebShop.Presentation.DisplayService.ValutaApi;
 using WebShop.Presentation.Menu;
-using WebShop.Presentation.Menu.Submenu;
 
 namespace WebShop.Presentation.DisplayService.BetalVyService;
 
@@ -100,4 +96,3 @@ public class BetalVy(Kundvagn kundVagn, IOrderService orderService,IProduktServi
         "Banköverföring"
     };
 }
-

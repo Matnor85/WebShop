@@ -1,6 +1,5 @@
 ﻿using WebShop.Presentation.DisplayService.CheckoutService;
 
-
 namespace WebShop.Presentation.Menu.Submenu;
 
 public class CheckOutMenu(CheckOut checkOut, BetalMenu betalMenu)

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Webshop.Application.Helpers;
+﻿namespace Webshop.Application.Helpers;
 
 public class DataValidering
 {
