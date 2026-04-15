@@ -17,7 +17,7 @@ public class ProduktMenu(AdminProdukt _adminProdukt)
         Console.WriteLine("3 - Uppdatera produkt");
         Console.WriteLine("4 - Ta bort produkt");
         Meny.LineBreaks(2);
-        Console.WriteLine("[Esc] - Tillbaka till adminmenyn");
+        Console.WriteLine("0 - Tillbaka till adminmenyn");
     }
     public async Task HanteraProdukterAsync()
     {
@@ -39,9 +39,7 @@ public class ProduktMenu(AdminProdukt _adminProdukt)
             case "4":
                 await _adminProdukt.DeleteProdukt();
                 break;
-            case "esc":
-            case "escape":
-            case "avbryt":
+            case "0":
                 _isRunning = false;
                 break;
             default:

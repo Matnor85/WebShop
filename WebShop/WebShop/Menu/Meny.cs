@@ -15,8 +15,8 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
         Console.Clear();
         Console.WriteLine("1 - Till webb-Shop");
         Console.WriteLine("2 - Admin");
-        Meny.LineBreaks(3);
-        Console.WriteLine("[Esc] - Avsluta");
+        // Meny.LineBreaks(2);
+        Console.WriteLine("0 - Avsluta");
     }
     public async Task HandleInput()
     {
@@ -29,9 +29,7 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
                 case "2":
                    await adminMenu.AdminRunAsync();
                     break;
-                case "esc":
-                case "escape":
-                case "avbryt":
+                case "0":
                     Console.WriteLine("Tack för att du besökte vår webshop. Ha en bra dag!");
                     Environment.Exit(0);
                     break;

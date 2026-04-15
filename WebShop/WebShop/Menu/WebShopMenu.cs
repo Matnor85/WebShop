@@ -19,7 +19,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, ShopSearchProduct se
         Console.WriteLine("3 - Hantera kundvagn");
         Console.WriteLine("4 - Välj valuta");
         Meny.LineBreaks(2);
-        Console.WriteLine("[Esc] - Tillbaka till startmenyn");
+        Console.WriteLine("0 - Tillbaka till startmenyn");
         Meny.LineBreaks(2);
         await ShowSales();
     }
@@ -41,9 +41,7 @@ var input = Console.ReadLine()?.Trim().ToLower();
             case "4":
                 await valutaDisplay.ChooseRateAsync();
                 break;
-            case "esc":
-            case "escape":
-            case "avbryt":
+            case "0":
                 _isRunning = false;
                 break;
             default:

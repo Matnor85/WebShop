@@ -18,7 +18,7 @@ public class KundMenu(AdminKund _adminKund)
         Console.WriteLine("3 - Uppdatera kund");
         Console.WriteLine("4 - Ta bort kund");
         Meny.LineBreaks(2);
-        Console.WriteLine("[Esc] - Tillbaka till huvudmenyn");
+        Console.WriteLine("0 - Tillbaka till huvudmenyn");
     }
 
     public async Task HanteraKunderAsync()
@@ -41,9 +41,7 @@ public class KundMenu(AdminKund _adminKund)
             case "4":
                 await _adminKund.DeleteKundAsync();
                 break;
-            case "esc":
-            case "escape":
-            case "avbryt":
+            case "0":
                 _isRunning = false;
                 break;
             default:

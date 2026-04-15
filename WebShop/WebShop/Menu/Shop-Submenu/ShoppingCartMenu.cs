@@ -30,9 +30,7 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, 
                 if (CheckShoppingCart())
                     await checkOut.CheckOutRun();
                 break;
-            case "esc":
-            case "escape":
-            case "avbryt":
+            case "0":
                 _isRunning = false;
                 break;
 
@@ -63,7 +61,7 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, 
             Console.WriteLine("Din kundvagn är tom.");
         }
         shoppingCart.ShowCartSelected();
-        Console.WriteLine("\nAlternativ\n[C] Ändra antal   [T] Ta bort   [Esc] Gå tillbaka   [K] Betala");
+        Console.WriteLine("\nAlternativ\n[C] Ändra antal   [T] Ta bort   [0] Gå tillbaka   [K] Betala");
         return true;
     }
 

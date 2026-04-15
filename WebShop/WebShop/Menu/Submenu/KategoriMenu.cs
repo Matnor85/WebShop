@@ -18,7 +18,7 @@ public class KategoriMenu(AdminKategori _adminKategori)
         Console.WriteLine("3 - Uppdatera kategori");
         Console.WriteLine("4 - Ta bort kategori");
         Meny.LineBreaks(2);
-        Console.WriteLine("[Esc] - Tillbaka till huvudmenyn");
+        Console.WriteLine("0 - Tillbaka till huvudmenyn");
     }
 
     public async Task HanteraKategorierAsync()
@@ -41,9 +41,7 @@ public class KategoriMenu(AdminKategori _adminKategori)
             case "4":
                 await _adminKategori.DeleteKategoriAsync();
                 break;
-            case "esc":
-            case "escape":
-            case "avbryt":
+            case "0":
                 _isRunning = false;
                 break;
             default:

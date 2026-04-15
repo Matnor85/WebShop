@@ -26,7 +26,7 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
         Console.WriteLine("5 - Hantera kampanjer");
         Console.WriteLine("6 - Lägg till Seed-data");
         Meny.LineBreaks(2);
-        Console.WriteLine("[Esc] - Tillbaka till startmenyn");
+        Console.WriteLine("0 - Tillbaka till startmenyn");
     }
     public async Task HandleInputAsync()
     {
@@ -62,9 +62,7 @@ public class AdminMenu(KategoriMenu kategoriMenu, ProduktMenu produktMenu, KundM
                     Meny.Wait();
                 }
                 break;
-            case "esc":
-            case "escape":
-            case "avbryt":
+            case "0":
                     _isRunning = false;
                     return;
                 default:

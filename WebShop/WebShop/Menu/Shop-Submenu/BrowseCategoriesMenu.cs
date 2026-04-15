@@ -42,19 +42,18 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, ShoppingCart
 
         Meny.CreateLines('-', 30);
         Meny.LineBreaks(1);
-        Console.WriteLine("Skriv 'avbryt' för att gå Tillbaka till huvudmenyn   [K] - Gå till kundvagn");
+        Console.WriteLine("0 - Tillbaka till huvudmenyn   [K] - Gå till kundvagn");
         Console.Write("Välj kategori: ");
     }
 
     public async Task HandleInput()
     {
-       // ConsoleKeyInfo key = Console.ReadKey(true);
-        var input = Console.ReadLine()?.Trim().ToLower();
-        if (input == "avbryt" || input == "esc" || input == "escape")
-        {
-            _isRunning = false;
-            return;
-        }
+       var input = Console.ReadLine()?.Trim().ToLower();
+       if (input == "0")
+       {
+           _isRunning = false;
+           return;
+       }
         else if (input == "k")
         {
             await shoppingCartMenu.ShoppingCartRun();

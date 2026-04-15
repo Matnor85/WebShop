@@ -19,7 +19,7 @@ public class KampanjerMenu(AdminKampanj adminKampanj)
         Console.WriteLine("3 - Uppdatera kampanj");
         Console.WriteLine("4 - Ta bort kampanj");
         Meny.LineBreaks(2);
-        Console.WriteLine("[Esc] - Tillbaka till huvudmenyn");
+        Console.WriteLine("0 - Tillbaka till huvudmenyn");
     }
 
     public async Task HanteraKampanjerAsync()
@@ -42,9 +42,7 @@ public class KampanjerMenu(AdminKampanj adminKampanj)
             case "4":
                 await adminKampanj.DeleteKampanjAsync();
                 break;
-            case "esc":
-            case "escape":
-            case "avbryt":
+            case "0":
                 _isRunning = false;
                 break;
             default:
