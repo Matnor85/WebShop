@@ -15,24 +15,24 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, 
         if (!PrepareCartDisplay())
             return;
 
-        var input = Console.ReadLine()?.Trim().ToUpper();
-        switch (input)
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        switch (key.Key)
         {
-            case "C":
+            case ConsoleKey.C:
                 if (CheckShoppingCart())
                 shoppingCart.ChangeStock();
                 break;
-            case "T":
+            case ConsoleKey.T:
                 if (CheckShoppingCart())
                     shoppingCart.RemoveItem();
                 break;
-            case "K":
+            case ConsoleKey.K:
                 if (CheckShoppingCart())
                     await checkOut.CheckOutRun();
                 break;
-            case "B":
+            case ConsoleKey.Escape:
                 _isRunning = false;
-                return;
+                break;
 
             default:
                 Console.WriteLine("Ogiltigt val. Försök igen.");
@@ -61,7 +61,7 @@ public class ShoppingCartMenu(ShopShoppingCart shoppingCart, Kundvagn kundvagn, 
             Console.WriteLine("Din kundvagn är tom.");
         }
         shoppingCart.ShowCartSelected();
-        Console.WriteLine("\nAlternativ\n[C] Ändra antal   [T] Ta bort   [B] Gå tillbaka   [K] Betala");
+        Console.WriteLine("\nAlternativ\n[C] Ändra antal   [T] Ta bort   [Esc] Gå tillbaka   [K] Betala");
         return true;
     }
 

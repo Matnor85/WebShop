@@ -14,21 +14,22 @@ public class OrderMenu(AdminOrder _adminOrder)
         Console.Clear();
         Console.WriteLine("Hantera order!");
         Console.WriteLine("1 - Visa alla order");
-        Console.WriteLine("2 - Tillbaka till huvudmenyn");
+        Meny.LineBreaks(2);
+        Console.WriteLine("[Esc] - Tillbaka till huvudmenyn");
     }
 
     public async Task HanteraOrderAsync()
     {
         Console.Clear();
         ShowAdminOrderMenu();
-        var input = Console.ReadLine();
-        switch (input)
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        switch (key.Key)
         {
-            case "1":
+            case ConsoleKey.D1:
                 Console.Clear();
                 await _adminOrder.ShowOrderList();
                 break;
-            case "2":
+            case ConsoleKey.Escape:
                 _isRunning = false;
                 break;
             default:

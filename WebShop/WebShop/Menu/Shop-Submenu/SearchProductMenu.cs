@@ -13,44 +13,23 @@ public class SearchProductMenu(WebshopDbContext context, ShopSearchProduct searc
 {
     bool _isRunning = true;
    
-    //public async Task HandleInput()
-    //{
-    //    var input = Console.ReadLine().ToUpper();
-    //    switch (input)
-    //    {
-    //        case "1":
-    //            await SearchForProduct();
-    //            break;
-    //        case "2":
-
-    //            break;
-    //        case "B":
-    //            _isRunning = false;
-    //            break;
-    //        default:
-    //            Console.WriteLine("Ogiltigt val, försök igen.");
-    //            Meny.Wait();
-    //            break;
-    //    }
-    //}
-
     public async Task SearchForProduct()
     {
         Console.Clear();
         Console.Write("=== Sök efter produkt ===\n[Esc] - Tillbaka\nNamn: ");
         ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.B)
-        {
-            Console.WriteLine("Ingen söksträng angiven.");
-            return;
-        }
+        //if (key.KeyChar == '\0')
+        //{
+        //    Console.WriteLine("Ingen söksträng angiven.");
+        //    return;
+        //}
         if (key.Key == ConsoleKey.Escape)
         {
             return;
         }
        
         var products = await context.Produkter
-            .Where(p => p.Namn != null && p.Namn.ToLower().Contains(key.KeyChar.ToString().ToLower()))
+            .Where(p => p.Namn != null && p.Namn.Contains(key.KeyChar.ToString()))
             .Include(p => p.Kategori)
             .ToListAsync();
 
