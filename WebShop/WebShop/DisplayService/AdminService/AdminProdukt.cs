@@ -97,8 +97,8 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
     private async Task ConfirmAddProdukt((Produkt produkt, string leverantörNamn, string kategoriNamn) produktResult)
     {
         Console.WriteLine("Vill du lägga till produkten? (J/N)");
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             await produktService.AddAsync(produktResult.produkt);
             Console.Clear();
@@ -116,8 +116,8 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
     private async Task ConfirmDeleteProdukt(List<Produkt> produkter, int produktVal)
     {
         Console.WriteLine($"Vill du ta bort produkten? (J/N) {produkter[produktVal - 1].Namn}");
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             await produktService.DeleteAsync(produkter[produktVal - 1].Id);
             Console.Clear();
@@ -152,8 +152,8 @@ public class AdminProdukt(IProduktService produktService, IKategoriService kateg
     private async Task ConfirmUpdateProdukt(List<Produkt> produkter, int produktVal, (Produkt produkt, string leverantörNamn, string kategoriNamn) newProdukt)
     {
         Console.WriteLine("Vill du uppdatera produkten? (J/N)");
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             newProdukt.produkt.Id = produkter[produktVal - 1].Id;
             await produktService.UpdateAsync(newProdukt.produkt);

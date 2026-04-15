@@ -17,29 +17,29 @@ public class ProduktMenu(AdminProdukt _adminProdukt)
         Console.WriteLine("3 - Uppdatera produkt");
         Console.WriteLine("4 - Ta bort produkt");
         Meny.LineBreaks(2);
-        Console.WriteLine("[Esc] - Tillbaka till adminmenyn");
+        Console.WriteLine("0 - Tillbaka till adminmenyn");
     }
     public async Task HanteraProdukterAsync()
     {
         Console.Clear();
         ShowProduktMenu();
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        switch (key.Key)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        switch (input)
         {
-            case ConsoleKey.D1:
+            case "1":
                 Console.Clear();
                 await _adminProdukt.ShowProduktList();
                 break;
-            case ConsoleKey.D2:
+            case "2":
                 await _adminProdukt.AddProduktAsync();
                 break;
-            case ConsoleKey.D3:
+            case "3":
                 await _adminProdukt.UpdateProdukt();
                 break;
-            case ConsoleKey.D4:
+            case "4":
                 await _adminProdukt.DeleteProdukt();
                 break;
-            case ConsoleKey.Escape:
+            case "0":
                 _isRunning = false;
                 break;
             default:

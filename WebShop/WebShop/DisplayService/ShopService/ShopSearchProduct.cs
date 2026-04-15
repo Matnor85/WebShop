@@ -15,11 +15,11 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
     public async Task SearchForProduct()
     {
         Console.Clear();
-        Console.Write("=== Sök efter produkt ===\nSkriv 'avbryt' för att gå tillbaka\nNamn: ");
+        Console.Write("=== Sök efter produkt ===\nSkriv '0' för att gå tillbaka\nNamn: ");
         // ConsoleKeyInfo key; // = Console.ReadKey(true);
-        var input = Console.ReadLine().ToLower();
+        var input = Console.ReadLine()!.Trim().ToLower();
        // key = Console.ReadKey();
-        if (input?.ToLower() == "avbryt")
+        if (input == "0")
         {
          _isRunning = false;
             return;
@@ -35,7 +35,7 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
             .Where(p => p.Namn != null && p.Namn.Contains(input!, StringComparison.OrdinalIgnoreCase))
             .ToList();
 
-        InputCheck(input!, products);
+        InputCheck(input, products);
     }
 
     private void InputCheck(string input, List<Produkt> products)

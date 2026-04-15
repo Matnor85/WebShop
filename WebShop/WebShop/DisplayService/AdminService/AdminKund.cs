@@ -47,8 +47,8 @@ public class AdminKund(IKundService kundService, KundInputHelper kundInputHelper
             }
             ShowListSelection(kunder, "=== Välj kund att ta bort ===");
 
-            ConsoleKeyInfo key = Console.ReadKey(true);
-            if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), kunder.Count, out int choice))
+            var input = Console.ReadLine()!.Trim().ToLower();
+            if (!DataValidering.ValidateListChoice(input!, kunder.Count, out int choice))
             {
                 Meny.Wait();
                 return;
@@ -103,8 +103,8 @@ public class AdminKund(IKundService kundService, KundInputHelper kundInputHelper
                 return;
             }
             ShowListSelection(kunder, "=== Välj kund att uppdatera ===");
-            ConsoleKeyInfo key = Console.ReadKey(true);
-            if (!DataValidering.ValidateListChoice(key.KeyChar.ToString(), kunder.Count, out int choice))
+            var input = Console.ReadLine()!.Trim().ToLower();
+            if (!DataValidering.ValidateListChoice(input, kunder.Count, out int choice))
             {
                 Meny.Wait();
                 return;
@@ -121,8 +121,8 @@ public class AdminKund(IKundService kundService, KundInputHelper kundInputHelper
     private async Task ConfirmationDeleteKund(List<Kund> kunder, int choice)
     {
         Console.WriteLine($"Vill du ta bort kunden {kunder[choice - 1].Namn} (J/N)?");
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             await kundService.DeleteAsync(kunder[choice - 1].Id);
             Console.Clear();
@@ -139,8 +139,8 @@ public class AdminKund(IKundService kundService, KundInputHelper kundInputHelper
     private async Task ConfirmationUpdateKund(List<Kund> kunder, int choice, Kund newKund)
     {
         Console.WriteLine("Vill du uppdatera kunden (J/N)?");
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             newKund.Id = kunder[choice - 1].Id;
             await kundService.UpdateAsync(newKund);
@@ -160,8 +160,8 @@ public class AdminKund(IKundService kundService, KundInputHelper kundInputHelper
     {
         Console.WriteLine("Vill du lägga till kunden (J/N)");
 
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.J)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        if (input == "j")
         {
             await kundService.AddAsync(kund);
             Console.Clear();

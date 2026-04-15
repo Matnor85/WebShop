@@ -29,14 +29,16 @@ public class ValutaDisplay(IValutaService valutaService, ValutaSession valutaSes
         Meny.LineBreaks(1);
         Console.WriteLine("[Esc] - Tillbaka");
 
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        return key.Key switch
+        var input = Console.ReadLine()?.Trim().ToLower();
+        return input switch
         {
-            ConsoleKey.D1 => "USD",
-            ConsoleKey.D2 => "EUR",
-            ConsoleKey.D3 => "GBP",
-            ConsoleKey.D4 => "SEK",
-            ConsoleKey.Escape => null,
+            "1" => "USD",
+            "2" => "EUR",
+            "3" => "GBP",
+            "4" => "SEK",
+            "esc" => null,
+            "escape" => null,
+            "avbryt" => null,
             _ => null
         };
     }

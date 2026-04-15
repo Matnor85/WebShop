@@ -18,30 +18,30 @@ public class KundMenu(AdminKund _adminKund)
         Console.WriteLine("3 - Uppdatera kund");
         Console.WriteLine("4 - Ta bort kund");
         Meny.LineBreaks(2);
-        Console.WriteLine("[Esc] - Tillbaka till huvudmenyn");
+        Console.WriteLine("0 - Tillbaka till huvudmenyn");
     }
 
     public async Task HanteraKunderAsync()
     {
         Console.Clear();
         ShowAdminKategoriMenu();
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        switch (key.Key)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        switch (input)
         {
-            case ConsoleKey.D1:
+            case "1":
                 Console.Clear();
                 await _adminKund.ShowKundList();
                 break;
-            case ConsoleKey.D2:
+            case "2":
                 await _adminKund.AddKundAsync();
                 break;
-            case ConsoleKey.D3:
+            case "3":
                 await _adminKund.UpdateKundAsync();
                 break;
-            case ConsoleKey.D4:
+            case "4":
                 await _adminKund.DeleteKundAsync();
                 break;
-            case ConsoleKey.Escape:
+            case "0":
                 _isRunning = false;
                 break;
             default:

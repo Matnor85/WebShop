@@ -15,21 +15,21 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
         Console.Clear();
         Console.WriteLine("1 - Till webb-Shop");
         Console.WriteLine("2 - Admin");
-        Meny.LineBreaks(3);
-        Console.WriteLine("[Esc] - Avsluta");
+        // Meny.LineBreaks(2);
+        Console.WriteLine("0 - Avsluta");
     }
     public async Task HandleInput()
     {
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        switch (key.Key)
+        var input = Console.ReadLine()?.Trim().ToLower();
+        switch (input)
             {
-                case ConsoleKey.D1:
+                case "1":
                    await webShopMenu.WebbRun();
                     break;
-                case ConsoleKey.D2:
+                case "2":
                    await adminMenu.AdminRunAsync();
                     break;
-                case ConsoleKey.Escape:
+                case "0":
                     Console.WriteLine("Tack för att du besökte vår webshop. Ha en bra dag!");
                     Environment.Exit(0);
                     break;
