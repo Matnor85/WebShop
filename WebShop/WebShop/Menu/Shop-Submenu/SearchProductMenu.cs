@@ -37,27 +37,27 @@ public class SearchProductMenu(WebshopDbContext context, ShopSearchProduct searc
     public async Task SearchForProduct()
     {
         Console.Clear();
-        Console.Write("=== Sök efter produkt ===\n[B] - Tillbaka\nNamn: ");
-        var input = Console.ReadLine().Trim().ToUpper();
-        if (string.IsNullOrEmpty(input))
+        Console.Write("=== Sök efter produkt ===\n[Esc] - Tillbaka\nNamn: ");
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.B)
         {
             Console.WriteLine("Ingen söksträng angiven.");
             return;
         }
-        if (input == "B")
+        if (key.Key == ConsoleKey.Escape)
         {
             return;
         }
        
         var products = await context.Produkter
-            .Where(p => p.Namn != null && p.Namn.ToLower().Contains(input))
+            .Where(p => p.Namn != null && p.Namn.ToLower().Contains(key.KeyChar.ToString().ToLower()))
             .Include(p => p.Kategori)
             .ToListAsync();
 
-        InputCheck(input, products);
+        InputCheck(key, products);
     }
 
-    private void InputCheck(string input, List<Produkt> products)
+    private void InputCheck(ConsoleKeyInfo key, List<Produkt> products)
     {
         Console.Clear();
         if (products == null || products.Count == 0)

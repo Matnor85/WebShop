@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,20 +14,21 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
         Console.Clear();
         Console.WriteLine("1 - Till webb-Shop");
         Console.WriteLine("2 - Admin");
-        Console.WriteLine("3 - Avsluta");
+        Meny.LineBreaks(3);
+        Console.WriteLine("[Esc] - Avsluta");
     }
     public async Task HandleInput()
     {
-            var input = Console.ReadLine();
-            switch (input)
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        switch (key.Key)
             {
-                case "1":
+                case ConsoleKey.D1:
                    await webShopMenu.WebbRun();
                     break;
-                case "2":
+                case ConsoleKey.D2:
                    await adminMenu.AdminRunAsync();
                     break;
-                case "3":
+                case ConsoleKey.Escape:
                     Console.WriteLine("Tack för att du besökte vår webshop. Ha en bra dag!");
                     Environment.Exit(0);
                     break;

@@ -18,7 +18,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
         Console.WriteLine("2 - Bläddra bland kategorier");
         Console.WriteLine("3 - Hantera kundvagn");
         Console.WriteLine("4 - Välj valuta");
-        Console.WriteLine("5 - Tillbaka till startmenyn");
+        Console.WriteLine("[Esc] - Tillbaka till startmenyn");
         Meny.LineBreaks(2);
         await ShowSales();
     }
@@ -26,22 +26,22 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
     public async Task HandleInput()
     {
 
-        var input = Console.ReadLine();
-        switch (input)
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        switch (key.Key)
         {
-            case "1":
+            case ConsoleKey.D1:
                 await searchProductMenu.SearchProductRun();
                 break;
-            case "2":
+            case ConsoleKey.D2:
                 await browseCategoriesMenu.BrowseCategoriesRun();
                 break;
-            case "3":
+            case ConsoleKey.D3:
                await shoppingCartMenu.ShoppingCartRun();
                 break;
-            case "4":
+            case ConsoleKey.D4:
                 await valutaDisplay.ChooseRateAsync();
                 break;
-            case "5":
+            case ConsoleKey.Escape:
                 _isRunning = false;
                 break;
             default:
