@@ -11,7 +11,7 @@ public class SeederGenerator
     private readonly WebshopDbContext _ctx; // Kopplingen till databasen
     private readonly ILogger<SeederGenerator> _log;  // Loggar eventuella fel under seed-processen
 
-    public SeederGenerator(WebshopDbContext ctx, ILogger<SeederGenerator> log) // Konstruktor
+    public SeederGenerator(WebshopDbContext ctx, ILogger<SeederGenerator> log) 
     {
         _ctx = ctx;
         _log = log;
