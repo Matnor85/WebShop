@@ -30,7 +30,6 @@ public static class PresentationExtensions
         services.AddScoped<BetalMenu>();
         // Webbshop meny
         services.AddScoped<ShoppingCartMenu>();
-        services.AddScoped<SearchProductMenu>();
         services.AddScoped<BrowseCategoriesMenu>();
        // services.AddScoped<ManageOrderHistoryMenu>();
         services.AddScoped<KampanjerMenu>();

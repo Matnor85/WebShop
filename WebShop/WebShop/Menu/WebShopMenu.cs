@@ -4,7 +4,7 @@ using WebShop.Presentation.Menu.Shop_Submenu;
 
 namespace WebShop.Presentation.Menu;
 
-public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu searchProductMenu, BrowseCategoriesMenu browseCategoriesMenu, ShopKampanj kampanj, ValutaDisplay valutaDisplay)
+public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, ShopSearchProduct searchProduct, BrowseCategoriesMenu browseCategoriesMenu, ShopKampanj kampanj, ValutaDisplay valutaDisplay)
 {
     bool _isRunning = true;
 
@@ -31,7 +31,7 @@ public class WebShopMenu(ShoppingCartMenu shoppingCartMenu, SearchProductMenu se
         switch (key.Key)
         {
             case ConsoleKey.D1:
-                await searchProductMenu.SearchProductRun();
+                await searchProduct.SearchProductRun();
                 break;
             case ConsoleKey.D2:
                 await browseCategoriesMenu.BrowseCategoriesRun();
