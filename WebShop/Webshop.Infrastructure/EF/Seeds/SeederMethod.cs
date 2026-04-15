@@ -11,11 +11,11 @@ public class SeederMethod
 {
     public void AddSeed()
     {
-        // Build configuration manually and register services without using Generic Host
+        // Hämta konfigurationen från appsettings.json
         var configuration = new ConfigurationBuilder()
         .AddJsonFile("appsettings.json", optional: true)
         .Build();
-
+        // Skapa en service collection och konfigurera tjänsterna
         var services = new ServiceCollection();
         services.AddLogging();
 

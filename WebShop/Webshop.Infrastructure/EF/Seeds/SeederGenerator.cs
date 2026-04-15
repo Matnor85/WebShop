@@ -1,12 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using Webshop.Domain.Entitites;
 using Webshop.Domain.Enums;
 
@@ -49,7 +43,8 @@ public class SeederGenerator
     {
         if (string.IsNullOrWhiteSpace(name)) return Storlek.Okänd;
         var n = name.ToUpperInvariant();
-        // look for common size tokens
+        // För att undvika att "S" i "Small" eller "M" i "Medium"
+        // felaktigt tolkas som storlekar, kollar vi både på förekomst av storlekstoken och kontexten runt den
         if (n.Contains("XXS")) return Storlek.XXS;
         if (n.Contains("XS")) return Storlek.XS;
         if (n.Contains("S") && (n.Contains(" SIZE ") || n.EndsWith(" S") || n.Contains(" S ") || n.Contains(" SMALL"))) return Storlek.S;
@@ -57,7 +52,8 @@ public class SeederGenerator
         if (n.Contains("L") && (n.Contains(" SIZE ") || n.EndsWith(" L") || n.Contains(" L ") || n.Contains(" LARGE"))) return Storlek.L;
         if (n.Contains("XL") && !n.Contains("XXL")) return Storlek.XL;
         if (n.Contains("XXL")) return Storlek.XXL;
-        // fallback: detect common abbreviations at end
+
+        // fallback: om storlek inte explicit nämns, kolla om namnet slutar på en storlekstoken
         if (n.EndsWith(" XS")) return Storlek.XS;
         if (n.EndsWith(" S")) return Storlek.S;
         if (n.EndsWith(" M")) return Storlek.M;
@@ -110,7 +106,7 @@ public class SeederGenerator
                 using var doc = JsonDocument.Parse(masterJson); // Parser JSON-texten till ett JsonDocument för att kunna navigera i strukturen
                 var root = doc.RootElement; // Huvudroten i JSON-strukturen
 
-                // Leverantörer (array of strings)
+               
                 if (root.TryGetProperty("Leverantorer", out var levers)) // Kontrollerar om "Leverantorer" finns i JSON och är en array
                 {
                     foreach (var lev in levers.EnumerateArray()) // Loopar igenom varje element i "Leverantorer"-arrayen
