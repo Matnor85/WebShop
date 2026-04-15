@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Webshop.Application.Models;
+namespace Webshop.Domain.Models;
 
 public class FrankfurterResponse
 {
