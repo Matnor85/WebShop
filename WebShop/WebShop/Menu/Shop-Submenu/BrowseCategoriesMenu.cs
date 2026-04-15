@@ -8,10 +8,11 @@ using Webshop.Domain.Entitites;
 using Webshop.Infrastructure.EF;
 using WebShop.Presentation.DisplayService;
 using WebShop.Presentation.DisplayService.KundvagnService;
+using WebShop.Presentation.DisplayService.ValutaApi;
 
 namespace WebShop.Presentation.Menu.Shop_Submenu;
 
-public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kundvagn, ShoppingCartMenu shoppingCartMenu)
+public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kundvagn, ShoppingCartMenu shoppingCartMenu, ValutaSession valutaSession)
 {
     private bool _isRunning = true;
     private List<Kategori> _categories = new();     
@@ -88,7 +89,7 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, Kundvagn kun
             {
                 for (int i = 0; i < products.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1} - {products[i].Namn} ({products[i].Pris:C})");
+                    Console.WriteLine($"{i + 1} - {products[i].Namn} ({valutaSession.FormatPris(products[i].Pris)})");
                 }
                 //Meny.Wait();
                 browsingProducts = false;

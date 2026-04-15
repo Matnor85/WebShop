@@ -4,11 +4,12 @@ using System.Text;
 using Webshop.Application.Helpers;
 using Webshop.Application.Interfaces;
 using Webshop.Domain.Entitites;
+using WebShop.Presentation.DisplayService.ValutaApi;
 using WebShop.Presentation.Menu;
 
 namespace WebShop.Presentation.DisplayService.CheckoutService;
 
-public class CheckOut(IFraktOmbudService fraktService, IKundService kundService)
+public class CheckOut(IFraktOmbudService fraktService, IKundService kundService, ValutaSession valutaSession)
 {
     public async Task<Kund> CreateCustomerAsync()
     {
@@ -34,12 +35,12 @@ public class CheckOut(IFraktOmbudService fraktService, IKundService kundService)
         return fraktOmbudList[val - 1];
     }
 
-    private static void ShowFraktOmbudList(List<FraktOmbud> fraktOmbudList)
+    private void ShowFraktOmbudList(List<FraktOmbud> fraktOmbudList)
     {
         Console.WriteLine("=== Välj fraktmetod ===");
         for (int i = 0; i < fraktOmbudList.Count; i++)
         {
-            Console.WriteLine($" {i + 1}. {fraktOmbudList[i].Namn} - {fraktOmbudList[i].Pris:C}");
+            Console.WriteLine($" {i + 1}. {fraktOmbudList[i].Namn} - {valutaSession.FormatPris(fraktOmbudList[i].Pris)}");
         }
     }
 
