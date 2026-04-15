@@ -61,7 +61,7 @@ public class ShopBrowseCategories(ValutaSession valutaSession, Kundvagn kundvagn
 
     private static void ProductChosies()
     {
-        Meny.CreateLines('-', 30);
+        Meny.CreateLine('-', 30);
         Console.WriteLine("Skriv 'avbryt' för att gå tillbaka till kategorier");
         Console.WriteLine("[K] - Gå till kundvagn");
         Console.WriteLine("\nVälj produkt: ");

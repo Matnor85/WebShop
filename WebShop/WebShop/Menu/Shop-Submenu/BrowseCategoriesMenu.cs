@@ -40,7 +40,7 @@ public class BrowseCategoriesMenu(IKategoriService kategoriService, ShoppingCart
             Console.WriteLine($"{i + 1} - {_categories[i].Namn}");
         }
 
-        Meny.CreateLines('-', 30);
+        Meny.CreateLine('-', 30);
         Meny.LineBreaks(1);
         Console.WriteLine("0 - Tillbaka till huvudmenyn   [K] - Gå till kundvagn");
         Console.Write("Välj kategori: ");

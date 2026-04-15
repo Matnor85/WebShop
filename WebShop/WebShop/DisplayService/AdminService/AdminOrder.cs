@@ -26,7 +26,7 @@ public class AdminOrder(IOrderService orderService, IKundService kundService, Va
             for (int i = 0; i < orders.Count; i++)
             {
                 Console.WriteLine($"Id {i + 1}.{orders[i].OrderDatum:d} Kund: {orders[i].Kund.Namn} - Totalpris: {valutaSession.FormatPris(orders[i].TotalPris)} - Fraktombud: {orders[i].FraktOmbud.Namn} - Betalningsmetod: {orders[i].BetalningsMetod}");
-                Meny.CreateLines('-', 120);
+                Meny.CreateLine('-', 120);
             }
             Meny.Wait();
         }

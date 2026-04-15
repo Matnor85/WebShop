@@ -48,7 +48,7 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
             return;
         }
 
-        Meny.CreateLines('-', 90);
+        Meny.CreateLine('-', 90);
         DisplayProducts(products);
 
         Meny.Wait();
@@ -66,7 +66,7 @@ public class ShopSearchProduct(IProduktService produktService, ValutaSession val
             Console.WriteLine($"Leverantör: {product.Leverantör?.Namn}");
             Console.WriteLine($"Färg: {product.Färg}");
             Console.WriteLine($"Storlek: {product.Storlek}");
-            Meny.CreateLines('-', 90);
+            Meny.CreateLine('-', 90);
         }
     }
 

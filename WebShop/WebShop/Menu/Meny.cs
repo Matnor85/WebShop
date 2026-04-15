@@ -57,7 +57,7 @@ public class Meny(WebShopMenu webShopMenu, AdminMenu adminMenu)
         Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
         Console.ReadLine();
     }
-    public static void CreateLines(char input, int length)
+    public static void CreateLine(char input, int length)
     {
         Console.WriteLine(new string(input, length));
     }
