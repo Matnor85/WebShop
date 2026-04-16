@@ -36,6 +36,7 @@ public class App
         //Presentation
         services.AddPresentation();
         // Logger
+        /* Ta bort kommentar för att aktivera loggning i konsolen. Loggar bara warnings/errors från EF och HttpClient, inte info-loggar.
         services.AddLogging(builder =>
         {
             builder.ClearProviders();
@@ -47,7 +48,7 @@ public class App
             builder.AddFilter("System.Net.Http.HttpClient", LogLevel.Warning);
 
             builder.SetMinimumLevel(LogLevel.Information);
-        });
+        });*/
         // Seeder
         services.AddTransient<SeederGenerator>();
         var servicesProvider = services.BuildServiceProvider();
