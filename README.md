@@ -1,6 +1,8 @@
 # WebShop
 Grupparbete
 
+## För att köra programmet, börja med att gå in i admin i konsolapp och lägg till seed-data. ##
+
 Definition of done
 - Koden är skriven i en branch för user storyn.
 - Koden är testad praktiskt och genom kollad.
