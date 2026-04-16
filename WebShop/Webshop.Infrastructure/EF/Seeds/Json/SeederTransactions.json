@@ -1,0 +1,46 @@
+{
+  "Kunder": [
+    {"Namn": "Anna Andersson", "Adress": "Storgatan 1", "Stad": "Stockholm", "Postnummer": 11122, "MobilNummer": 701234567, "Epost": "anna.andersson@example.com"},
+    {"Namn": "Lars Larsson", "Adress": "Lilla Vägen 2", "Stad": "Göteborg", "Postnummer": 41106, "MobilNummer": 702345678, "Epost": "lars.larsson@example.com"},
+    {"Namn": "Eva Eriksson", "Adress": "Södra Gatan 3", "Stad": "Malmö", "Postnummer": 21120, "MobilNummer": 703456789, "Epost": "eva.eriksson@example.com"},
+    {"Namn": "Per Persson", "Adress": "Norra Vägen 4", "Stad": "Uppsala", "Postnummer": 75320, "MobilNummer": 704567890, "Epost": "per.persson@example.com"},
+    {"Namn": "Maria Svensson", "Adress": "Västra Storgatan 5", "Stad": "Västerås", "Postnummer": 72130, "MobilNummer": 705678901, "Epost": "maria.svensson@example.com" }
+  ],
+  "Ordrar": [
+    {
+      "KundEpost": "anna.andersson@example.com", "FraktOmbudNamn": "PostNord", "OrderDatum": "2025-03-01T10:30:00", "TotalPris": 1498, 
+     "ProduktRader": [
+        { "ProduktNamn": "Classic Grey", "KategoriNamn": "Hoodies", "Antal": 1, "PrisvidKöp": 599 },
+        { "ProduktNamn": "Slim Fit Blue", "KategoriNamn": "Jeans", "Antal": 1, "PrisvidKöp": 899 }
+      ]
+    },
+    {
+      "KundEpost": "lars.larsson@example.com", "FraktOmbudNamn": "Instabox", "OrderDatum": "2025-03-05T14:00:00", "TotalPris": 1198,
+      "ProduktRader": [
+        { "ProduktNamn": "Urban Black", "KategoriNamn": "Hoodies", "Antal": 1, "PrisvidKöp": 749 },
+        { "ProduktNamn": "Pocket Tee", "KategoriNamn": "T-shirts", "Antal": 1, "PrisvidKöp": 249 }
+      ]
+    },
+    {
+      "KundEpost": "eva.eriksson@example.com", "FraktOmbudNamn": "DHL", "OrderDatum": "2025-03-08T09:15:00", "TotalPris": 2098,
+      "ProduktRader": [
+        { "ProduktNamn": "Logo Edition", "KategoriNamn": "Hoodies", "Antal": 1, "PrisvidKöp": 899 },
+        { "ProduktNamn": "Straight Leg", "KategoriNamn": "Jeans", "Antal": 1, "PrisvidKöp": 1099 }
+      ]
+    },
+    {
+      "KundEpost": "per.persson@example.com", "FraktOmbudNamn": "Budbee", "OrderDatum": "2025-03-10T16:45:00", "TotalPris": 1248,
+      "ProduktRader": [
+        { "ProduktNamn": "Navy Sport", "KategoriNamn": "Hoodies", "Antal": 2, "PrisvidKöp": 649 }
+      ]
+    },
+    {
+      "KundEpost": "maria.svensson@example.com", "FraktOmbudNamn": "PostNord", "OrderDatum": "2025-03-12T11:20:00", "TotalPris": 1998,
+      "ProduktRader": [
+        { "ProduktNamn": "Sneaker White", "KategoriNamn": "Skor", "Antal": 1, "PrisvidKöp": 1199 },
+        { "ProduktNamn": "Läderbälte", "KategoriNamn": "Accessoarer", "Antal": 1, "PrisvidKöp": 499 },
+        { "ProduktNamn": "Beanie Basic", "KategoriNamn": "Mössor", "Antal": 1, "PrisvidKöp": 149 }
+      ]
+    }
+  ]
+}

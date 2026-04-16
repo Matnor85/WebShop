@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Webshop.Domain.Entitites;
 
 namespace Webshop.Infrastructure.EF.Configurations;
@@ -39,7 +36,5 @@ public class KundConfiguration : IEntityTypeConfiguration<Kund>
             .WithOne(x => x.Kund)
             .HasForeignKey(x => x.KundId)
             .OnDelete(DeleteBehavior.Restrict);
-
-
     }
 }

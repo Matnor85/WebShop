@@ -1,0 +1,208 @@
+{
+  "Leverantorer": [
+    "Nordic Denim AB",
+    "Urban Textiles Ltd",
+    "Elegance Fashion",
+    "Basic Comforts",
+    "City Step & Carry",
+    "Rugged Wear"
+  ],
+  "FraktOmbud": [
+    {"Namn": "PostNord", "Pris": 49.0},
+    {"Namn": "Instabox", "Pris": 39.0},
+    {"Namn": "DHL", "Pris": 59.0},
+    {"Namn": "Budbee", "Pris": 69.0}
+  ],
+  "Kategorier": [
+    {
+      "Namn": "Hoodies",
+      "Produkter": [
+        {"Namn": "Classic Grey", "Besk": "Mjuk bomullshoodie", "Pris": 599, "Lager": 50, "Färg": "Röd", "Storlek": "M"},
+        {"Namn": "Urban Black", "Besk": "Oversized street style", "Pris": 749, "Lager": 30, "Färg": "Svart", "Storlek": "L"},
+        {"Namn": "Navy Sport", "Besk": "Zip-hoodie för träning", "Pris": 649, "Lager": 25, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Forest Green", "Besk": "Hållbart producerad", "Pris": 599, "Lager": 40, "Färg": "Grön", "Storlek": "M"},
+        {"Namn": "Logo Edition", "Besk": "Hoodie med stor logga", "Pris": 899, "Lager": 15, "Färg": "Vit", "Storlek": "L"}
+      ]
+    },
+    {
+      "Namn": "Jeans",
+      "Produkter": [
+        {"Namn": "Slim Fit Blue", "Besk": "Klassisk stretch", "Pris": 999, "Lager": 40, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Loose Raw", "Besk": "Otvättad denim", "Pris": 1299, "Lager": 20, "Färg": "Blå", "Storlek": "L"},
+        {"Namn": "Black Skinny", "Besk": "Helt svarta jeans", "Pris": 899, "Lager": 60, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "Straight Leg", "Besk": "Vintage tvätt", "Pris": 1099, "Lager": 35, "Färg": "Vit", "Storlek": "L"},
+        {"Namn": "Tapered Fit", "Besk": "Modern passform", "Pris": 949, "Lager": 45, "Färg": "Blå", "Storlek": "M"}
+      ]
+    },
+    {
+      "Namn": "T-shirts",
+      "Produkter": [
+        {"Namn": "Basic White", "Besk": "3-pack bas t-shirts", "Pris": 299, "Lager": 100, "Färg": "Vit", "Storlek": "M"},
+        {"Namn": "Graphic Tee", "Besk": "Tryck på bröstet", "Pris": 349, "Lager": 50, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "V-neck Black", "Besk": "Slim fit t-shirt", "Pris": 199, "Lager": 80, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "Heavyweight", "Besk": "Tjockare bomullskvalitet", "Pris": 399, "Lager": 40, "Färg": "Grön", "Storlek": "L"},
+        {"Namn": "Pocket Tee", "Besk": "T-shirt med bröstficka", "Pris": 249, "Lager": 55, "Färg": "Gul", "Storlek": "M"}
+      ]
+    },
+    {
+      "Namn": "Accessoarer",
+      "Produkter": [
+        {"Namn": "Läderbälte", "Besk": "Äkta brunt läder", "Pris": 499, "Lager": 30, "Färg": "Orange", "Storlek": "L"},
+        {"Namn": "Klassisk Keps", "Besk": "Justerbar storlek", "Pris": 249, "Lager": 100, "Färg": "Vit", "Storlek": "L"},
+        {"Namn": "Ullmössa", "Besk": "Varm stickad mössa", "Pris": 199, "Lager": 75, "Färg": "Vit", "Storlek": "M"},
+        {"Namn": "Solglasögon", "Besk": "Polariserat glas", "Pris": 799, "Lager": 20, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "Plånbok", "Besk": "Kortinnehavare i skinn", "Pris": 349, "Lager": 45, "Färg": "Svart", "Storlek": "L"}
+      ]
+    },
+    {
+      "Namn": "Byxor",
+      "Produkter": [
+        {"Namn": "Chinos Beige", "Besk": "Lätt bomullschino", "Pris": 799, "Lager": 40, "Färg": "Vit", "Storlek": "L"},
+        {"Namn": "Cargo Green", "Besk": "Praktiska fickor", "Pris": 899, "Lager": 25, "Färg": "Grön", "Storlek": "L"},
+        {"Namn": "Dress Pants", "Besk": "Formella byxor", "Pris": 1199, "Lager": 15, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "Joggers", "Besk": "Mjuk och stretchig", "Pris": 699, "Lager": 50, "Färg": "Grå", "Storlek": "M"},
+        {"Namn": "Wide Leg", "Besk": "Lösa och bekväma", "Pris": 899, "Lager": 30, "Färg": "Vit", "Storlek": "S"}
+      ]
+    },
+    {
+      "Namn": "Kjolar",
+      "Produkter": [
+        {"Namn": "Mini Denim", "Besk": "Kort jeanskjol", "Pris": 499, "Lager": 30, "Färg": "Lila", "Storlek": "S"},
+        {"Namn": "Maxi Floral", "Besk": "Lång blommig kjol", "Pris": 699, "Lager": 20, "Färg": "Vit", "Storlek": "M"},
+        {"Namn": "Pleated Skirt", "Besk": "Plisserad kjol", "Pris": 599, "Lager": 25, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Leather Skirt", "Besk": "Kjol i konstläder", "Pris": 899, "Lager": 15, "Färg": "Svart", "Storlek": "L"},
+        {"Namn": "A-line Skirt", "Besk": "Klassisk A-linjeform", "Pris": 549, "Lager": 35, "Färg": "Grön", "Storlek": "M"}
+      ]
+    },
+    {
+      "Namn": "Tröjor",
+      "Produkter": [
+        {"Namn": "Cotton Crew", "Besk": "Mjuk rundhalsad tröja", "Pris": 449, "Lager": 60, "Färg": "Röd", "Storlek": "M"},
+        {"Namn": "Merino Fine", "Besk": "Tunn merinoull", "Pris": 899, "Lager": 25, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Cashmere Soft", "Besk": "Ljuvlig kashmir", "Pris": 1499, "Lager": 10, "Färg": "Grön", "Storlek": "M"},
+        {"Namn": "Wool Blend", "Besk": "Varm ullblandning", "Pris": 799, "Lager": 30, "Färg": "Vit", "Storlek": "L"},
+        {"Namn": "Fleece Hoodie", "Besk": "Mjuk fleece med huva", "Pris": 699, "Lager": 20, "Färg": "Orange", "Storlek": "M"}
+      ]
+    },
+    {
+      "Namn": "Blusar",
+      "Produkter": [
+        {"Namn": "Silk Touch", "Besk": "Sidenimitation", "Pris": 699, "Lager": 35, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Chiffon Sleeve", "Besk": "Luftig chiffong", "Pris": 549, "Lager": 40, "Färg": "Röd", "Storlek": "M"},
+        {"Namn": "Ruffle Detail", "Besk": "Blus med volangdetaljer", "Pris": 649, "Lager": 25, "Färg": "Gul", "Storlek": "L"},
+        {"Namn": "Button Front", "Besk": "Klassisk blus med knappar", "Pris": 599, "Lager": 30, "Färg": "Vit", "Storlek": "M"},
+        {"Namn": "Off-Shoulder", "Besk": "Axelbandslös blus", "Pris": 699, "Lager": 20, "Färg": "Svart", "Storlek": "S"}
+      ]
+    },
+    {
+      "Namn": "Skjortor",
+      "Produkter": [
+        {"Namn": "Oxford Classic", "Besk": "Skjorta i oxford-tyg", "Pris": 649, "Lager": 50, "Färg": "Vit", "Storlek": "M"},
+        {"Namn": "Linen Summer", "Besk": "Lätt linneskjorta", "Pris": 749, "Lager": 30, "Färg": "Vit", "Storlek": "M"},
+        {"Namn": "Flannel Check", "Besk": "Rutig flanellskjorta", "Pris": 599, "Lager": 20, "Färg": "Röd", "Storlek": "L"},
+        {"Namn": "Denim Shirt", "Besk": "Jeansskjorta med knappar", "Pris": 699, "Lager": 25, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Striped Button-Up", "Besk": "Randig skjorta med krage", "Pris": 549, "Lager": 40, "Färg": "Gul", "Storlek": "M"}
+      ]
+    },
+    {
+      "Namn": "Klänningar",
+      "Produkter": [
+        {"Namn": "Cocktail Red", "Besk": "Finklänning", "Pris": 1299, "Lager": 10, "Färg": "Röd", "Storlek": "S"},
+        {"Namn": "Everyday Midi", "Besk": "Vardaglig midiklänning", "Pris": 799, "Lager": 45, "Färg": "Okänd", "Storlek": "M"},
+        {"Namn": "Floral Maxi", "Besk": "Lång blommig klänning", "Pris": 999, "Lager": 20, "Färg": "Blå", "Storlek": "L"},
+        {"Namn": "Slip Dress", "Besk": "Sidenimitation med smala axelband", "Pris": 899, "Lager": 15, "Färg": "Grön", "Storlek": "M"},
+        {"Namn": "Shirt Dress", "Besk": "Skjortklänning med knappar", "Pris": 699, "Lager": 30, "Färg": "Vit", "Storlek": "M"}
+      ]
+    },
+    {
+      "Namn": "Shorts",
+      "Produkter": [
+        {"Namn": "Denim Short", "Besk": "Sommarjeansshorts", "Pris": 399, "Lager": 80, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Bermuda", "Besk": "Knälånga shorts", "Pris": 499, "Lager": 60, "Färg": "Orange", "Storlek": "L"},
+        {"Namn": "Sport Shorts", "Besk": "Lätta träningsshorts", "Pris": 299, "Lager": 100, "Färg": "Röd", "Storlek": "M"},
+        {"Namn": "Cargo Short", "Besk": "Shorts med fickor", "Pris": 549, "Lager": 40, "Färg": "Grön", "Storlek": "L"},
+        {"Namn": "High-Waisted", "Besk": "Shorts med hög midja", "Pris": 449, "Lager": 30, "Färg": "Vit", "Storlek": "S"}
+      ]
+    },
+    {
+      "Namn": "Kalsonger",
+      "Produkter": [
+        {"Namn": "Basic Boxer", "Besk": "Bomullsboxer", "Pris": 199, "Lager": 200, "Färg": "Vit", "Storlek": "M"},
+        {"Namn": "Sport Trunk", "Besk": "Fukttransporterande material", "Pris": 249, "Lager": 150, "Färg": "Röd", "Storlek": "M"},
+        {"Namn": "Lace Trim", "Besk": "Boxer med spetsdetaljer", "Pris": 299, "Lager": 100, "Färg": "Lila", "Storlek": "M"},
+        {"Namn": "Seamless Brief", "Besk": "Sömlös design", "Pris": 179, "Lager": 180, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "High-Waisted Brief", "Besk": "Hög midja för extra stöd", "Pris": 229, "Lager": 120, "Färg": "Blå", "Storlek": "M"}
+      ]
+    },
+    {
+      "Namn": "Trosor",
+      "Produkter": [
+        {"Namn": "Hipster", "Besk": "Bekväm passform", "Pris": 99, "Lager": 180, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "String", "Besk": "Tunn kant", "Pris": 89, "Lager": 160, "Färg": "Röd", "Storlek": "M"},
+        {"Namn": "Bikini Brief", "Besk": "Mellan täckning", "Pris": 129, "Lager": 140, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Control Brief", "Besk": "Formande passform", "Pris": 149, "Lager": 100, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "Cotton Brief", "Besk": "Bomullsblandning", "Pris": 79, "Lager": 200, "Färg": "Vit", "Storlek": "M"}
+      ]
+    },
+    {
+      "Namn": "Strumpor",
+      "Produkter": [
+        {"Namn": "Ankelstrumpa 3-pack", "Besk": "Bomullsblandning", "Pris": 149, "Lager": 220, "Färg": "Vit", "Storlek": "M"},
+        {"Namn": "Thermo Sock", "Besk": "Värmande strumpa", "Pris": 199, "Lager": 90, "Färg": "Röd", "Storlek": "M"},
+        {"Namn": "Patterned Crew", "Besk": "Mönstrade strumpor", "Pris": 129, "Lager": 150, "Färg": "Grön", "Storlek": "M"},
+        {"Namn": "No-Show Sock", "Besk": "Osynliga strumpor", "Pris": 99, "Lager": 200, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "Compression Sock", "Besk": "Stödjande kompressionsstrumpa", "Pris": 249, "Lager": 50, "Färg": "Blå", "Storlek": "M"}
+      ]
+    },
+    {
+      "Namn": "Badkläder",
+      "Produkter": [
+        {"Namn": "Baddräkt Classic", "Besk": "Formande passform", "Pris": 599, "Lager": 40, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Swim Shorts", "Besk": "Snabbtorkande material", "Pris": 399, "Lager": 70, "Färg": "Vit", "Storlek": "L"},
+        {"Namn": "Bikini Set", "Besk": "Topp och underdel i matchande set", "Pris": 899, "Lager": 30, "Färg": "Gul", "Storlek": "M"},
+        {"Namn": "Rash Guard", "Besk": "Skyddande tröja för vattensport", "Pris": 499, "Lager": 20, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "One-Shoulder Swimsuit", "Besk": "Asymmetrisk baddräkt", "Pris": 699, "Lager": 15, "Färg": "Grön", "Storlek": "S"}
+      ]
+    },
+    {
+      "Namn": "Skor",
+      "Produkter": [
+        {"Namn": "Sneaker White", "Besk": "Allround sneaker", "Pris": 1199, "Lager": 35, "Färg": "Vit", "Storlek": "M"},
+        {"Namn": "Chelsea Boot", "Besk": "Läderstövel", "Pris": 1499, "Lager": 20, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "Running Shoe", "Besk": "Löparskor med dämpning", "Pris": 1299, "Lager": 25, "Färg": "Röd", "Storlek": "M"},
+        {"Namn": "Sandals", "Besk": "Bekväma sommarsandaler", "Pris": 499, "Lager": 40, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "Loafers", "Besk": "Klassiska loafers i mocka", "Pris": 899, "Lager": 15, "Färg": "Blå", "Storlek": "M"}
+      ]
+    },
+    {
+      "Namn": "Jackor",
+      "Produkter": [
+        {"Namn": "Parka", "Besk": "Vattentät vinterparkas", "Pris": 1999, "Lager": 15, "Färg": "Blå", "Storlek": "L"},
+        {"Namn": "Denim Jacket", "Besk": "Klassisk jeansjacka", "Pris": 899, "Lager": 30, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Leather Jacket", "Besk": "Skinnjacka med dragkedja", "Pris": 2499, "Lager": 10, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "Bomber Jacket", "Besk": "Lätt bomberjacka", "Pris": 1299, "Lager": 20, "Färg": "Grön", "Storlek": "M"},
+        {"Namn": "Raincoat", "Besk": "Vattentät regnjacka", "Pris": 899, "Lager": 25, "Färg": "Gul", "Storlek": "L"}
+      ]
+    },
+    {
+      "Namn": "Kappor",
+      "Produkter": [
+        {"Namn": "Wool Coat", "Besk": "Ullkappa för kallt väder", "Pris": 2499, "Lager": 8, "Färg": "Vit", "Storlek": "L"},
+        {"Namn": "Trench", "Besk": "Lätt vårkappa", "Pris": 1799, "Lager": 12, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Puffer Coat", "Besk": "Varm vadderad kappa", "Pris": 1999, "Lager": 20, "Färg": "Röd", "Storlek": "M"},
+        {"Namn": "Peacoat", "Besk": "Dubbelknäppt ullkappa", "Pris": 2299, "Lager": 10, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "Cape Coat", "Besk": "Elegant cape-stil kappa", "Pris": 2699, "Lager": 5, "Färg": "Grön", "Storlek": "S"}
+      ]
+    },
+    {
+      "Namn": "Mössor",
+      "Produkter": [
+        {"Namn": "Beanie Basic", "Besk": "Stickad mössa", "Pris": 149, "Lager": 120, "Färg": "Svart", "Storlek": "M"},
+        {"Namn": "Cap Fleece", "Besk": "Fodrad vinterkeps", "Pris": 249, "Lager": 60, "Färg": "Blå", "Storlek": "M"},
+        {"Namn": "Sun Hat", "Besk": "Solhatt med bred brätte", "Pris": 199, "Lager": 80, "Färg": "Vit", "Storlek": "L"},
+        {"Namn": "Trapper Hat", "Besk": "Varm pälsfodrad mössa", "Pris": 299, "Lager": 40, "Färg": "Röd", "Storlek": "M"},
+        {"Namn": "Beret", "Besk": "Klassisk fransk basker", "Pris": 199, "Lager": 30, "Färg": "Grön", "Storlek": "S"}
+      ]
+    }
+  ]
+}

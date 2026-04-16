@@ -24,5 +24,12 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
                .WithOne(po => po.Order)
                .HasForeignKey(po => po.OrderId)
                .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Property(o => o.BetalningsMetod)
+               .IsRequired()
+               .HasMaxLength(50);
+
+        builder.Property(o => o.TotalPris)
+               .HasColumnType("decimal(18,2)");
     }
 }

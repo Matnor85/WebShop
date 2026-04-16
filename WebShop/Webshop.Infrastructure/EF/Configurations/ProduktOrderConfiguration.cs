@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Webshop.Domain.Entitites;
 
 namespace Webshop.Infrastructure.EF.Configurations;
@@ -16,6 +13,8 @@ public class ProduktOrderConfiguration : IEntityTypeConfiguration<ProduktOrder>
         builder.HasOne(x => x.Produkt)
             .WithMany(x => x.ProduktOrdrar)
             .HasForeignKey(x => x.ProduktId);
-            
+
+        builder.Property(x => x.PrisvidKöp)
+               .HasColumnType("decimal(18,2)");
     }
 }

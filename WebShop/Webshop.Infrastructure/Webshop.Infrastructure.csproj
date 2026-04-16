@@ -26,4 +26,11 @@
     <ProjectReference Include="..\Webshop.Domain\Webshop.Domain.csproj" />
   </ItemGroup>
 
+  <!-- Ensure seed JSON files are copied to output so the seeder can find them at runtime -->
+  <ItemGroup>
+    <None Include="EF\Seeds\Json\**\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

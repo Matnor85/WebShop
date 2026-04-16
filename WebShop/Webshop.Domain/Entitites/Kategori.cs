@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Webshop.Domain.Entitites;
+﻿namespace Webshop.Domain.Entitites;
 
 public class Kategori
 {
@@ -11,6 +7,10 @@ public class Kategori
     public List<Produkt> Produkter { get; set; } = new List<Produkt>();
 
     public Kategori() { }
-    
-    
+
+    public Kategori(string namn)
+    {
+        Id = Guid.NewGuid();
+        Namn = namn;
+    }
 }   
